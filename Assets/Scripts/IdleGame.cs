@@ -38,9 +38,12 @@ public class IdleGame : MonoBehaviour
     public Text powerText;
     public Text powerPerSecText;
 
-    //prestige system
+    public Text transformersText;
+    public Text superConductorsText;
 
-
+    public GameObject infusionButton;
+    public GameObject megaButton;
+    
     public BigDouble plasmaTemp;
 
     public Canvas mainMenuGroup;
@@ -48,7 +51,7 @@ public class IdleGame : MonoBehaviour
     public Canvas megaCanvas;
     public Canvas researchCanvas;
     public Canvas prestigeCanvas;
-    public Canvas hyperCanvas;
+    public Canvas infusionCanvas;
 
     public void Start()
     {
@@ -68,10 +71,18 @@ public class IdleGame : MonoBehaviour
 
     public void Update()
     {
-        //progress bars
-
         powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
         powerText.text = "Power: " + Methods.NotationMethod(data.power, y: "F0");
+
+        if (data.hasPrestiged)
+            infusionButton.gameObject.SetActive(true);
+        else
+            infusionButton.gameObject.SetActive(false);
+
+        if (data.hasMastered)
+            megaButton.gameObject.SetActive(true);
+        else
+            megaButton.gameObject.SetActive(false);
 
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
@@ -133,8 +144,8 @@ public class IdleGame : MonoBehaviour
             case "settings":
                 settingsGroup.gameObject.SetActive(true);
                 break;
-            case "hyper":
-                hyperCanvas.gameObject.SetActive(true);
+            case "infuse":
+                infusionCanvas.gameObject.SetActive(true);
                 break;
             case "prestige":
                 prestigeCanvas.gameObject.SetActive(true);
@@ -151,7 +162,7 @@ public class IdleGame : MonoBehaviour
         settingsGroup.gameObject.SetActive(false);
         researchCanvas.gameObject.SetActive(false);
         megaCanvas.gameObject.SetActive(false);
-        hyperCanvas.gameObject.SetActive(false);
+        infusionCanvas.gameObject.SetActive(false);
         prestigeCanvas.gameObject.SetActive(false);
 
     }
