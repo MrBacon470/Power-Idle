@@ -27,15 +27,40 @@ using System;
 [Serializable]
 public class PlayerData
 {
+    #region main stuff
     public BigDouble power;
     public BigDouble powerCollected;
-
+    public bool hasPrestiged;
+    public bool hasMastered;
+    #endregion
+    #region settings/daily
     public bool dailyRewardReady;
     public int currentDay;
     public DateTime UTCtime;
     public bool offlineProgressCheck;
 
     public short notationType;
+    #endregion
+    #region Upgrades
+    public BigDouble productionUpgrade1Level;
+    public BigDouble productionUpgrade2Level;
+    public BigDouble productionUpgrade3Level;
+    public BigDouble productionUpgrade4Level;
+    public BigDouble productionUpgrade5Level;
+    public BigDouble productionUpgrade6Level;
+    public BigDouble productionUpgrade7Level;
+    public BigDouble productionUpgrade8Level;
+
+    public BigDouble productionUpgrade1Power;
+    public BigDouble productionUpgrade2Power;
+    public BigDouble productionUpgrade3Power;
+    public BigDouble productionUpgrade4Power;
+    public BigDouble productionUpgrade5Power;
+    public BigDouble productionUpgrade6Power;
+    public BigDouble productionUpgrade7Power;
+    public BigDouble productionUpgrade8Power;
+    #endregion
+    public BigDouble currentPollution;
 
     public PlayerData()
     {
@@ -46,5 +71,30 @@ public class PlayerData
         dailyRewardReady = false;
 
         offlineProgressCheck = false;
+
+        hasMastered = false;
+        hasPrestiged = false;
+
+        #region Upgrades
+        productionUpgrade1Level = 0;
+        productionUpgrade2Level = 0;
+        productionUpgrade3Level = 0;
+        productionUpgrade4Level = 0;
+        productionUpgrade5Level = 0;
+        productionUpgrade6Level = 0;
+        productionUpgrade7Level = 0;
+        productionUpgrade8Level = 0;
+
+        productionUpgrade1Power = 10;
+        productionUpgrade2Power = 50;
+        productionUpgrade3Power = 100;
+        productionUpgrade4Power = 1e3;
+        productionUpgrade5Power = 1e4;
+        productionUpgrade6Power = 1e5;
+        productionUpgrade7Power = 1e7;
+        productionUpgrade8Power = 1e10;
+        #endregion
+
+        currentPollution = 0;
     }
 }
