@@ -33,13 +33,10 @@ public class IdleGame : MonoBehaviour
     public PlayerData data;
     public OfflineManager offline;
     public SaveSystem nonStaticSaveSystem;
+    public DailyRewardManager daily;
     
-    public Button Singularity;
-
-    public Text plasmaText;
-    public Text clickValueText;
-
-    public Text plasmaPerSecText;
+    public Text powerText;
+    public Text powerPerSecText;
 
     //prestige system
 
@@ -47,8 +44,11 @@ public class IdleGame : MonoBehaviour
     public BigDouble plasmaTemp;
 
     public Canvas mainMenuGroup;
-    public Canvas upgradesGroup;
     public Canvas settingsGroup;
+    public Canvas megaCanvas;
+    public Canvas researchCanvas;
+    public Canvas prestigeCanvas;
+    public Canvas hyperCanvas;
 
     public void Start()
     {
@@ -57,27 +57,24 @@ public class IdleGame : MonoBehaviour
         Application.runInBackground = true;
 
         mainMenuGroup.gameObject.SetActive(true);
-        upgradesGroup.gameObject.SetActive(false);
+        researchCanvas.gameObject.SetActive(false);
         settingsGroup.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
 
-        TotalPlasmaPerSecond();
+        TotalPowerPerSecond();
         Methods.NotationSettings = data.notationType;
     }
 
     public void Update()
     {
-        
-
-
         //progress bars
 
-        plasmaPerSecText.text = Methods.NotationMethod(TotalPlasmaPerSecond(), "F0") + " power/s";
-        plasmaText.text = "Plasma: " + Methods.NotationMethod(data.power, y: "F0");
+        powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
+        powerText.text = "Power: " + Methods.NotationMethod(data.power, y: "F0");
 
-        data.power += TotalPlasmaPerSecond() * Time.deltaTime;
-        data.powerCollected += TotalPlasmaPerSecond() * Time.deltaTime;
+        data.power += TotalPowerPerSecond() * Time.deltaTime;
+        data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
 
     saveTimer += Time.deltaTime;
 
@@ -110,7 +107,7 @@ public class IdleGame : MonoBehaviour
     }
 
 
-    public BigDouble TotalPlasmaPerSecond()
+    public BigDouble TotalPowerPerSecond()
     {
         BigDouble temp = 0;
         return temp;
@@ -127,22 +124,24 @@ public class IdleGame : MonoBehaviour
         switch (id)
         {
             
-            case "upgrades":
-                upgradesGroup.gameObject.SetActive(true);
+            case "research":
+                researchCanvas.gameObject.SetActive(true);
                 break;
             case "main":
                 mainMenuGroup.gameObject.SetActive(true);
                 break;
-            case "gsettings":
+            case "settings":
                 settingsGroup.gameObject.SetActive(true);
                 break;
-            case "bsettings":
-                mainMenuGroup.gameObject.SetActive(true);
+            case "hyper":
+                hyperCanvas.gameObject.SetActive(true);
                 break;
-            case "realmsback":
-                mainMenuGroup.gameObject.SetActive(true);
+            case "prestige":
+                prestigeCanvas.gameObject.SetActive(true);
                 break;
-            
+            case "mega":
+                megaCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -150,7 +149,11 @@ public class IdleGame : MonoBehaviour
     {
         mainMenuGroup.gameObject.SetActive(false);
         settingsGroup.gameObject.SetActive(false);
-        upgradesGroup.gameObject.SetActive(false);
+        researchCanvas.gameObject.SetActive(false);
+        megaCanvas.gameObject.SetActive(false);
+        hyperCanvas.gameObject.SetActive(false);
+        prestigeCanvas.gameObject.SetActive(false);
+
     }
 
    public void FullReset()

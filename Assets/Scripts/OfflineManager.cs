@@ -53,10 +53,10 @@ public class OfflineManager : MonoBehaviour
             TimeSpan timer = TimeSpan.FromSeconds(rawTime);
             timeAwayText.text = $"You were away for\n<color=#FF0000>{timer:dd\\:hh\\:mm\\:ss}</color>";
 
-            BigDouble powerGains = game.TotalPlasmaPerSecond() * offlineTime;
+            BigDouble powerGains = game.TotalPowerPerSecond() * offlineTime;
             data.power += powerGains;
             data.powerCollected += powerGains;
-            GainText.text = $"You Earned:\n<color=#00FF04>+{Methods.NotationMethod(powerGains, "F2")} Power</color>";
+            GainText.text = $"You Earned:\n<color=#E7D600>+{Methods.NotationMethod(powerGains, "F2")} Power</color>";
         }
     }
 
