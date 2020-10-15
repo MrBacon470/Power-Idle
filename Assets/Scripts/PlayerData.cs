@@ -62,9 +62,22 @@ public class PlayerData
     #endregion
     public BigDouble currentPollution;
 
+    #region researchStuff
+    public bool isCompleted0;
+    public bool isCompleted1;
+    public bool isCompleted2;
+    public bool isCompleted3;
+    public bool isCompleted4;
+    public bool isCompleted5;
+    public bool isCompleted6;
+    public bool isCompleted7;
+
+    public int researchIndex;
+    #endregion
+
     public PlayerData()
     {
-        power = 0;
+        power = 10;
 
         currentDay = 0;
         UTCtime = DateTime.UtcNow;
@@ -96,5 +109,16 @@ public class PlayerData
         #endregion
 
         currentPollution = 0;
+
+        isCompleted0 = true;
+        isCompleted1 = false;
+        isCompleted2 = false;
+        isCompleted3 = false;
+        isCompleted4 = false;
+        isCompleted5 = false;
+        isCompleted6 = false;
+        isCompleted7 = false;
+
+        researchIndex = 0;
     }
 }

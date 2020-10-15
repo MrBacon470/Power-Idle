@@ -44,7 +44,7 @@ public class UpgradesManager : MonoBehaviour
 
     private void Start()
     {
-        productionUpgradeCostMults = new BigDouble[] { .25, .50, .75, 1.25, 1.5, 1.75, 2, 2.5 };
+        productionUpgradeCostMults = new BigDouble[] { 1.25, 1.50, 1.75, 2.25, 2.5, 2.75, 3, 3.5 };
         productionUpgradePower = new BigDouble[] { 10, 50, 100, 1e3, 1e4, 1e5, 1e7, 1e10};
         productionUpgradeBaseCosts = new BigDouble[] { 10, 100, 1e3, 1e4, 1.5e4, 1e5, 1e6, 1e8 };
         productionUpgradeCost = new BigDouble[8];
@@ -80,12 +80,11 @@ public class UpgradesManager : MonoBehaviour
         var data = game.data;
         if (game.mainMenuGroup.gameObject.activeSelf)
         {
-
-            for (var i = 0; i < 10; i++)
+            GameObjects();
+            for (var i = 0; i < 8; i++)
             {
                 productionUpgradeMaxText[i].text = $"Buy Max ({BuyProductionUpgradeMaxCount(i)})";
             }
-            
 
             productionUpgradeText[0].text = $"Manual Generator\nCost: {GetUpgradeCost(0, productionUpgradeCost)} Power\nPower: {Methods.NotationMethod(productionUpgradePower[0], "F2")} Power/s\nLevel: {GetUpgradeLevel(0, productionUpgradeLevels)}";
             productionUpgradeText[1].text = $"Wood Burner\nCost   {GetUpgradeCost(1, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[1], "F2")}   Power/s\nLevel: {GetUpgradeLevel(1, productionUpgradeLevels)}";
@@ -96,7 +95,7 @@ public class UpgradesManager : MonoBehaviour
             productionUpgradeText[6].text = $"Nuclear Reactor\nCost   {GetUpgradeCost(6, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[6], "F2")}   Power/s\nLevel: {GetUpgradeLevel(6, productionUpgradeLevels)}";
             productionUpgradeText[7].text = $"Fusion Reactor\nCost   {GetUpgradeCost(7, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[7], "F2")}   Power/s\nLevel: {GetUpgradeLevel(7, productionUpgradeLevels)}";
 
-            game.SmoothNumber(ref game.plasmaTemp, data.power);
+
         }
 
         string GetUpgradeCost(int index, BigDouble[] upgrade)
@@ -111,7 +110,77 @@ public class UpgradesManager : MonoBehaviour
 
     }
 
-
+    public void GameObjects()
+    {
+        var data = game.data;
+        if (data.isCompleted0)
+        {
+            productionUpgrade[0].gameObject.SetActive(true);
+        }
+        if (data.isCompleted0) return;
+        if (data.isCompleted1)
+        {
+            productionUpgrade[0].gameObject.SetActive(true);
+            productionUpgrade[1].gameObject.SetActive(true);
+        }
+        if (data.isCompleted1) return;
+        if (data.isCompleted2)
+        {
+            productionUpgrade[0].gameObject.SetActive(true);
+            productionUpgrade[1].gameObject.SetActive(true);
+            productionUpgrade[2].gameObject.SetActive(true);
+        }
+        if (data.isCompleted2) return;
+        if (data.isCompleted3)
+        {
+            productionUpgrade[0].gameObject.SetActive(true);
+            productionUpgrade[1].gameObject.SetActive(true);
+            productionUpgrade[2].gameObject.SetActive(true);
+            productionUpgrade[3].gameObject.SetActive(true);
+        }
+        if (data.isCompleted3) return;
+        if (data.isCompleted4)
+        {
+            productionUpgrade[0].gameObject.SetActive(true);
+            productionUpgrade[1].gameObject.SetActive(true);
+            productionUpgrade[2].gameObject.SetActive(true);
+            productionUpgrade[3].gameObject.SetActive(true);
+            productionUpgrade[4].gameObject.SetActive(true);
+        }
+        if (data.isCompleted4) return;
+        if (data.isCompleted5)
+        {
+            productionUpgrade[0].gameObject.SetActive(true);
+            productionUpgrade[1].gameObject.SetActive(true);
+            productionUpgrade[2].gameObject.SetActive(true);
+            productionUpgrade[3].gameObject.SetActive(true);
+            productionUpgrade[4].gameObject.SetActive(true);
+            productionUpgrade[5].gameObject.SetActive(true);
+        }
+        if (data.isCompleted5) return;
+        if (data.isCompleted6)
+        {
+            productionUpgrade[0].gameObject.SetActive(true);
+            productionUpgrade[1].gameObject.SetActive(true);
+            productionUpgrade[2].gameObject.SetActive(true);
+            productionUpgrade[3].gameObject.SetActive(true);
+            productionUpgrade[4].gameObject.SetActive(true);
+            productionUpgrade[5].gameObject.SetActive(true);
+            productionUpgrade[6].gameObject.SetActive(true);
+        }
+        if (data.isCompleted6) return;
+        if (data.isCompleted7)
+        {
+            productionUpgrade[0].gameObject.SetActive(true);
+            productionUpgrade[1].gameObject.SetActive(true);
+            productionUpgrade[2].gameObject.SetActive(true);
+            productionUpgrade[3].gameObject.SetActive(true);
+            productionUpgrade[4].gameObject.SetActive(true);
+            productionUpgrade[5].gameObject.SetActive(true);
+            productionUpgrade[6].gameObject.SetActive(true);
+            productionUpgrade[7].gameObject.SetActive(true);
+        }
+    }
 
     private void ArrayManager()
     {
@@ -130,6 +199,8 @@ public class UpgradesManager : MonoBehaviour
     private void NonArrayManager()
     {
         var data = game.data;
+
+        
 
         data.productionUpgrade1Level = productionUpgradeLevels[0];
         data.productionUpgrade2Level = productionUpgradeLevels[1];
