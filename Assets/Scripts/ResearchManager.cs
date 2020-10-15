@@ -31,8 +31,8 @@ public class ResearchManager : MonoBehaviour
 {
     public IdleGame game;
 
-    public Sprite[] researchIcons;
-    public Sprite[] nextResearchIcons;
+    public Sprite[] researchIcons = new Sprite[7];
+    public Sprite[] nextResearchIcons = new Sprite[6];
     public Text currentInfoText;
     public Text nextInfoText;
 
@@ -43,9 +43,8 @@ public class ResearchManager : MonoBehaviour
 
     public void Start()
     {
-        researchIcons = new Sprite[7];
-        nextResearchIcons = new Sprite[6];
-        researchCosts = new BigDouble[] { 50, 500, 5e3, 75e3, 5e4, 5e5, 5e7 };
+        researchCosts = new BigDouble[] { 200, 1e3, 2e4, 3e4, 2e5, 2e6, 2e8 };
+        Activate();
     }
 
     public void Run()
@@ -158,5 +157,11 @@ public class ResearchManager : MonoBehaviour
         if (data.researchIndex <= 6)
             data.researchIndex++;
         else return;
+    }
+
+    public void Activate()
+    {
+        researchIcon.gameObject.SetActive(true);
+        nextResearchIcon.gameObject.SetActive(true);
     }
 }

@@ -36,25 +36,30 @@ public class PollutionManager : MonoBehaviour
 
     public BigDouble[] pollutionAmount;
     public BigDouble totalPollution = 409.8e6;
+
+    public BigDouble pollutionBoost => game.data.currentPollution / totalPollution;
     
     public float tickTimer;
 
     private void Start()
     {
-        pollutionAmount = new BigDouble[] { 10, 50, 100, 1e3, 5e3 };
+        pollutionAmount = new BigDouble[] { 1e3, 5e3, 1e4, 1e5, 5e5 };
     }
 
     public void Run()
     {
         var data = game.data;
 
+        if (data.currentPollution >= totalPollution)
+            data.currentPollution = totalPollution;
+
         pollutionText.text = $"Total Pollution: {Methods.NotationMethod((data.currentPollution / totalPollution) * 100, "F2")}%\n+{Methods.NotationMethod((pollutionAmount[0] * data.productionUpgrade2Level) + (pollutionAmount[1] * data.productionUpgrade3Level) + (pollutionAmount[2] * data.productionUpgrade4Level) + (pollutionAmount[3] * data.productionUpgrade5Level) + (pollutionAmount[4] * data.productionUpgrade7Level), "F2")} Pollution Per Tick";
 
-        if(tickTimer >= 5)
+        if(tickTimer >= 2)
             data.currentPollution += (pollutionAmount[0] * data.productionUpgrade2Level) + (pollutionAmount[1] * data.productionUpgrade3Level) + (pollutionAmount[2] * data.productionUpgrade4Level) + (pollutionAmount[3] * data.productionUpgrade5Level) + (pollutionAmount[4] * data.productionUpgrade7Level);
 
 
-        if (tickTimer < 5)
+        if (tickTimer < 2)
             tickTimer += Time.deltaTime;
         else
             tickTimer = 0;
