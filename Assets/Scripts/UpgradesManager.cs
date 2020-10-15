@@ -45,10 +45,12 @@ public class UpgradesManager : MonoBehaviour
     private void Start()
     {
         productionUpgradeCostMults = new BigDouble[] { 1.25, 1.50, 1.75, 2.25, 2.5, 2.75, 3, 3.5 };
-        productionUpgradePower = new BigDouble[] { 10, 50, 100, 1e3, 1e4, 1e5, 1e7, 1e10};
+        productionUpgradePower = new BigDouble[] { 1, 5, 10, 100, 1e3, 1e4, 1e7, 1e10};
         productionUpgradeBaseCosts = new BigDouble[] { 10, 100, 1e3, 1e4, 1.5e4, 1e5, 1e6, 1e8 };
         productionUpgradeCost = new BigDouble[8];
         productionUpgradeLevels = new BigDouble[8];
+
+        Deactivate();
     }
 
     public void RunUpgrades()
@@ -87,13 +89,13 @@ public class UpgradesManager : MonoBehaviour
             }
 
             productionUpgradeText[0].text = $"Manual Generator\nCost: {GetUpgradeCost(0, productionUpgradeCost)} Power\nPower: {Methods.NotationMethod(productionUpgradePower[0], "F2")} Power/s\nLevel: {GetUpgradeLevel(0, productionUpgradeLevels)}";
-            productionUpgradeText[1].text = $"Wood Burner\nCost   {GetUpgradeCost(1, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[1], "F2")}   Power/s\nLevel: {GetUpgradeLevel(1, productionUpgradeLevels)}";
-            productionUpgradeText[2].text = $"Coal Generator\nCost   {GetUpgradeCost(2, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[2], "F2")}   Power/s\nLevel: {GetUpgradeLevel(2, productionUpgradeLevels)}";
-            productionUpgradeText[3].text = $"Oil Generator\nCost   {GetUpgradeCost(3, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[3], "F2")}   Power/s\nLevel: {GetUpgradeLevel(3, productionUpgradeLevels)}";
-            productionUpgradeText[4].text = $"Natural Gas Generator\nCost   {GetUpgradeCost(4, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[4], "F2")}   Plasma/s\nLevel: {GetUpgradeLevel(4, productionUpgradeLevels)}";
-            productionUpgradeText[5].text = $"Steam Turbine\nCost   {GetUpgradeCost(5, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[5], "F2")}   Power/s\nLevel: {GetUpgradeLevel(5, productionUpgradeLevels)}";
-            productionUpgradeText[6].text = $"Nuclear Reactor\nCost   {GetUpgradeCost(6, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[6], "F2")}   Power/s\nLevel: {GetUpgradeLevel(6, productionUpgradeLevels)}";
-            productionUpgradeText[7].text = $"Fusion Reactor\nCost   {GetUpgradeCost(7, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[7], "F2")}   Power/s\nLevel: {GetUpgradeLevel(7, productionUpgradeLevels)}";
+            productionUpgradeText[1].text = $"Wood Burner\nCost   {GetUpgradeCost(1, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[1], "F2")} Power/s\nLevel: {GetUpgradeLevel(1, productionUpgradeLevels)}";
+            productionUpgradeText[2].text = $"Coal Generator\nCost   {GetUpgradeCost(2, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[2], "F2")} Power/s\nLevel: {GetUpgradeLevel(2, productionUpgradeLevels)}";
+            productionUpgradeText[3].text = $"Oil Generator\nCost   {GetUpgradeCost(3, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[3], "F2")} Power/s\nLevel: {GetUpgradeLevel(3, productionUpgradeLevels)}";
+            productionUpgradeText[4].text = $"Natural Gas Generator\nCost   {GetUpgradeCost(4, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[4], "F2")} Power/s\nLevel: {GetUpgradeLevel(4, productionUpgradeLevels)}";
+            productionUpgradeText[5].text = $"Steam Turbine\nCost   {GetUpgradeCost(5, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[5], "F2")} Power/s\nLevel: {GetUpgradeLevel(5, productionUpgradeLevels)}";
+            productionUpgradeText[6].text = $"Nuclear Reactor\nCost   {GetUpgradeCost(6, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[6], "F2")} Power/s\nLevel: {GetUpgradeLevel(6, productionUpgradeLevels)}";
+            productionUpgradeText[7].text = $"Fusion Reactor\nCost   {GetUpgradeCost(7, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[7], "F2")} Power/s\nLevel: {GetUpgradeLevel(7, productionUpgradeLevels)}";
 
 
         }
@@ -254,4 +256,14 @@ public void BuyProductionUpgrade(int index)
         return n;
     }
 
+    public void Deactivate()
+    {
+        productionUpgrade[1].gameObject.SetActive(false);
+        productionUpgrade[2].gameObject.SetActive(false);
+        productionUpgrade[3].gameObject.SetActive(false);
+        productionUpgrade[4].gameObject.SetActive(false);
+        productionUpgrade[5].gameObject.SetActive(false);
+        productionUpgrade[6].gameObject.SetActive(false);
+        productionUpgrade[7].gameObject.SetActive(false);
+    }
 }

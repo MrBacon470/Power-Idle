@@ -36,6 +36,7 @@ public class IdleGame : MonoBehaviour
     public DailyRewardManager daily;
     public UpgradesManager upgrades;
     public ResearchManager research;
+    public PollutionManager pollution;
     
     public Text powerText;
     public Text powerPerSecText;
@@ -76,6 +77,7 @@ public class IdleGame : MonoBehaviour
         upgrades.RunUpgradesUI();
         upgrades.RunUpgrades();
         research.Run();
+        pollution.Run();
 
         powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
         powerText.text = "Power: " + Methods.NotationMethod(data.power, y: "F0");
@@ -127,6 +129,14 @@ public class IdleGame : MonoBehaviour
     public BigDouble TotalPowerPerSecond()
     {
         BigDouble temp = 0;
+        temp += 1 * data.productionUpgrade1Level;
+        temp += (5 - (5 * pollution.pollutionBoost)) * data.productionUpgrade2Level;
+        temp += (10 - (10 * pollution.pollutionBoost)) * data.productionUpgrade3Level;
+        temp += (100 - (100 * pollution.pollutionBoost)) * data.productionUpgrade4Level;
+        temp += (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade5Level;
+        temp += 1e4 * data.productionUpgrade6Level;
+        temp += (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade7Level;
+        temp += 1e10 * data.productionUpgrade8Level;
         return temp;
     }
 
@@ -177,6 +187,8 @@ public class IdleGame : MonoBehaviour
     {
         data = new PlayerData();
         ChangeTabs("main");
+        upgrades.Deactivate();
+        research.Activate();
     }
 
 }
