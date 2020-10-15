@@ -26,6 +26,7 @@ using UnityEngine;
 using BreakInfinity;
 using static BreakInfinity.BigDouble;
 using UnityEngine.UI;
+using System;
 
 public class PollutionManager : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class PollutionManager : MonoBehaviour
         pollutionAmount = new BigDouble[] { 10, 50, 100, 1e3, 5e3 };
     }
 
-    private void Update()
+    public void Run()
     {
         var data = game.data;
 
@@ -53,8 +54,8 @@ public class PollutionManager : MonoBehaviour
             data.currentPollution += (pollutionAmount[0] * data.productionUpgrade2Level) + (pollutionAmount[1] * data.productionUpgrade3Level) + (pollutionAmount[2] * data.productionUpgrade4Level) + (pollutionAmount[3] * data.productionUpgrade5Level) + (pollutionAmount[4] * data.productionUpgrade7Level);
 
 
-        if (tickTimer <= 5)
-            tickTimer *= Time.deltaTime;
+        if (tickTimer < 5)
+            tickTimer += Time.deltaTime;
         else
             tickTimer = 0;
     }

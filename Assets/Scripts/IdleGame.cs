@@ -34,6 +34,8 @@ public class IdleGame : MonoBehaviour
     public OfflineManager offline;
     public SaveSystem nonStaticSaveSystem;
     public DailyRewardManager daily;
+    public UpgradesManager upgrades;
+    public ResearchManager research;
     
     public Text powerText;
     public Text powerPerSecText;
@@ -71,6 +73,10 @@ public class IdleGame : MonoBehaviour
 
     public void Update()
     {
+        upgrades.RunUpgradesUI();
+        upgrades.RunUpgrades();
+        research.Run();
+
         powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
         powerText.text = "Power: " + Methods.NotationMethod(data.power, y: "F0");
 
