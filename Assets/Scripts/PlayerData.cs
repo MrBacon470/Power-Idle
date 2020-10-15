@@ -74,7 +74,17 @@ public class PlayerData
 
     public int researchIndex;
     #endregion
+    #region Prestige
+    public BigDouble transformers;
+    public BigDouble superConductors;
+    public BigDouble transformersToGet;
+    #endregion
 
+    #region Infusions
+    public BigDouble infusionULevel1;
+    public BigDouble infusionULevel2;
+    public BigDouble infusionULevel3;
+    #endregion
     public PlayerData()
     {
         power = 10;
@@ -120,5 +130,9 @@ public class PlayerData
         isCompleted7 = false;
 
         researchIndex = 0;
+
+        transformers = 0;
+        superConductors = 0;
+        transformersToGet = 0;
     }
 }

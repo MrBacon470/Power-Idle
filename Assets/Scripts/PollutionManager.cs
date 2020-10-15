@@ -35,7 +35,7 @@ public class PollutionManager : MonoBehaviour
     public Text pollutionText;
 
     public BigDouble[] pollutionAmount;
-    public BigDouble totalPollution = 409.8e6;
+    public BigDouble totalPollution => 409.8e6 + (409.8e6 * (.05 * game.data.infusionULevel2));
 
     public BigDouble pollutionBoost => game.data.currentPollution / totalPollution;
     

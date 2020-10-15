@@ -37,6 +37,8 @@ public class IdleGame : MonoBehaviour
     public UpgradesManager upgrades;
     public ResearchManager research;
     public PollutionManager pollution;
+    public PrestigeManager prestige;
+    public InfusionManager infuse;
     
     public Text powerText;
     public Text powerPerSecText;
@@ -67,6 +69,7 @@ public class IdleGame : MonoBehaviour
         settingsGroup.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
+        infuse.StartInfusion();
 
         TotalPowerPerSecond();
         Methods.NotationSettings = data.notationType;
@@ -74,11 +77,15 @@ public class IdleGame : MonoBehaviour
 
     public void Update()
     {
+        prestige.Run();
         upgrades.RunUpgradesUI();
         upgrades.RunUpgrades();
         research.Run();
         pollution.Run();
+        infuse.Run();
 
+
+        transformersText.text = $"{Methods.NotationMethod(data.transformers, "F2")} Transformers";
         powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
         powerText.text = "Power: " + Methods.NotationMethod(data.power, y: "F0");
 
@@ -129,14 +136,16 @@ public class IdleGame : MonoBehaviour
     public BigDouble TotalPowerPerSecond()
     {
         BigDouble temp = 0;
-        temp += 1 * data.productionUpgrade1Level;
+        temp += (1 - (1 * pollution.pollutionBoost)) * data.productionUpgrade1Level;
         temp += (5 - (5 * pollution.pollutionBoost)) * data.productionUpgrade2Level;
         temp += (10 - (10 * pollution.pollutionBoost)) * data.productionUpgrade3Level;
         temp += (100 - (100 * pollution.pollutionBoost)) * data.productionUpgrade4Level;
         temp += (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade5Level;
-        temp += 1e4 * data.productionUpgrade6Level;
+        temp += (1e4 - (1e4 * pollution.pollutionBoost)) * data.productionUpgrade6Level;
         temp += (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade7Level;
-        temp += 1e10 * data.productionUpgrade8Level;
+        temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
+        if (data.infusionULevel1 > 0)
+            temp += temp * (0.05 * data.infusionULevel1);
         return temp;
     }
 
