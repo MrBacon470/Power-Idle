@@ -41,6 +41,8 @@ public class ResearchManager : MonoBehaviour
 
     public BigDouble[] researchCosts;
 
+    public GameObject researchButton;
+
     public void Start()
     {
         researchCosts = new BigDouble[] { 200, 1e3, 2e4, 3e4, 2e5, 2e6, 2e8 };
@@ -113,7 +115,10 @@ public class ResearchManager : MonoBehaviour
         }
         #endregion
 
-
+        if (data.researchIndex >= 7)
+            researchButton.gameObject.SetActive(false);
+        else
+            researchButton.gameObject.SetActive(true);
     }
 
     public void Research()

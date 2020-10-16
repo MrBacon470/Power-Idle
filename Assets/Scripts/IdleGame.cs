@@ -39,6 +39,8 @@ public class IdleGame : MonoBehaviour
     public PollutionManager pollution;
     public PrestigeManager prestige;
     public InfusionManager infuse;
+    public MasteryManager mastery;
+    public DysonSphereController dysonSphere;
     
     public Text powerText;
     public Text powerPerSecText;
@@ -53,7 +55,7 @@ public class IdleGame : MonoBehaviour
 
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
-    public Canvas megaCanvas;
+    public Canvas sphereCanvas;
     public Canvas researchCanvas;
     public Canvas prestigeCanvas;
     public Canvas infusionCanvas;
@@ -65,8 +67,11 @@ public class IdleGame : MonoBehaviour
         Application.runInBackground = true;
 
         mainMenuGroup.gameObject.SetActive(true);
-        researchCanvas.gameObject.SetActive(false);
         settingsGroup.gameObject.SetActive(false);
+        researchCanvas.gameObject.SetActive(false);
+        sphereCanvas.gameObject.SetActive(false);
+        infusionCanvas.gameObject.SetActive(false);
+        prestigeCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
@@ -80,17 +85,18 @@ public class IdleGame : MonoBehaviour
         if (data.power < 0)
             data.power = 0;
 
-        
-
         prestige.Run();
         upgrades.RunUpgradesUI();
         upgrades.RunUpgrades();
         research.Run();
         pollution.Run();
         infuse.Run();
+        mastery.Run();
+        dysonSphere.Run();
 
 
         transformersText.text = $"{Methods.NotationMethod(data.transformers, "F2")} Transformers";
+        superConductorsText.text = $"{Methods.NotationMethod(data.superConductors, "F2")} Super Conductors";
         powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
         powerText.text = "Power: " + Methods.NotationMethod(data.power, y: "F0");
 
@@ -153,6 +159,9 @@ public class IdleGame : MonoBehaviour
             temp += temp * (0.05 * data.infusionULevel1);
         if (temp <= 0)
             temp = 0;
+        if (data.hasMastered)
+            temp += dysonSphere.SpherePowerPerSec();
+
         return temp;
     }
 
@@ -182,8 +191,8 @@ public class IdleGame : MonoBehaviour
             case "prestige":
                 prestigeCanvas.gameObject.SetActive(true);
                 break;
-            case "mega":
-                megaCanvas.gameObject.SetActive(true);
+            case "sphere":
+                sphereCanvas.gameObject.SetActive(true);
                 break;
         }
     }
@@ -193,7 +202,7 @@ public class IdleGame : MonoBehaviour
         mainMenuGroup.gameObject.SetActive(false);
         settingsGroup.gameObject.SetActive(false);
         researchCanvas.gameObject.SetActive(false);
-        megaCanvas.gameObject.SetActive(false);
+        sphereCanvas.gameObject.SetActive(false);
         infusionCanvas.gameObject.SetActive(false);
         prestigeCanvas.gameObject.SetActive(false);
 

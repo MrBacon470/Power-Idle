@@ -78,6 +78,7 @@ public class PlayerData
     public BigDouble transformers;
     public BigDouble superConductors;
     public BigDouble transformersToGet;
+    public BigDouble superConductorsToGet;
     #endregion
 
     #region Infusions
@@ -85,6 +86,12 @@ public class PlayerData
     public BigDouble infusionULevel2;
     public BigDouble infusionULevel3;
     #endregion
+    #region DysonSphere
+    public bool array1Complete;
+    public bool array2Complete;
+    public bool array3Complete;
+    #endregion
+
     public PlayerData()
     {
         power = 10;
@@ -134,5 +141,10 @@ public class PlayerData
         transformers = 0;
         superConductors = 0;
         transformersToGet = 0;
+        superConductorsToGet = 0;
+
+        array1Complete = false;
+        array2Complete = false;
+        array3Complete = false;
     }
 }

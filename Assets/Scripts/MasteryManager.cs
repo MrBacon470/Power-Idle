@@ -27,41 +27,43 @@ using UnityEngine.UI;
 using BreakInfinity;
 using static BreakInfinity.BigDouble;
 
-public class PrestigeManager : MonoBehaviour
+public class MasteryManager : MonoBehaviour
 {
     public IdleGame game;
     public UpgradesManager upgrades;
     public ResearchManager research;
-    public Text prestigeText;
-    public GameObject prestigeMenu;
+    public Text masteryText;
+    public GameObject masteryMenu;
 
     public void Run()
     {
         var data = game.data;
 
-        data.transformersToGet = 150 * Sqrt(data.power / 2.5e4);
-
-        if (data.currentPollution >= 409.8e6)
-            prestigeMenu.gameObject.SetActive(true);
+        if (data.power >= 1e306)
+            data.superConductorsToGet = 150 * Sqrt((data.power + data.transformers) / 1e275);
         else
-            prestigeMenu.gameObject.SetActive(false);
+            data.transformersToGet = 0;
 
-        prestigeText.text = $"Prestige +{Methods.NotationMethod(data.transformersToGet, "F2")} Transformers";
+        if (data.power >= 1e306)
+            masteryMenu.gameObject.SetActive(true);
+        else
+            masteryMenu.gameObject.SetActive(false);
+
+        masteryText.text = $"Mastery +{Methods.NotationMethod(data.transformersToGet, "F2")} Super Conductors";
     }
 
-    public void Prestige()
+    public void Mastery()
     {
         var data = game.data;
-        if (data.currentPollution < 409.8e6 + (409.8e6 * (.05 * game.data.infusionULevel2))) return;
-        
-        data.hasPrestiged = true;
-        if (data.infusionULevel2 <= 0)
-            data.transformers += data.transformersToGet;
-        else
-            data.transformers += data.transformersToGet + (data.transformersToGet * (0.05 * data.infusionULevel3));
+        if (data.power < 1e306) return;
+
+        data.hasMastered = true;
+
+        data.superConductors += data.superConductorsToGet;
 
         data.power = 10;
         data.transformersToGet = 0;
+        data.transformers = 0;
         data.productionUpgrade1Level = 0;
         data.productionUpgrade2Level = 0;
         data.productionUpgrade3Level = 0;
