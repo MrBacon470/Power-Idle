@@ -77,6 +77,11 @@ public class IdleGame : MonoBehaviour
 
     public void Update()
     {
+        if (data.power < 0)
+            data.power = 0;
+
+        
+
         prestige.Run();
         upgrades.RunUpgradesUI();
         upgrades.RunUpgrades();
@@ -146,6 +151,8 @@ public class IdleGame : MonoBehaviour
         temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
         if (data.infusionULevel1 > 0)
             temp += temp * (0.05 * data.infusionULevel1);
+        if (temp <= 0)
+            temp = 0;
         return temp;
     }
 
