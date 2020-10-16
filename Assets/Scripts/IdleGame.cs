@@ -74,6 +74,15 @@ public class IdleGame : MonoBehaviour
 
     public void Update()
     {
+<<<<<<< Updated upstream
+=======
+        if (data.power < 0)
+            data.power = 0;
+
+        
+
+        prestige.Run();
+>>>>>>> Stashed changes
         upgrades.RunUpgradesUI();
         upgrades.RunUpgrades();
         research.Run();
@@ -136,7 +145,15 @@ public class IdleGame : MonoBehaviour
         temp += (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade5Level;
         temp += 1e4 * data.productionUpgrade6Level;
         temp += (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade7Level;
+<<<<<<< Updated upstream
         temp += 1e10 * data.productionUpgrade8Level;
+=======
+        temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
+        if (data.infusionULevel1 > 0)
+            temp += temp * (0.05 * data.infusionULevel1);
+        if (temp <= 0)
+            temp = 0;
+>>>>>>> Stashed changes
         return temp;
     }
 
