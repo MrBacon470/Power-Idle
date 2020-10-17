@@ -41,6 +41,8 @@ public class IdleGame : MonoBehaviour
     public InfusionManager infuse;
     public MasteryManager mastery;
     public DysonSphereController dysonSphere;
+    public ConsoleController console;
+    public ScriptLibrary scriptLibrary;
     
     public Text powerText;
     public Text powerPerSecText;
@@ -50,6 +52,7 @@ public class IdleGame : MonoBehaviour
 
     public GameObject infusionButton;
     public GameObject megaButton;
+    public GameObject consoleButton;
     
     public BigDouble plasmaTemp;
 
@@ -59,6 +62,8 @@ public class IdleGame : MonoBehaviour
     public Canvas researchCanvas;
     public Canvas prestigeCanvas;
     public Canvas infusionCanvas;
+    public Canvas consoleCanvas;
+    public Canvas scriptLibraryCanvas;
 
     public void Start()
     {
@@ -75,6 +80,8 @@ public class IdleGame : MonoBehaviour
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
+        console.StartConsole();
+        scriptLibrary.StartLibrary();
 
         TotalPowerPerSecond();
         Methods.NotationSettings = data.notationType;
@@ -93,12 +100,14 @@ public class IdleGame : MonoBehaviour
         infuse.Run();
         mastery.Run();
         dysonSphere.Run();
+        console.Run();
+        scriptLibrary.Run();
 
 
-        transformersText.text = $"{Methods.NotationMethod(data.transformers, "F2")} Transformers";
-        superConductorsText.text = $"{Methods.NotationMethod(data.superConductors, "F2")} Super Conductors";
+        transformersText.text = data.hasPrestiged ? $"{Methods.NotationMethod(data.transformers, "F2")} Transformers" : "Not Discovered Yet";
+        superConductorsText.text = data.hasMastered ? $"{Methods.NotationMethod(data.superConductors, "F2")} Super Conductors" : "Not Discovered Yet";
         powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
-        powerText.text = "Power: " + Methods.NotationMethod(data.power, y: "F0");
+        powerText.text = data.power > 1e306 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0"); 
 
         if (data.hasPrestiged)
             infusionButton.gameObject.SetActive(true);
@@ -109,6 +118,19 @@ public class IdleGame : MonoBehaviour
             megaButton.gameObject.SetActive(true);
         else
             megaButton.gameObject.SetActive(false);
+
+        if (data.isConsoleUnlocked)
+            consoleButton.gameObject.SetActive(true);
+        else
+            consoleButton.gameObject.SetActive(false);
+
+        if (data.power > 1e306 && data.isSoftCapped)
+            data.power = 1e306;
+
+        if (data.hasMastered)
+            data.isSoftCapped = false;
+        else
+            data.isSoftCapped = true;
 
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
@@ -161,7 +183,10 @@ public class IdleGame : MonoBehaviour
             temp = 0;
         if (data.hasMastered)
             temp += dysonSphere.SpherePowerPerSec();
-
+        if (data.isConsoleOn)
+            temp -= 10;
+        if (data.isConsoleUnlocked)
+            temp *= console.BytesBoost();
         return temp;
     }
 
@@ -194,6 +219,12 @@ public class IdleGame : MonoBehaviour
             case "sphere":
                 sphereCanvas.gameObject.SetActive(true);
                 break;
+            case "console":
+                consoleCanvas.gameObject.SetActive(true);
+                break;
+            case "library":
+                scriptLibraryCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -205,7 +236,8 @@ public class IdleGame : MonoBehaviour
         sphereCanvas.gameObject.SetActive(false);
         infusionCanvas.gameObject.SetActive(false);
         prestigeCanvas.gameObject.SetActive(false);
-
+        consoleCanvas.gameObject.SetActive(false);
+        scriptLibraryCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

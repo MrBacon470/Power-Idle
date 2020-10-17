@@ -72,8 +72,8 @@ public class Methods : MonoBehaviour
                     var exponent2 = Floor(Log10(Abs(x)));
                     var mantissa2 = x / Pow(10, exponent);
 
-                    if (x <= 1000) return x.ToString("F2"); // Normal Number
-                    if (x >= 1e308) return mantissa2.ToString("F2") + "e" + exponent2; //over 1e308 sci notation
+                    if (x < 1000) return x.ToString("F2"); // Normal Number
+                    if (x > 1e308) return mantissa2.ToString("F2") + "e" + exponent2; //over 1e308 sci notation
                     return (x / Pow(10, thirdExponent)).ToString("F2") + prefixes[thirdExponent.ToDouble()]; //word notation
 
                 }

@@ -52,8 +52,7 @@ public class PrestigeManager : MonoBehaviour
     public void Prestige()
     {
         var data = game.data;
-        if (data.currentPollution < 409.8e6 + (409.8e6 * (.05 * game.data.infusionULevel2))) return;
-        
+
         data.hasPrestiged = true;
         if (data.infusionULevel2 <= 0)
             data.transformers += data.transformersToGet;

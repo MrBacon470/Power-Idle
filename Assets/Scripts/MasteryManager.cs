@@ -40,7 +40,7 @@ public class MasteryManager : MonoBehaviour
         var data = game.data;
 
         if (data.power >= 1e306)
-            data.superConductorsToGet = 150 * Sqrt((data.power + data.transformers) / 1e275);
+            data.superConductorsToGet = 150 * Sqrt((data.power + data.transformers) / 1e306);
         else
             data.transformersToGet = 0;
 

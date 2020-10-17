@@ -91,6 +91,22 @@ public class PlayerData
     public bool array2Complete;
     public bool array3Complete;
     #endregion
+    #region ConsoleStuff
+    public BigDouble bytes;
+    public bool isConsoleUnlocked;
+    public bool isConsoleOn;
+    public bool consolePopupClosed;
+    public int scriptIndex;
+    public bool isSoftCapped;
+
+    public bool isScript1Selected;
+    public bool isScript2Selected;
+    public bool isScript3Selected;
+    public bool isScript4Selected;
+    public bool isScript5Selected;
+    public bool isScript6Selected;
+    #endregion
+
 
     public PlayerData()
     {
@@ -146,5 +162,20 @@ public class PlayerData
         array1Complete = false;
         array2Complete = false;
         array3Complete = false;
+
+        #region ConsoleStuff
+        bytes = 0;
+        isConsoleUnlocked = false;
+        isConsoleOn = false;
+        consolePopupClosed = false;
+        isSoftCapped = true;
+        scriptIndex = 0;
+        isScript1Selected = true;
+        isScript2Selected = false;
+        isScript3Selected = false;
+        isScript4Selected = false;
+        isScript5Selected = false;
+        isScript6Selected = false;
+        #endregion
     }
 }
