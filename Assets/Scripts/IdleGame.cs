@@ -43,6 +43,7 @@ public class IdleGame : MonoBehaviour
     public DysonSphereController dysonSphere;
     public ConsoleController console;
     public ScriptLibrary scriptLibrary;
+    public ByteInfusionManager bytes;
     
     public Text powerText;
     public Text powerPerSecText;
@@ -64,6 +65,7 @@ public class IdleGame : MonoBehaviour
     public Canvas infusionCanvas;
     public Canvas consoleCanvas;
     public Canvas scriptLibraryCanvas;
+    public Canvas techTreeCanvas;
 
     public void Start()
     {
@@ -77,11 +79,15 @@ public class IdleGame : MonoBehaviour
         sphereCanvas.gameObject.SetActive(false);
         infusionCanvas.gameObject.SetActive(false);
         prestigeCanvas.gameObject.SetActive(false);
+        consoleCanvas.gameObject.SetActive(false);
+        scriptLibraryCanvas.gameObject.SetActive(false);
+        techTreeCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
         console.StartConsole();
         scriptLibrary.StartLibrary();
+        bytes.StartInfusion();
 
         TotalPowerPerSecond();
         Methods.NotationSettings = data.notationType;
@@ -102,6 +108,7 @@ public class IdleGame : MonoBehaviour
         dysonSphere.Run();
         console.Run();
         scriptLibrary.Run();
+        bytes.Run();
 
 
         transformersText.text = data.hasPrestiged ? $"{Methods.NotationMethod(data.transformers, "F2")} Transformers" : "Not Discovered Yet";
@@ -179,14 +186,16 @@ public class IdleGame : MonoBehaviour
         temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
         if (data.infusionULevel1 > 0)
             temp += temp * (0.05 * data.infusionULevel1);
+        if (data.byteInfusionULevel1 > 0)
+            temp += temp * (0.05 * data.byteInfusionULevel1);
         if (temp <= 0)
             temp = 0;
         if (data.hasMastered)
             temp += dysonSphere.SpherePowerPerSec();
-        if (data.isConsoleOn)
-            temp -= 10;
         if (data.isConsoleUnlocked)
             temp *= console.BytesBoost();
+        if (data.isConsoleOn)
+            temp -= 10;
         return temp;
     }
 
@@ -225,6 +234,9 @@ public class IdleGame : MonoBehaviour
             case "library":
                 scriptLibraryCanvas.gameObject.SetActive(true);
                 break;
+            case "techtree":
+                techTreeCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -238,6 +250,7 @@ public class IdleGame : MonoBehaviour
         prestigeCanvas.gameObject.SetActive(false);
         consoleCanvas.gameObject.SetActive(false);
         scriptLibraryCanvas.gameObject.SetActive(false);
+        techTreeCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

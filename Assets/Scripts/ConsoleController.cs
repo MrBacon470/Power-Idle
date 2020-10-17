@@ -65,7 +65,7 @@ public class ConsoleController : MonoBehaviour
         if (data.isConsoleOn)
             data.bytes += totalBytesPerSecond() * Time.deltaTime;
 
-        if (data.currentPollution >= 409.8e6)
+        if (data.currentPollution >= game.pollution.totalPollution)
             data.isConsoleOn = false;
 
         bytesText.text = data.isConsoleUnlocked ? $"{Methods.NotationMethod(data.bytes, "F2")} Bytes" : "Not Discovered Yet";
@@ -124,7 +124,8 @@ public class ConsoleController : MonoBehaviour
             temp = 1e4;
         if (data.scriptIndex == 5)
             temp = 1e5;
-
+        if (data.byteInfusionULevel2 > 0)
+            temp += temp * (0.05 * data.byteInfusionULevel2);
         return temp;
     }
 

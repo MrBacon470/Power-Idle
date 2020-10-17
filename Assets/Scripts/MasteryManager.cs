@@ -42,14 +42,14 @@ public class MasteryManager : MonoBehaviour
         if (data.power >= 1e306)
             data.superConductorsToGet = 150 * Sqrt((data.power + data.transformers) / 1e306);
         else
-            data.transformersToGet = 0;
+            data.superConductors = 0;
 
         if (data.power >= 1e306)
             masteryMenu.gameObject.SetActive(true);
         else
             masteryMenu.gameObject.SetActive(false);
 
-        masteryText.text = $"Mastery +{Methods.NotationMethod(data.transformersToGet, "F2")} Super Conductors";
+        masteryText.text = $"Mastery +{Methods.NotationMethod(data.superConductorsToGet, "F2")} Super Conductors";
     }
 
     public void Mastery()
@@ -62,7 +62,7 @@ public class MasteryManager : MonoBehaviour
         data.superConductors += data.superConductorsToGet;
 
         data.power = 10;
-        data.transformersToGet = 0;
+        data.superConductorsToGet = 0;
         data.transformers = 0;
         data.productionUpgrade1Level = 0;
         data.productionUpgrade2Level = 0;

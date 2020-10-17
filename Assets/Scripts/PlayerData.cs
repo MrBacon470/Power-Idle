@@ -76,8 +76,8 @@ public class PlayerData
     #endregion
     #region Prestige
     public BigDouble transformers;
-    public BigDouble superConductors;
     public BigDouble transformersToGet;
+    public BigDouble superConductors;
     public BigDouble superConductorsToGet;
     #endregion
 
@@ -105,6 +105,10 @@ public class PlayerData
     public bool isScript4Selected;
     public bool isScript5Selected;
     public bool isScript6Selected;
+
+    public BigDouble byteInfusionULevel1;
+    public BigDouble byteInfusionULevel2;
+    public BigDouble byteInfusionULevel3;
     #endregion
 
 
@@ -155,8 +159,8 @@ public class PlayerData
         researchIndex = 0;
 
         transformers = 0;
-        superConductors = 0;
         transformersToGet = 0;
+        superConductors = 0;
         superConductorsToGet = 0;
 
         array1Complete = false;
@@ -176,6 +180,10 @@ public class PlayerData
         isScript4Selected = false;
         isScript5Selected = false;
         isScript6Selected = false;
+
+        byteInfusionULevel1 = 0;
+        byteInfusionULevel2 = 0;
+        byteInfusionULevel3 = 0;
         #endregion
     }
 }
