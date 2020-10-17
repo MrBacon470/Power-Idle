@@ -6,4 +6,4 @@ Credits for BreakInfinity.cs Razenpok/BreakInfinity.cs
 # Credits
 Created By MrBacon470 (c) 2020 
 # Avability
-Not avalible for download yet
+https://mrbacon470.itch.io/power-idle
