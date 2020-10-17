@@ -55,12 +55,11 @@ public class OfflineManager : MonoBehaviour
             timeAwayText.text = $"You were away for\n<color=#FF0000>{timer:dd\\:hh\\:mm\\:ss}</color>";
 
             BigDouble powerGains = game.TotalPowerPerSecond() * offlineTime;
-            BigDouble powerLost = powerGains - (10 * offlineTime);
             BigDouble bytesGains = game.console.totalBytesPerSecond() * offlineTime;
-            data.power += data.isConsoleOn ? powerGains - powerLost : powerGains;
-            data.powerCollected += data.isConsoleOn ? powerGains - powerLost : powerGains;
+            data.power += powerGains;
+            data.powerCollected += powerGains;
             data.bytes += data.isConsoleOn ? bytesGains : 0;
-            GainText.text = data.isConsoleOn ? $"You Earned:\n<color=#E7D600>+{Methods.NotationMethod(powerGains - powerLost, "F2")} Power</color>" : $"You Earned:\n<color=#E7D600>+{Methods.NotationMethod(powerGains, "F2")} Power</color>";
+            GainText.text = $"You Earned:\n<color=#E7D600>+{Methods.NotationMethod(powerGains, "F2")} Power</color>";
             bytesGainedText.text = data.isConsoleOn ? $"You Earned:\n<color=#01A6B0>+{Methods.NotationMethod(bytesGains, "F2")} Bytes</Color>" : "Console: Offline";
         }
     }
