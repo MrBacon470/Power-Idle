@@ -54,6 +54,10 @@ public class ConsoleController : MonoBehaviour
     {
         var data = game.data;
 
+        if (data.isChallenge2Active)
+            data.isConsoleOn = false;
+            
+
         if (data.power > 1e12 && data.hasPrestiged)
             data.isConsoleUnlocked = true;
 

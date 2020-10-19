@@ -40,6 +40,7 @@ public class PlayerData
     public bool offlineProgressCheck;
 
     public short notationType;
+    public short frameRateType;
     #endregion
     #region Upgrades
     public BigDouble productionUpgrade1Level;
@@ -120,6 +121,8 @@ public class PlayerData
     public bool isChallenge1Active;
     public bool isChallenge2Active;
     public bool isChallenge3Active;
+
+    public bool isChallengesUnlocked;
     #endregion
 
     public PlayerData()
@@ -205,6 +208,7 @@ public class PlayerData
         isChallenge1Active = false;
         isChallenge2Active = false;
         isChallenge3Active = false;
+        isChallengesUnlocked = false;
         #endregion
     }
 }

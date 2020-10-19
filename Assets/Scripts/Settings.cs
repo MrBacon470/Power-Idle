@@ -32,6 +32,7 @@ public class Settings : MonoBehaviour
 {
     public IdleGame game;
     public Text notationTypeText;
+    public Text fpsText;
     /*
      * Notation Key:
      * 0 = Sci
@@ -43,6 +44,7 @@ public class Settings : MonoBehaviour
     private void Start()
     {
         UpdateNotationText();
+        UpdateFPSText();
     }
 
     private void UpdateNotationText()
@@ -58,6 +60,23 @@ public class Settings : MonoBehaviour
                 break;
             case 2:
                 notationTypeText.text = "Notation:Word";
+                break;
+        }
+    }
+
+    private void UpdateFPSText()
+    {
+        var note = game.data.notationType;
+        switch (note)
+        {
+            case 0:
+                notationTypeText.text = "FPS:60";
+                break;
+            case 1:
+                notationTypeText.text = "FPS:30";
+                break;
+            case 2:
+                notationTypeText.text = "FPS:15";
                 break;
         }
     }
@@ -83,5 +102,27 @@ public class Settings : MonoBehaviour
         game.data.notationType = note;
         Methods.NotationSettings = note;
         UpdateNotationText();
+    }
+
+    public void ChangeFPS()
+    {
+        var note = game.data.frameRateType;
+        if (note == 2)
+            note = -1;
+        note++;
+        /* switch (note)
+        {
+            case 0:
+                note = 1;
+                break;
+            case 1:
+                note = 2;
+                break;
+            case 2:
+                note = 0;
+                break;
+        } */
+        game.data.frameRateType = note;
+        UpdateFPSText();
     }
 }

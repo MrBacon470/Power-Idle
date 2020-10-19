@@ -60,6 +60,7 @@ public class IdleGame : MonoBehaviour
     public GameObject infusionButton;
     public GameObject megaButton;
     public GameObject consoleButton;
+    public GameObject challengeButton;
     
     public BigDouble plasmaTemp;
 
@@ -72,6 +73,7 @@ public class IdleGame : MonoBehaviour
     public Canvas consoleCanvas;
     public Canvas scriptLibraryCanvas;
     public Canvas techTreeCanvas;
+    public Canvas challengeCanvas;
     //public Canvas startScreen;
 
     public void Start()
@@ -90,12 +92,14 @@ public class IdleGame : MonoBehaviour
         consoleCanvas.gameObject.SetActive(false);
         scriptLibraryCanvas.gameObject.SetActive(false);
         techTreeCanvas.gameObject.SetActive(false);
+        challengeCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
         console.StartConsole();
         scriptLibrary.StartLibrary();
         bytes.StartInfusion();
+        challenge.StartChallenges();
 
         TotalPowerPerSecond();
         Methods.NotationSettings = data.notationType;
@@ -117,6 +121,14 @@ public class IdleGame : MonoBehaviour
         console.Run();
         scriptLibrary.Run();
         bytes.Run();
+        challenge.Run();
+
+        if (data.frameRateType == 0)
+            Application.targetFrameRate = 60;
+        else if (data.frameRateType == 1)
+            Application.targetFrameRate = 30;
+        else if (data.frameRateType == 2)
+            Application.targetFrameRate = 15;
 
 
         transformersText.text = data.hasPrestiged ? $"{Methods.NotationMethod(data.transformers, "F2")} Transformers" : "Not Discovered Yet";
@@ -148,6 +160,11 @@ public class IdleGame : MonoBehaviour
             data.isSoftCapped = false;
         else
             data.isSoftCapped = true;
+
+        if (data.isChallengesUnlocked)
+            challengeButton.gameObject.SetActive(true);
+        else
+            challengeButton.gameObject.SetActive(false);
 
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
@@ -208,6 +225,8 @@ public class IdleGame : MonoBehaviour
             temp += dysonSphere.SpherePowerPerSec();
         if (data.isConsoleUnlocked)
             temp *= console.BytesBoost();
+        if (data.quarks > 0)
+            temp *= challenge.QuarkBoost();
         if (data.isConsoleOn)
             temp -= 10;
         return temp;
@@ -254,6 +273,9 @@ public class IdleGame : MonoBehaviour
             //case "start":
                 //startScreen.gameObject.SetActive(true);
                 //break;
+            case "challenge":
+                challengeCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -269,6 +291,7 @@ public class IdleGame : MonoBehaviour
         consoleCanvas.gameObject.SetActive(false);
         scriptLibraryCanvas.gameObject.SetActive(false);
         techTreeCanvas.gameObject.SetActive(false);
+        challengeCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

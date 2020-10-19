@@ -61,14 +61,18 @@ public class ChallengeManager : MonoBehaviour
     {
         var data = game.data;
 
+        if (data.power >= 1e18 && data.hasPrestiged && data.isConsoleUnlocked)
+            data.isChallengesUnlocked = true;
 
         UI();
+        ArrayManager();
+        Conditions();
 
         void UI()
         {
             for (var i = 0; i < challengeText.Length; i++)
             {
-                challengeText[i].text = $"{challengeDesc[i]}\nReward: {Methods.NotationMethod(challengeReward[i], "F0")} Quarks\nCompletions {challengeLevels[i]}";
+                challengeText[i].text = challengeDesc[i] + "\nReward:" + Methods.NotationMethod(challengeReward[i], "F0") + " Quarks\nCompletions:" + Methods.NotationMethod(challengeLevels[i], "F0");
             }
 
         }
