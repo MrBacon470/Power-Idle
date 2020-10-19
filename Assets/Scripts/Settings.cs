@@ -33,6 +33,8 @@ public class Settings : MonoBehaviour
     public IdleGame game;
     public Text notationTypeText;
     public Text fpsText;
+    public Text audioText;
+    public GameObject backgroundMusicSource;
     /*
      * Notation Key:
      * 0 = Sci
@@ -45,6 +47,7 @@ public class Settings : MonoBehaviour
     {
         UpdateNotationText();
         UpdateFPSText();
+        UpdateAudio();
     }
 
     private void UpdateNotationText()
@@ -77,6 +80,22 @@ public class Settings : MonoBehaviour
                 break;
             case 2:
                 fpsText.text = "FPS:15";
+                break;
+        }
+    }
+
+    private void UpdateAudio()
+    {
+        var note = game.data.audioType;
+        switch (note)
+        {
+            case 0:
+                audioText.text = "Audio:On";
+                backgroundMusicSource.gameObject.SetActive(true);
+                break;
+            case 1:
+                audioText.text = "Audio:Off";
+                backgroundMusicSource.gameObject.SetActive(false);
                 break;
         }
     }
@@ -124,5 +143,22 @@ public class Settings : MonoBehaviour
         } */
         game.data.frameRateType = note;
         UpdateFPSText();
+    }
+
+    public void ChangeAudio()
+    {
+        var note = game.data.audioType;
+        Debug.Log($"Current Note Amount: {game.data.audioType}");
+        switch (note)
+        {
+            case 0:
+                note = 1;
+                break;
+            case 1:
+                note = 0;
+                break;
+        } 
+        game.data.audioType = note;
+        UpdateAudio();
     }
 }
