@@ -123,64 +123,83 @@ public class UpgradesManager : MonoBehaviour
         if (data.isCompleted1)
         {
             productionUpgrade[0].gameObject.SetActive(true);
-            productionUpgrade[1].gameObject.SetActive(true);
+            if(!data.isChallenge1Active && !data.isChallenge3Active)
+                productionUpgrade[1].gameObject.SetActive(true);
         }
         if (data.isCompleted1) return;
         if (data.isCompleted2)
         {
             productionUpgrade[0].gameObject.SetActive(true);
-            productionUpgrade[1].gameObject.SetActive(true);
-            productionUpgrade[2].gameObject.SetActive(true);
+            if (!data.isChallenge1Active && !data.isChallenge3Active)
+            {
+                productionUpgrade[1].gameObject.SetActive(true);
+                productionUpgrade[2].gameObject.SetActive(true);
+            }
         }
         if (data.isCompleted2) return;
         if (data.isCompleted3)
         {
             productionUpgrade[0].gameObject.SetActive(true);
-            productionUpgrade[1].gameObject.SetActive(true);
-            productionUpgrade[2].gameObject.SetActive(true);
-            productionUpgrade[3].gameObject.SetActive(true);
+            if (!data.isChallenge1Active && !data.isChallenge3Active)
+            {
+                productionUpgrade[1].gameObject.SetActive(true);
+                productionUpgrade[2].gameObject.SetActive(true);
+                productionUpgrade[3].gameObject.SetActive(true);
+            }
         }
         if (data.isCompleted3) return;
         if (data.isCompleted4)
         {
             productionUpgrade[0].gameObject.SetActive(true);
-            productionUpgrade[1].gameObject.SetActive(true);
-            productionUpgrade[2].gameObject.SetActive(true);
-            productionUpgrade[3].gameObject.SetActive(true);
-            productionUpgrade[4].gameObject.SetActive(true);
+            if (!data.isChallenge1Active && !data.isChallenge3Active)
+            {
+                productionUpgrade[1].gameObject.SetActive(true);
+                productionUpgrade[2].gameObject.SetActive(true);
+                productionUpgrade[3].gameObject.SetActive(true);
+                productionUpgrade[4].gameObject.SetActive(true);
+            }
         }
         if (data.isCompleted4) return;
         if (data.isCompleted5)
         {
             productionUpgrade[0].gameObject.SetActive(true);
-            productionUpgrade[1].gameObject.SetActive(true);
-            productionUpgrade[2].gameObject.SetActive(true);
-            productionUpgrade[3].gameObject.SetActive(true);
-            productionUpgrade[4].gameObject.SetActive(true);
             productionUpgrade[5].gameObject.SetActive(true);
+            if (!data.isChallenge1Active && !data.isChallenge3Active)
+            {
+                productionUpgrade[1].gameObject.SetActive(true);
+                productionUpgrade[2].gameObject.SetActive(true);
+                productionUpgrade[3].gameObject.SetActive(true);
+                productionUpgrade[4].gameObject.SetActive(true);
+            }
         }
         if (data.isCompleted5) return;
         if (data.isCompleted6)
         {
             productionUpgrade[0].gameObject.SetActive(true);
-            productionUpgrade[1].gameObject.SetActive(true);
-            productionUpgrade[2].gameObject.SetActive(true);
-            productionUpgrade[3].gameObject.SetActive(true);
-            productionUpgrade[4].gameObject.SetActive(true);
             productionUpgrade[5].gameObject.SetActive(true);
-            productionUpgrade[6].gameObject.SetActive(true);
+            if (!data.isChallenge1Active && !data.isChallenge3Active)
+            {
+                productionUpgrade[1].gameObject.SetActive(true);
+                productionUpgrade[2].gameObject.SetActive(true);
+                productionUpgrade[3].gameObject.SetActive(true);
+                productionUpgrade[4].gameObject.SetActive(true);
+                productionUpgrade[6].gameObject.SetActive(true);
+            }
         }
         if (data.isCompleted6) return;
         if (data.isCompleted7)
         {
             productionUpgrade[0].gameObject.SetActive(true);
-            productionUpgrade[1].gameObject.SetActive(true);
-            productionUpgrade[2].gameObject.SetActive(true);
-            productionUpgrade[3].gameObject.SetActive(true);
-            productionUpgrade[4].gameObject.SetActive(true);
             productionUpgrade[5].gameObject.SetActive(true);
-            productionUpgrade[6].gameObject.SetActive(true);
             productionUpgrade[7].gameObject.SetActive(true);
+            if (!data.isChallenge1Active && !data.isChallenge3Active)
+            {
+                productionUpgrade[1].gameObject.SetActive(true);
+                productionUpgrade[2].gameObject.SetActive(true);
+                productionUpgrade[3].gameObject.SetActive(true);
+                productionUpgrade[4].gameObject.SetActive(true);
+                productionUpgrade[6].gameObject.SetActive(true);
+            }
         }
     }
 

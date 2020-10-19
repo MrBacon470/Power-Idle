@@ -77,7 +77,7 @@ public class ConsoleController : MonoBehaviour
             {
                 powerButtonImage.color = Color.green;
                 powerButtonText.text = "ON";
-                consoleInfoText.text = $"Script Loaded:{scriptDesc[data.scriptIndex]}\n{bytesPerScript[data.scriptIndex]}";
+                consoleInfoText.text = $"Script Loaded:" + scriptDesc[data.scriptIndex] + "\n" + bytesPerScript[data.scriptIndex];
                 powerLossText.text = "-10 Power/s";
             }
             else

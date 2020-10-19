@@ -111,6 +111,16 @@ public class PlayerData
     public BigDouble byteInfusionULevel3;
     #endregion
 
+    #region Challenges
+    public BigDouble challengeLevel1;
+    public BigDouble challengeLevel2;
+    public BigDouble challengeLevel3;
+    public BigDouble quarks;
+
+    public bool isChallenge1Active;
+    public bool isChallenge2Active;
+    public bool isChallenge3Active;
+    #endregion
 
     public PlayerData()
     {
@@ -184,6 +194,17 @@ public class PlayerData
         byteInfusionULevel1 = 0;
         byteInfusionULevel2 = 0;
         byteInfusionULevel3 = 0;
+        #endregion
+
+        #region Challenges
+        challengeLevel1 = 0;
+        challengeLevel2 = 0;
+        challengeLevel3 = 0;
+        quarks = 0;
+
+        isChallenge1Active = false;
+        isChallenge2Active = false;
+        isChallenge3Active = false;
         #endregion
     }
 }

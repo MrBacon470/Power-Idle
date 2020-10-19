@@ -44,12 +44,18 @@ public class IdleGame : MonoBehaviour
     public ConsoleController console;
     public ScriptLibrary scriptLibrary;
     public ByteInfusionManager bytes;
+    public ChallengeManager challenge;
     
     public Text powerText;
     public Text powerPerSecText;
 
     public Text transformersText;
     public Text superConductorsText;
+
+    public Text quarkText;
+    public Text quarkBoostText;
+
+    public Text saveTimerText;
 
     public GameObject infusionButton;
     public GameObject megaButton;
@@ -66,6 +72,7 @@ public class IdleGame : MonoBehaviour
     public Canvas consoleCanvas;
     public Canvas scriptLibraryCanvas;
     public Canvas techTreeCanvas;
+    //public Canvas startScreen;
 
     public void Start()
     {
@@ -73,7 +80,8 @@ public class IdleGame : MonoBehaviour
         Screen.SetResolution(1920, 1080, false);
         Application.runInBackground = true;
 
-        mainMenuGroup.gameObject.SetActive(true);
+        //startScreen.gameObject.SetActive(true);
+        mainMenuGroup.gameObject.SetActive(false);
         settingsGroup.gameObject.SetActive(false);
         researchCanvas.gameObject.SetActive(false);
         sphereCanvas.gameObject.SetActive(false);
@@ -114,7 +122,9 @@ public class IdleGame : MonoBehaviour
         transformersText.text = data.hasPrestiged ? $"{Methods.NotationMethod(data.transformers, "F2")} Transformers" : "Not Discovered Yet";
         superConductorsText.text = data.hasMastered ? $"{Methods.NotationMethod(data.superConductors, "F2")} Super Conductors" : "Not Discovered Yet";
         powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
-        powerText.text = data.power > 1e306 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0"); 
+        powerText.text = data.power > 1e306 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0");
+        quarkText.text = data.quarks <= 0 ? "Not Discovered Yet" : $"{Methods.NotationMethod(data.quarks, "F2")} Quarks";
+        quarkBoostText.text = data.quarks <= 0 ? "?????" : $"{Methods.NotationMethod(challenge.QuarkBoost(), "F2")}";
 
         if (data.hasPrestiged)
             infusionButton.gameObject.SetActive(true);
@@ -142,7 +152,12 @@ public class IdleGame : MonoBehaviour
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
 
-    saveTimer += Time.deltaTime;
+        if (settingsGroup.gameObject.activeSelf)
+            saveTimerText.text = saveTimer < 12 ? $"{Methods.NotationMethod(15 - saveTimer, "F2")} Safe To Quit" : $"{Methods.NotationMethod(15 - saveTimer, "F2")} Not Safe To Quit";
+        if (settingsGroup.gameObject.activeSelf)
+            saveTimerText.color = saveTimer < 12 ? Color.green : Color.red; 
+
+        saveTimer += Time.deltaTime;
 
         if (!(saveTimer >= 15)) return;
         Save();
@@ -150,9 +165,8 @@ public class IdleGame : MonoBehaviour
         saveTimer = 0;
     }
 
-    public async void Save()
+    public void Save()
     {
-        await nonStaticSaveSystem.AwaitGetUTCTIme();
         SaveSystem.SavePlayer(data, "PlayerData");
     }
 
@@ -237,11 +251,15 @@ public class IdleGame : MonoBehaviour
             case "techtree":
                 techTreeCanvas.gameObject.SetActive(true);
                 break;
+            //case "start":
+                //startScreen.gameObject.SetActive(true);
+                //break;
         }
     }
 
     void DisableAll()
     {
+        //startScreen.gameObject.SetActive(false);
         mainMenuGroup.gameObject.SetActive(false);
         settingsGroup.gameObject.SetActive(false);
         researchCanvas.gameObject.SetActive(false);

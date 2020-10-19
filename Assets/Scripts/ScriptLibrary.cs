@@ -49,6 +49,51 @@ public class ScriptLibrary : MonoBehaviour
     {
         var data = game.data;
         #region ifs
+        if (data.isScript6Selected)
+        {
+            data.scriptIndex = 5;
+            data.isScript1Selected = false;
+            data.isScript2Selected = false;
+            data.isScript3Selected = false;
+            data.isScript4Selected = false;
+            data.isScript5Selected = false;
+        }
+        if (data.isScript5Selected)
+        {
+            data.scriptIndex = 4;
+            data.isScript1Selected = false;
+            data.isScript2Selected = false;
+            data.isScript3Selected = false;
+            data.isScript4Selected = false;
+            data.isScript6Selected = false;
+        }
+        if (data.isScript4Selected)
+        {
+            data.scriptIndex = 3;
+            data.isScript1Selected = false;
+            data.isScript2Selected = false;
+            data.isScript3Selected = false;
+            data.isScript5Selected = false;
+            data.isScript6Selected = false;
+        }
+        if (data.isScript3Selected)
+        {
+            data.scriptIndex = 2;
+            data.isScript1Selected = false;
+            data.isScript2Selected = false;
+            data.isScript4Selected = false;
+            data.isScript5Selected = false;
+            data.isScript6Selected = false;
+        }
+        if (data.isScript2Selected)
+        {
+            data.scriptIndex = 1;
+            data.isScript1Selected = false;
+            data.isScript3Selected = false;
+            data.isScript4Selected = false;
+            data.isScript5Selected = false;
+            data.isScript6Selected = false;
+        }
         if (data.isScript1Selected)
         {
             data.scriptIndex = 0;
@@ -59,55 +104,6 @@ public class ScriptLibrary : MonoBehaviour
             data.isScript6Selected = false;
         }
 
-        if (data.isScript2Selected)
-        {
-            data.scriptIndex = 1;
-            data.isScript1Selected = false;
-            data.isScript3Selected = false;
-            data.isScript4Selected = false;
-            data.isScript5Selected = false;
-            data.isScript6Selected = false;
-        }
-
-        if (data.isScript3Selected)
-        {
-            data.scriptIndex = 2;
-            data.isScript1Selected = false;
-            data.isScript2Selected = false;
-            data.isScript4Selected = false;
-            data.isScript5Selected = false;
-            data.isScript6Selected = false;
-        }
-
-        if (data.isScript4Selected)
-        {
-            data.scriptIndex = 3;
-            data.isScript1Selected = false;
-            data.isScript2Selected = false;
-            data.isScript3Selected = false;
-            data.isScript5Selected = false;
-            data.isScript6Selected = false;
-        }
-
-        if (data.isScript5Selected)
-        {
-            data.scriptIndex = 4;
-            data.isScript1Selected = false;
-            data.isScript2Selected = false;
-            data.isScript3Selected = false;
-            data.isScript4Selected = false;
-            data.isScript6Selected = false;
-        }
-
-        if (data.isScript6Selected)
-        {
-            data.scriptIndex = 5;
-            data.isScript1Selected = false;
-            data.isScript2Selected = false;
-            data.isScript3Selected = false;
-            data.isScript4Selected = false;
-            data.isScript5Selected = false;
-        }
         #endregion
 
 

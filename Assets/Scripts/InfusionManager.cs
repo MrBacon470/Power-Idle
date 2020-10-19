@@ -26,6 +26,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using BreakInfinity;
 using static BreakInfinity.BigDouble;
+
 public class InfusionManager : MonoBehaviour
 {
     public IdleGame game;
