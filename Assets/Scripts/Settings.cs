@@ -66,17 +66,17 @@ public class Settings : MonoBehaviour
 
     private void UpdateFPSText()
     {
-        var note = game.data.notationType;
+        var note = game.data.frameRateType;
         switch (note)
         {
             case 0:
-                notationTypeText.text = "FPS:60";
+                fpsText.text = "FPS:60";
                 break;
             case 1:
-                notationTypeText.text = "FPS:30";
+                fpsText.text = "FPS:30";
                 break;
             case 2:
-                notationTypeText.text = "FPS:15";
+                fpsText.text = "FPS:15";
                 break;
         }
     }
