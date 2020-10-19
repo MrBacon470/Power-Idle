@@ -65,8 +65,10 @@ public class Settings : MonoBehaviour
     public void ChangeNotation()
     {
         var note = game.data.notationType;
-
-        switch (note)
+        if (note == 2) 
+            note = -1;
+        note++;
+        /* switch (note)
         {
             case 0:
                 note = 1;
@@ -77,7 +79,7 @@ public class Settings : MonoBehaviour
             case 2:
                 note = 0;
                 break;
-        }
+        } */
         game.data.notationType = note;
         Methods.NotationSettings = note;
         UpdateNotationText();
