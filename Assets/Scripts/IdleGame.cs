@@ -83,7 +83,7 @@ public class IdleGame : MonoBehaviour
         Application.runInBackground = true;
 
         //startScreen.gameObject.SetActive(true);
-        mainMenuGroup.gameObject.SetActive(false);
+        mainMenuGroup.gameObject.SetActive(true);
         settingsGroup.gameObject.SetActive(false);
         researchCanvas.gameObject.SetActive(false);
         sphereCanvas.gameObject.SetActive(false);
@@ -109,6 +109,8 @@ public class IdleGame : MonoBehaviour
     {
         if (data.power < 0)
             data.power = 0;
+        if (data.powerCollected < data.power)
+            data.powerCollected = data.power;
 
         prestige.Run();
         upgrades.RunUpgradesUI();
@@ -217,8 +219,9 @@ public class IdleGame : MonoBehaviour
         temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
         if (data.infusionULevel1 > 0)
             temp += temp * (0.05 * data.infusionULevel1);
-        if (data.byteInfusionULevel1 > 0)
-            temp += temp * (0.05 * data.byteInfusionULevel1);
+        if(!data.isChallenge3Active && !data.isChallenge2Active)
+            if (data.byteInfusionULevel1 > 0)
+                temp += temp * (0.05 * data.byteInfusionULevel1);
         if (temp <= 0)
             temp = 0;
         if (data.hasMastered)
