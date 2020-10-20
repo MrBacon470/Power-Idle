@@ -44,7 +44,7 @@ public class UpgradesManager : MonoBehaviour
 
     private void Start()
     {
-        productionUpgradeCostMults = new BigDouble[] { 1.25, 1.50, 1.75, 2.25, 2.5, 2.75, 3, 3.5 };
+        productionUpgradeCostMults = new BigDouble[] { 1.05, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75 };
         productionUpgradePower = new BigDouble[] { 1, 5, 10, 100, 1e3, 1e4, 1e7, 1e10};
         productionUpgradeBaseCosts = new BigDouble[] { 10, 100, 1e3, 1e4, 1.5e4, 1e5, 1e6, 1e8 };
         productionUpgradeCost = new BigDouble[8];
@@ -57,15 +57,28 @@ public class UpgradesManager : MonoBehaviour
     {
         var data = game.data;
         ArrayManager();
-
-        productionUpgradeCost[0] = productionUpgradeBaseCosts[0] * Pow(productionUpgradeCostMults[0], data.productionUpgrade1Level);
-        productionUpgradeCost[1] = productionUpgradeBaseCosts[1] * Pow(productionUpgradeCostMults[1], data.productionUpgrade2Level);
-        productionUpgradeCost[2] = productionUpgradeBaseCosts[2] * Pow(productionUpgradeCostMults[2], data.productionUpgrade3Level);
-        productionUpgradeCost[3] = productionUpgradeBaseCosts[3] * Pow(productionUpgradeCostMults[3], data.productionUpgrade4Level);
-        productionUpgradeCost[4] = productionUpgradeBaseCosts[4] * Pow(productionUpgradeCostMults[4], data.productionUpgrade5Level);
-        productionUpgradeCost[5] = productionUpgradeBaseCosts[5] * Pow(productionUpgradeCostMults[5], data.productionUpgrade6Level);
-        productionUpgradeCost[6] = productionUpgradeBaseCosts[6] * Pow(productionUpgradeCostMults[6], data.productionUpgrade7Level);
-        productionUpgradeCost[7] = productionUpgradeBaseCosts[7] * Pow(productionUpgradeCostMults[7], data.productionUpgrade8Level); 
+        if(!data.isChallenge3Active)
+        {
+            productionUpgradeCost[0] = productionUpgradeBaseCosts[0] * Pow(productionUpgradeCostMults[0], data.productionUpgrade1Level);
+            productionUpgradeCost[1] = productionUpgradeBaseCosts[1] * Pow(productionUpgradeCostMults[1], data.productionUpgrade2Level);
+            productionUpgradeCost[2] = productionUpgradeBaseCosts[2] * Pow(productionUpgradeCostMults[2], data.productionUpgrade3Level);
+            productionUpgradeCost[3] = productionUpgradeBaseCosts[3] * Pow(productionUpgradeCostMults[3], data.productionUpgrade4Level);
+            productionUpgradeCost[4] = productionUpgradeBaseCosts[4] * Pow(productionUpgradeCostMults[4], data.productionUpgrade5Level);
+            productionUpgradeCost[5] = productionUpgradeBaseCosts[5] * Pow(productionUpgradeCostMults[5], data.productionUpgrade6Level);
+            productionUpgradeCost[6] = productionUpgradeBaseCosts[6] * Pow(productionUpgradeCostMults[6], data.productionUpgrade7Level);
+            productionUpgradeCost[7] = productionUpgradeBaseCosts[7] * Pow(productionUpgradeCostMults[7], data.productionUpgrade8Level);
+        }
+        else
+        {
+            productionUpgradeCost[0] = productionUpgradeBaseCosts[0] * Pow(productionUpgradeCostMults[0] * 2, data.productionUpgrade1Level);
+            productionUpgradeCost[1] = productionUpgradeBaseCosts[1] * Pow(productionUpgradeCostMults[1] * 2, data.productionUpgrade2Level);
+            productionUpgradeCost[2] = productionUpgradeBaseCosts[2] * Pow(productionUpgradeCostMults[2] * 2, data.productionUpgrade3Level);
+            productionUpgradeCost[3] = productionUpgradeBaseCosts[3] * Pow(productionUpgradeCostMults[3] * 2, data.productionUpgrade4Level);
+            productionUpgradeCost[4] = productionUpgradeBaseCosts[4] * Pow(productionUpgradeCostMults[4] * 2, data.productionUpgrade5Level);
+            productionUpgradeCost[5] = productionUpgradeBaseCosts[5] * Pow(productionUpgradeCostMults[5] * 2, data.productionUpgrade6Level);
+            productionUpgradeCost[6] = productionUpgradeBaseCosts[6] * Pow(productionUpgradeCostMults[6] * 2, data.productionUpgrade7Level);
+            productionUpgradeCost[7] = productionUpgradeBaseCosts[7] * Pow(productionUpgradeCostMults[7] * 2, data.productionUpgrade8Level);
+        }
 
         data.productionUpgrade1Power = productionUpgradePower[0];
         data.productionUpgrade2Power = productionUpgradePower[1];
