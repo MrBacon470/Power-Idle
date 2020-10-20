@@ -171,9 +171,7 @@ public class IdleGame : MonoBehaviour
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
 
-        if (settingsGroup.gameObject.activeSelf)
             saveTimerText.text = saveTimer < 12 ? $"{Methods.NotationMethod(15 - saveTimer, "F2")} Safe To Quit" : $"{Methods.NotationMethod(15 - saveTimer, "F2")} Not Safe To Quit";
-        if (settingsGroup.gameObject.activeSelf)
             saveTimerText.color = saveTimer < 12 ? Color.green : Color.red; 
 
         saveTimer += Time.deltaTime;
