@@ -4,6 +4,7 @@ Includes: 2 Layer Prestige, Pollution?, 8 Upgrades, 3 Mastery Upgrades, Infusion
 # Break Infinity
 Credits for BreakInfinity.cs Razenpok/BreakInfinity.cs 
 # Credits
-Created By MrBacon470 (c) 2020 
+Created By MrBacon470 (c) 2020<br/> 
+Music Artist: StreliziaMK1™
 # Avability
 https://mrbacon470.itch.io/power-idle
