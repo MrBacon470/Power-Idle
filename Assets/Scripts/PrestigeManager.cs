@@ -60,6 +60,7 @@ public class PrestigeManager : MonoBehaviour
         data.transformers += data.transformersToGet * (0.05 * data.byteInfusionULevel3);
 
         data.power = 10;
+        data.powerCollected = 10;
         data.productionUpgrade1Level = 0;
         data.productionUpgrade2Level = 0;
         data.productionUpgrade3Level = 0;
