@@ -61,6 +61,7 @@ public class IdleGame : MonoBehaviour
     public GameObject megaButton;
     public GameObject consoleButton;
     public GameObject challengeButton;
+    public GameObject techTreeButton;
     
     public BigDouble plasmaTemp;
 
@@ -73,6 +74,7 @@ public class IdleGame : MonoBehaviour
     public Canvas consoleCanvas;
     public Canvas scriptLibraryCanvas;
     public Canvas techTreeCanvas;
+    public Canvas byteInfusionCanvas;
     public Canvas challengeCanvas;
     //public Canvas startScreen;
 
@@ -92,6 +94,7 @@ public class IdleGame : MonoBehaviour
         consoleCanvas.gameObject.SetActive(false);
         scriptLibraryCanvas.gameObject.SetActive(false);
         techTreeCanvas.gameObject.SetActive(false);
+        byteInfusionCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
@@ -111,6 +114,8 @@ public class IdleGame : MonoBehaviour
             data.power = 0;
         if (data.powerCollected < data.power)
             data.powerCollected = data.power;
+        if (data.isSoftCapped && data.power > 1.79e308)
+            data.power = 1.79e308;
 
         prestige.Run();
         upgrades.RunUpgradesUI();
@@ -136,9 +141,9 @@ public class IdleGame : MonoBehaviour
         transformersText.text = data.hasPrestiged ? $"{Methods.NotationMethod(data.transformers, "F2")} Transformers" : "Not Discovered Yet";
         superConductorsText.text = data.hasMastered ? $"{Methods.NotationMethod(data.superConductors, "F2")} Super Conductors" : "Not Discovered Yet";
         powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
-        powerText.text = data.power > 1e306 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0");
-        quarkText.text = data.quarks <= 0 ? "Not Discovered Yet" : $"{Methods.NotationMethod(data.quarks, "F2")} Quarks";
-        quarkBoostText.text = data.quarks <= 0 ? "?????" : $"{Methods.NotationMethod(challenge.QuarkBoost(), "F2")}";
+        powerText.text = data.power >= 1.79e308 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0");
+        quarkText.text = data.amps <= 0 ? "Not Discovered Yet" : $"{Methods.NotationMethod(data.amps, "F2")} Amps";
+        quarkBoostText.text = data.amps <= 0 ? "?????" : $"{Methods.NotationMethod(challenge.QuarkBoost(), "F2")}";
 
         if (data.hasPrestiged)
             infusionButton.gameObject.SetActive(true);
@@ -155,8 +160,8 @@ public class IdleGame : MonoBehaviour
         else
             consoleButton.gameObject.SetActive(false);
 
-        if (data.power > 1e306 && data.isSoftCapped)
-            data.power = 1e306;
+        if (data.power > 1.79e308 && data.isSoftCapped)
+            data.power = 1.79e308;
 
         if (data.hasMastered)
             data.isSoftCapped = false;
@@ -167,6 +172,11 @@ public class IdleGame : MonoBehaviour
             challengeButton.gameObject.SetActive(true);
         else
             challengeButton.gameObject.SetActive(false);
+
+        if (data.isTechTreeUnlocked)
+            techTreeButton.gameObject.SetActive(true);
+        else
+            techTreeButton.gameObject.SetActive(false);
 
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
@@ -226,7 +236,7 @@ public class IdleGame : MonoBehaviour
             temp += dysonSphere.SpherePowerPerSec();
         if (data.isConsoleUnlocked)
             temp *= console.BytesBoost();
-        if (data.quarks > 0)
+        if (data.amps > 0)
             temp *= challenge.QuarkBoost();
         if (data.isConsoleOn)
             temp -= 10;
@@ -277,6 +287,9 @@ public class IdleGame : MonoBehaviour
             case "challenge":
                 challengeCanvas.gameObject.SetActive(true);
                 break;
+            case "bytes":
+                byteInfusionCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -293,6 +306,7 @@ public class IdleGame : MonoBehaviour
         scriptLibraryCanvas.gameObject.SetActive(false);
         techTreeCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
+        byteInfusionCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()
