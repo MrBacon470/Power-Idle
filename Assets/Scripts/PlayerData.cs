@@ -41,6 +41,7 @@ public class PlayerData
 
     public short notationType;
     public short frameRateType;
+    public short audioType;
     #endregion
     #region Upgrades
     public BigDouble productionUpgrade1Level;
@@ -116,13 +117,17 @@ public class PlayerData
     public BigDouble challengeLevel1;
     public BigDouble challengeLevel2;
     public BigDouble challengeLevel3;
-    public BigDouble quarks;
+    public BigDouble amps;
 
     public bool isChallenge1Active;
     public bool isChallenge2Active;
     public bool isChallenge3Active;
 
     public bool isChallengesUnlocked;
+    #endregion
+
+    #region techTreeStuff
+    public bool isTechTreeUnlocked;
     #endregion
 
     public PlayerData()
@@ -203,12 +208,16 @@ public class PlayerData
         challengeLevel1 = 0;
         challengeLevel2 = 0;
         challengeLevel3 = 0;
-        quarks = 0;
+        amps = 0;
 
         isChallenge1Active = false;
         isChallenge2Active = false;
         isChallenge3Active = false;
         isChallengesUnlocked = false;
+        #endregion
+
+        #region TechTreeStuff
+        isTechTreeUnlocked = false;
         #endregion
     }
 }
