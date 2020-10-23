@@ -140,6 +140,13 @@ public class PlayerData
 
     public bool isConsoleBranch1Locked;
     #endregion
+    #region Mastery Branch
+    public BigDouble masteryBranch1Level;
+    public BigDouble masteryBranch2Level;
+
+    public bool isMasteryBranch1Locked;
+    public bool isMasteryBranch2Locked;
+    #endregion
     #endregion
 
     public PlayerData()
@@ -241,6 +248,13 @@ public class PlayerData
         consoleBranch1Level = 0;
 
         isConsoleBranch1Locked = true;
+        #endregion
+        #region Mastery Branch
+        masteryBranch1Level = 0;
+        masteryBranch2Level = 0;
+
+        isMasteryBranch1Locked = true;
+        isMasteryBranch2Locked = true;
         #endregion
         #endregion
     }

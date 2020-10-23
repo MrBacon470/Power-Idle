@@ -45,12 +45,12 @@ public class ConsoleBranch : MonoBehaviour
     public void StartConsole()
     {
         var data = techTree.game.data;
-        consoleBranchText = new Text[2];
-        consoleBranchIcons = new Image[2];
-        consoleBranchCosts = new BigDouble[2];
+        consoleBranchText = new Text[1];
+        consoleBranchIcons = new Image[1];
+        consoleBranchCosts = new BigDouble[1];
         consoleBranchCostMults = new BigDouble[] { 5 };
         consoleBranchBaseCosts = new BigDouble[] { 1e9 };
-        consoleBranchLevels = new BigDouble[2];
+        consoleBranchLevels = new BigDouble[1];
         consoleBranchMaxLevels = new BigDouble[] { 10 };
         consoleBranchDesc = new string[] {$"5x Bytes/s Cost:{Methods.NotationMethod(consoleBranchCosts[0],"F0")} Bytes\nLevel:{Methods.NotationMethod(consoleBranchLevels[0],"F0")}/{Methods.NotationMethod(consoleBranchMaxLevels[0],"F0")}"};
     }
@@ -63,7 +63,7 @@ public class ConsoleBranch : MonoBehaviour
 
         consoleBranchCosts[0] = consoleBranchBaseCosts[0] * Pow(consoleBranchCostMults[0], data.consoleBranch1Level);
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 1; i++)
         {
             consoleBranchText[i].text = consoleBranchLevels[i] >= consoleBranchMaxLevels[i] ? "MAX" : consoleBranchDesc[i];
             if (consoleBranchLevels[i] > consoleBranchMaxLevels[i])
@@ -74,14 +74,10 @@ public class ConsoleBranch : MonoBehaviour
     public void BoolManager()
     {
         var data = techTree.game.data;
-        if (data.isTechTreeUnlocked)
-            data.isPowerBranch1Locked = false;
+        if (techTree.power.powerBranchLevels[0] > 0)
+            data.isConsoleBranch1Locked = false;
         else
-            data.isPowerBranch1Locked = true;
-        if (consoleBranchLevels[0] > 0)
-            data.isPowerBranch2Locked = false;
-        else
-            data.isPowerBranch2Locked = true;
+            data.isConsoleBranch1Locked = true;
     }
 
     public void BuyModule(int index)
@@ -101,7 +97,7 @@ public class ConsoleBranch : MonoBehaviour
     {
         var data = techTree.game.data;
 
-        consoleBranchLevels[0] = data.powerBranch1Level;
+        consoleBranchLevels[0] = data.consoleBranch1Level;
 
         isConsoleBranchModuleLocked[0] = data.isConsoleBranch1Locked;
     }

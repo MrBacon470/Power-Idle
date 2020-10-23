@@ -30,18 +30,89 @@ public class MasteryBranch : MonoBehaviour
 {
     public TechTreeManager techTree;
 
+    [Header("Object Stuff")]
+    public Text[] masteryBranchText;
+    public Image[] masteryBranchIcons;
+    public string[] masteryBranchDesc;
+    [Header("Numbers")]
+    public BigDouble[] masteryBranchLevels;
+    public BigDouble[] masteryBranchMaxLevels;
+    public BigDouble[] masteryBranchBaseCosts;
+    public BigDouble[] masteryBranchCosts;
+    public BigDouble[] masteryBranchCostMults;
+    public bool[] isMasteryBranchModuleLocked;
+
     public void StartMastery()
     {
         var data = techTree.game.data;
+        masteryBranchText = new Text[2];
+        masteryBranchIcons = new Image[2];
+        masteryBranchCosts = new BigDouble[2];
+        masteryBranchCostMults = new BigDouble[] { 20, 1 };
+        masteryBranchBaseCosts = new BigDouble[] { 1e6, 1e75 };
+        masteryBranchLevels = new BigDouble[2];
+        masteryBranchMaxLevels = new BigDouble[] { 5, 1 };
+        masteryBranchDesc = new string[] { $"2x Dyson Sphere Production Cost:{Methods.NotationMethod(masteryBranchCosts[0], "F0")} Super Conductors\nLevel:{Methods.NotationMethod(masteryBranchLevels[0], "F0")}/{Methods.NotationMethod(masteryBranchMaxLevels[0], "F0")}"
+            ,$"Convert Sun into Neutron Star 50x Dyson Sphere Production Cost:{Methods.NotationMethod(masteryBranchCosts[1], "F0")} Super Conductors\nLevel:{Methods.NotationMethod(masteryBranchLevels[1], "F0")}/{Methods.NotationMethod(masteryBranchMaxLevels[1], "F0")}" };
     }
 
     public void UpdateMastery()
     {
         var data = techTree.game.data;
+        ArrayManager();
+        BoolManager();
+
+        masteryBranchCosts[0] = masteryBranchBaseCosts[0] * Pow(masteryBranchCostMults[0], data.consoleBranch1Level);
+
+        for (int i = 0; i < 2; i++)
+        {
+            masteryBranchText[i].text = masteryBranchLevels[i] >= masteryBranchMaxLevels[i] ? "MAX" : masteryBranchDesc[i];
+            if (masteryBranchLevels[i] > masteryBranchMaxLevels[i])
+                masteryBranchLevels[i] = masteryBranchMaxLevels[i];
+        }
+    }
+
+    public void BoolManager()
+    {
+        var data = techTree.game.data;
+        if (data.isTechTreeUnlocked)
+            data.isMasteryBranch1Locked = false;
+        else
+            data.isMasteryBranch1Locked = true;
+        if (masteryBranchLevels[0] > 0)
+            data.isMasteryBranch2Locked = false;
+        else
+            data.isMasteryBranch2Locked = true;
+    }
+
+    public void BuyModule(int index)
+    {
+        if (isMasteryBranchModuleLocked[index]) return;
+        if (masteryBranchLevels[index] >= masteryBranchMaxLevels[index]) return;
+        var data = techTree.game.data;
+        if (data.superConductors >= masteryBranchCosts[index])
+        {
+            masteryBranchLevels[index]++;
+            data.superConductors -= masteryBranchCosts[index];
+        }
+        NonArrayManager();
     }
 
     public void ArrayManager()
     {
         var data = techTree.game.data;
+        masteryBranchLevels[0] = data.masteryBranch1Level;
+        masteryBranchLevels[1] = data.masteryBranch2Level;
+
+        isMasteryBranchModuleLocked[0] = data.isMasteryBranch1Locked;
+        isMasteryBranchModuleLocked[1] = data.isMasteryBranch2Locked;
+    }
+
+    private void NonArrayManager()
+    {
+        var data = techTree.game.data;
+
+        data.masteryBranch1Level = masteryBranchLevels[0];
+        data.masteryBranch2Level = masteryBranchLevels[1];
     }
 }
