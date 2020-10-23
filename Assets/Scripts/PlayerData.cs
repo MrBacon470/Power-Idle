@@ -128,6 +128,18 @@ public class PlayerData
 
     #region techTreeStuff
     public bool isTechTreeUnlocked;
+    #region Power Branch
+    public BigDouble powerBranch1Level;
+    public BigDouble powerBranch2Level;
+
+    public bool isPowerBranch1Locked;
+    public bool isPowerBranch2Locked;
+    #endregion
+    #region Console Branch
+    public BigDouble consoleBranch1Level;
+
+    public bool isConsoleBranch1Locked;
+    #endregion
     #endregion
 
     public PlayerData()
@@ -218,6 +230,18 @@ public class PlayerData
 
         #region TechTreeStuff
         isTechTreeUnlocked = false;
+        #region Power Branch
+        powerBranch1Level = 0;
+        powerBranch2Level = 0;
+
+        isPowerBranch1Locked = true;
+        isPowerBranch2Locked = true;
+        #endregion
+        #region Console Branch
+        consoleBranch1Level = 0;
+
+        isConsoleBranch1Locked = true;
+        #endregion
         #endregion
     }
 }

@@ -30,31 +30,32 @@ using static BreakInfinity.BigDouble;
 public class TechTreeManager : MonoBehaviour
 {
     public IdleGame game;
+    [Header("Branch Controllers")]
+    public ConsoleBranch console;
+    public PowerBranch power;
+    public PrestigeBranch prestige;
+    public MasteryBranch mastery;
+    public ChallengeBranch challenge;
     [Header("Sprites")]
-    public Sprite lockedSprite;
-    public Sprite unlockedSprite;
-    public Sprite maxedSprite;
-    [Header("Objects")]
-    public Image[] techTreeIcons;
-    public Text[] techTreeText;
-    public string[] techTreeDesc;
-    [Header("Numbers")]
-    public BigDouble[] techTreeLevels;
-    public BigDouble[] techTreeMaxLevels;
-    public BigDouble[] techTreeCosts;
-    public BigDouble[] techTreeCostMults;
+    public Sprite lockedIcon;
+    public Sprite unlockedIcon;
+    public Sprite maxedIcon;
 
-    public void StartTechTree()
+    public void BootTechTree()
     {
-        techTreeIcons = new Image[6];
-        techTreeDesc = new string[] {$"3x Power/s and Bytes/s Cost:{Methods.NotationMethod(techTreeCosts[0],"F0")} Power\nLevel {Methods.NotationMethod(techTreeLevels[0],"F0")}/{Methods.NotationMethod(techTreeMaxLevels[0],"F0")}"
-            ,$"Boost Infusions by 1.5x Cost:{Methods.NotationMethod(techTreeCosts[1], "F0")} Transformers\nLevel {Methods.NotationMethod(techTreeLevels[1],"F0")}/{Methods.NotationMethod(techTreeMaxLevels[1],"F0")}"
-            ,$"" };
-        techTreeText = new Text[6];
+        console.StartConsole();
+        power.StartPower();
+        prestige.UpdatePrestige();
+        mastery.StartMastery();
+        challenge.StartChallenge();
+    }
 
-        techTreeLevels = new BigDouble[6];
-        techTreeMaxLevels = new BigDouble[] { 20, 10, 5, 1 };
-        techTreeCosts = new BigDouble[6];
-        techTreeCostMults = new BigDouble[] { 10, 5, 2.5, 1.5 };
+    public void UpdateTechTree()
+    {
+        console.UpdateConsole();
+        power.UpdatePower();
+        prestige.UpdatePrestige();
+        mastery.UpdateMastery();
+        challenge.UpdateChallenge();
     }
 }

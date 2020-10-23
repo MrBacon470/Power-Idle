@@ -41,20 +41,21 @@ public class ChallengeManager : MonoBehaviour
     public BigDouble challengeGoal2 => 1e38 * Pow(1.75, game.data.challengeLevel2);
     public BigDouble challengeGoal3 => 1e38 * Pow(2.5, game.data.challengeLevel3);
 
-    public Text[] challengeText = new Text[3];
+    public Text[] challengeText;
+    public GameObject[] challengePopUp;
+    public Text[] challengePopUpText;
 
     public BigDouble[] challengeReward;
     public BigDouble[] challengeLevels;
 
-    public string[] challengeDesc;
 
     public void StartChallenges()
     {
         challengeReward = new BigDouble[3];
         challengeLevels = new BigDouble[3];
-        challengeDesc = new string[] { $"Challenge: Clean Energy\nUse only Manual Generators, Steam Turbines and Fusion Reactors to get to {Methods.NotationMethod(challengeGoal1, "F2")} Power",
-            $"Challenge: No Console\nGet to {Methods.NotationMethod(challengeGoal2,"F2")} Power with no Bytes and No Boost",
-            $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3,"F2")} Power with side effects of Clean Energy and No Console plus No Prestige and Mastery Upgrades" };
+        challengeText = new Text[3];
+        challengePopUp = new GameObject[3];
+        challengePopUpText = new Text[3];
     }
 
     public void Run()
@@ -70,11 +71,12 @@ public class ChallengeManager : MonoBehaviour
 
         void UI()
         {
-            for (var i = 0; i < challengeText.Length; i++)
+            if(game.challengeCanvas.gameObject.activeSelf)
             {
-                challengeText[i].text = challengeDesc[i] + "\nReward:" + Methods.NotationMethod(challengeReward[i], "F0") + " Quarks\nCompletions:" + Methods.NotationMethod(challengeLevels[i], "F0");
+                challengeText[0].text = data.isChallenge2Active || data.isChallenge3Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Clean Energy\nUse only Manual Generators, Steam Turbines and Fusion Reactors to get to {Methods.NotationMethod(challengeGoal1, "F2")} Power\nReward: {Methods.NotationMethod(challengeReward[0], "F0")} Quarks\nCompletions: {Methods.NotationMethod(challengeLevels[0], "F0")}";
+                challengeText[1].text = data.isChallenge1Active || data.isChallenge3Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: No Console\nGet to {Methods.NotationMethod(challengeGoal2, "F2")} Power with no Bytes and No Boost\nReward: {Methods.NotationMethod(challengeReward[1], "F0")} Quarks\nCompletions: {Methods.NotationMethod(challengeLevels[1], "F0")}";
+                challengeText[2].text = data.isChallenge1Active || data.isChallenge2Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3, "F2")} Power with side effects of Clean Energy and No Console plus No Prestige and Mastery Upgrades\nReward: {Methods.NotationMethod(challengeReward[2], "F0")} Quarks\nCompletions: {Methods.NotationMethod(challengeLevels[2], "F0")}";
             }
-
         }
     }
 
@@ -88,14 +90,17 @@ public class ChallengeManager : MonoBehaviour
         {
             case 0:
                 data.isChallenge1Active = true;
+                StartChallenge();
                 break;
 
             case 1:
                 data.isChallenge2Active = true;
+                StartChallenge();
                 break;
 
             case 2:
                 data.isChallenge3Active = true;
+                StartChallenge();
                 break;
         }
 
@@ -149,19 +154,25 @@ public class ChallengeManager : MonoBehaviour
         switch(index)
         {
             case 0:
-                data.quarks += reward1;
+                data.amps += reward1;
                 data.isChallenge1Active = false;
                 data.challengeLevel1++;
+                challengePopUp[0].gameObject.SetActive(true);
+                challengePopUpText[0].text = $"CHALLENGE 1 COMPLETED\nREWARD:{Methods.NotationMethod(reward1, "F0")} AMPS";
                 break;
             case 1:
-                data.quarks += reward2;
+                data.amps += reward2;
                 data.isChallenge2Active = false;
                 data.challengeLevel2++;
+                challengePopUp[1].gameObject.SetActive(true);
+                challengePopUpText[0].text = $"CHALLENGE 2 COMPLETED\nREWARD:{Methods.NotationMethod(reward2, "F0")} AMPS";
                 break;
             case 2:
-                data.quarks += reward3;
+                data.amps += reward3;
                 data.isChallenge3Active = false;
                 data.challengeLevel3++;
+                challengePopUp[2].gameObject.SetActive(true);
+                challengePopUpText[0].text = $"CHALLENGE 3 COMPLETED\nREWARD:{Methods.NotationMethod(reward3, "F0")} AMPS";
                 break;
         }
     }
@@ -195,9 +206,16 @@ public class ChallengeManager : MonoBehaviour
                 CompleteChallenge(2);
             }
     }
+
+    public void ClosePopup()
+    {
+        challengePopUp[0].gameObject.SetActive(false);
+        challengePopUp[1].gameObject.SetActive(false);
+        challengePopUp[2].gameObject.SetActive(false);
+    }
     public BigDouble QuarkBoost()
     {
-        var temp = game.data.quarks * 0.1;
+        var temp = game.data.amps * 0.1;
         return temp + 1;
     }
 }

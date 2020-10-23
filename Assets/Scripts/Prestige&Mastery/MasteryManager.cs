@@ -39,12 +39,12 @@ public class MasteryManager : MonoBehaviour
     {
         var data = game.data;
 
-        if (data.power >= 1e306)
-            data.superConductorsToGet = 150 * Sqrt((data.power + data.transformers) / 1e306);
+        if (data.power >= 1.79e308)
+            data.superConductorsToGet = 150 * Sqrt((data.power + data.transformers) / 1e307);
         else
             data.superConductors = 0;
 
-        if (data.power >= 1e306)
+        if (data.power >= 1.79e308)
             masteryMenu.gameObject.SetActive(true);
         else
             masteryMenu.gameObject.SetActive(false);
@@ -55,7 +55,7 @@ public class MasteryManager : MonoBehaviour
     public void Mastery()
     {
         var data = game.data;
-        if (data.power < 1e306) return;
+        if (data.power < 1.79e308) return;
 
         data.hasMastered = true;
 
