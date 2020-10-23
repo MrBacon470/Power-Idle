@@ -73,7 +73,7 @@ public class Methods : MonoBehaviour
                     var mantissa2 = x / Pow(10, exponent);
 
                     if (x < 1000) return x.ToString("F2"); // Normal Number
-                    if (x > 1e308) return mantissa2.ToString("F2") + "e" + exponent2; //over 1e308 sci notation
+                    if (x > 1e306) return mantissa2.ToString("F2") + "e" + exponent2; //over 1e308 sci notation
                     return (x / Pow(10, thirdExponent)).ToString("F2") + prefixes[thirdExponent.ToDouble()]; //word notation
 
                 }
@@ -183,7 +183,6 @@ public class Methods : MonoBehaviour
         {297, " Octononagintillion" },
         {300, " Novemnonagintillion" },
         {303, " Centillion" },
-        {306, " Infinity" }
     };
 
     public static void BuyMax(ref BigDouble c, BigDouble b, float r, ref BigDouble k)

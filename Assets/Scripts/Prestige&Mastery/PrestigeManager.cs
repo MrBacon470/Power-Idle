@@ -27,43 +27,39 @@ using UnityEngine.UI;
 using BreakInfinity;
 using static BreakInfinity.BigDouble;
 
-public class MasteryManager : MonoBehaviour
+public class PrestigeManager : MonoBehaviour
 {
     public IdleGame game;
     public UpgradesManager upgrades;
     public ResearchManager research;
-    public Text masteryText;
-    public GameObject masteryMenu;
+    public Text prestigeText;
+    public GameObject prestigeMenu;
+
 
     public void Run()
     {
         var data = game.data;
 
-        if (data.power >= 1e306)
-            data.superConductorsToGet = 150 * Sqrt((data.power + data.transformers) / 1e306);
-        else
-            data.superConductors = 0;
+        data.transformersToGet = 150 * Sqrt(data.power / 2.5e4);
 
-        if (data.power >= 1e306)
-            masteryMenu.gameObject.SetActive(true);
+        if (data.currentPollution >= 409.8e6)
+            prestigeMenu.gameObject.SetActive(true);
         else
-            masteryMenu.gameObject.SetActive(false);
+            prestigeMenu.gameObject.SetActive(false);
 
-        masteryText.text = $"Mastery +{Methods.NotationMethod(data.superConductorsToGet, "F2")} Super Conductors";
+        prestigeText.text = $"Prestige +{Methods.NotationMethod(data.transformersToGet, "F2")} Transformers";
     }
 
-    public void Mastery()
+    public void Prestige()
     {
         var data = game.data;
-        if (data.power < 1e306) return;
 
-        data.hasMastered = true;
+        data.hasPrestiged = true;
 
-        data.superConductors += data.superConductorsToGet;
+        data.transformers += data.transformersToGet + (data.transformersToGet * (0.05 * data.infusionULevel3));
+        data.transformers += data.transformersToGet * (0.05 * data.byteInfusionULevel3);
 
         data.power = 10;
-        data.superConductorsToGet = 0;
-        data.transformers = 0;
         data.productionUpgrade1Level = 0;
         data.productionUpgrade2Level = 0;
         data.productionUpgrade3Level = 0;
