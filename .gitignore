@@ -2,3 +2,11 @@
 .DS_Store
 .vs
 .meta
+Assets/Scripts/SaveSystem.cs.meta
+Assets/Scripts/SaveSystem.cs
+Assets/Scripts/BigDoubleTutorial.cs.meta
+Assets/Scripts/BigDoubleTutorial.cs
+Assets/Scripts/BigDoubleEditor.cs.meta
+Assets/Scripts/BigDoubleEditor.cs
+Assets/Scripts/BigDouble.cs.meta
+Assets/Scripts/BigDouble.cs
