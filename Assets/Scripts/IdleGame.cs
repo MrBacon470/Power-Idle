@@ -104,6 +104,11 @@ public class IdleGame : MonoBehaviour
         bytes.StartInfusion();
         challenge.StartChallenges();
 
+        if (data.quarks > 0)
+        {
+            data.amps += data.quarks;
+            data.quarks = 0;
+        }
         TotalPowerPerSecond();
         Methods.NotationSettings = data.notationType;
     }

@@ -61,8 +61,10 @@ public class MasteryBranch : MonoBehaviour
         var data = techTree.game.data;
         ArrayManager();
         BoolManager();
+        ImageManager();
 
-        masteryBranchCosts[0] = masteryBranchBaseCosts[0] * Pow(masteryBranchCostMults[0], data.consoleBranch1Level);
+        masteryBranchCosts[0] = masteryBranchBaseCosts[0] * Pow(masteryBranchCostMults[0], data.masteryBranch1Level);
+        masteryBranchCosts[1] = masteryBranchBaseCosts[1] * Pow(masteryBranchCostMults[1], data.masteryBranch2Level);
 
         for (int i = 0; i < 2; i++)
         {
@@ -96,6 +98,20 @@ public class MasteryBranch : MonoBehaviour
             data.superConductors -= masteryBranchCosts[index];
         }
         NonArrayManager();
+    }
+
+    public void ImageManager()
+    {
+        var data = techTree.game.data;
+        if (data.isMasteryBranch1Locked)
+            masteryBranchIcons[0].sprite = techTree.lockedIcon;
+        else
+            masteryBranchIcons[0].sprite = masteryBranchLevels[0] >= masteryBranchMaxLevels[0] ? techTree.maxedIcon : techTree.unlockedIcon;
+        if (data.isMasteryBranch2Locked)
+            masteryBranchIcons[1].sprite = techTree.lockedIcon;
+        else
+            masteryBranchIcons[1].sprite = masteryBranchLevels[1] >= masteryBranchMaxLevels[1] ? techTree.maxedIcon : techTree.unlockedIcon;
+
     }
 
     public void ArrayManager()

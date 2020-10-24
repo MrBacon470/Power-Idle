@@ -60,6 +60,7 @@ public class ConsoleBranch : MonoBehaviour
         var data = techTree.game.data;
         ArrayManager();
         BoolManager();
+        ImageManager();
 
         consoleBranchCosts[0] = consoleBranchBaseCosts[0] * Pow(consoleBranchCostMults[0], data.consoleBranch1Level);
 
@@ -91,6 +92,16 @@ public class ConsoleBranch : MonoBehaviour
             data.bytes -= consoleBranchCosts[index];
         }
         NonArrayManager();
+    }
+
+    public void ImageManager()
+    {
+        var data = techTree.game.data;
+        if (data.isConsoleBranch1Locked)
+            consoleBranchIcons[0].sprite = techTree.lockedIcon;
+        else
+            consoleBranchIcons[0].sprite = consoleBranchLevels[0] >= consoleBranchMaxLevels[0] ? techTree.maxedIcon : techTree.unlockedIcon;
+
     }
 
     private void ArrayManager()

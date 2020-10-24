@@ -118,6 +118,7 @@ public class PlayerData
     public BigDouble challengeLevel2;
     public BigDouble challengeLevel3;
     public BigDouble amps;
+    public BigDouble quarks;
 
     public bool isChallenge1Active;
     public bool isChallenge2Active;
@@ -146,6 +147,13 @@ public class PlayerData
 
     public bool isMasteryBranch1Locked;
     public bool isMasteryBranch2Locked;
+    #endregion
+    #region Prestige Branch
+    public BigDouble prestigeBranch1Level;
+    public BigDouble prestigeBranch2Level;
+
+    public bool isPrestigeBranch1Locked;
+    public bool isPrestigeBranch2Locked;
     #endregion
     #endregion
 
@@ -228,6 +236,7 @@ public class PlayerData
         challengeLevel2 = 0;
         challengeLevel3 = 0;
         amps = 0;
+        quarks = 0;
 
         isChallenge1Active = false;
         isChallenge2Active = false;
@@ -255,6 +264,13 @@ public class PlayerData
 
         isMasteryBranch1Locked = true;
         isMasteryBranch2Locked = true;
+        #endregion
+        #region Prestige Branch
+        prestigeBranch1Level = 0;
+        prestigeBranch2Level = 0;
+
+        isPrestigeBranch1Locked = true;
+        isPrestigeBranch2Locked = true;
         #endregion
         #endregion
     }

@@ -61,6 +61,7 @@ public class PowerBranch : MonoBehaviour
         var data = techTree.game.data;
         ArrayManager();
         BoolManager();
+        ImageManager();
 
         powerBranchCosts[0] = powerBranchBaseCosts[0] * Pow(powerBranchCostMults[0], data.powerBranch1Level);
         powerBranchCosts[1] = powerBranchBaseCosts[1] * Pow(powerBranchCostMults[1], data.powerBranch2Level);
@@ -93,7 +94,11 @@ public class PowerBranch : MonoBehaviour
             powerBranchIcons[0].sprite = techTree.lockedIcon;
         else
             powerBranchIcons[0].sprite = powerBranchLevels[0] >= powerBranchMaxLevels[0] ? techTree.maxedIcon : techTree.unlockedIcon;
-        
+        if (data.isPowerBranch2Locked)
+            powerBranchIcons[1].sprite = techTree.lockedIcon;
+        else
+            powerBranchIcons[1].sprite = powerBranchLevels[1] >= powerBranchMaxLevels[1] ? techTree.maxedIcon : techTree.unlockedIcon;
+
     }
 
     public void BuyModule(int index)
