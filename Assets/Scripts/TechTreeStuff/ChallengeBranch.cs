@@ -32,9 +32,8 @@ public class ChallengeBranch : MonoBehaviour
     public TechTreeManager techTree;
 
     [Header("Object Stuff")]
-    public Text[] challengeBranchText;
+    public Text[] challengeBranchText = new Text[2];
     public Image[] challengeBranchIcons = new Image[2];
-    public string[] challengeBranchDesc;
     [Header("Numbers")]
     public BigDouble[] challengeBranchLevels;
     public BigDouble[] challengeBranchMaxLevels;
@@ -50,15 +49,12 @@ public class ChallengeBranch : MonoBehaviour
     public void StartChallenge()
     {
         var data = techTree.game.data;
-        challengeBranchText = new Text[2];
         challengeBranchCosts = new BigDouble[2];
         challengeBranchCostMults = new BigDouble[] { 1, 1 };
         challengeBranchBaseCosts = new BigDouble[] { 1e6, 1e12 };
         challengeBranchLevels = new BigDouble[2];
         challengeBranchMaxLevels = new BigDouble[] { 1, 1 };
         isChallengeBranchModuleLocked = new bool[2];
-        challengeBranchDesc = new string[] { $"Unlock Sterlitzia Challenge Cost:{Methods.NotationMethod(challengeBranchCosts[0], "F0")} Transformers\nLevel:{Methods.NotationMethod(challengeBranchLevels[0], "F0")}/{Methods.NotationMethod(challengeBranchMaxLevels[0], "F0")}"
-            ,$"Unlock Red Dwarf Challenge Cost:{Methods.NotationMethod(challengeBranchCosts[1], "F0")} Transformers\nLevel:{Methods.NotationMethod(challengeBranchLevels[1], "F0")}/{Methods.NotationMethod(challengeBranchMaxLevels[1], "F0")}" };
     }
 
     public void UpdateChallenge()
@@ -67,13 +63,13 @@ public class ChallengeBranch : MonoBehaviour
         ArrayManager();
         BoolManager();
         ImageManager();
+        TextManager();
 
-        challengeBranchCosts[0] = challengeBranchBaseCosts[0] * Pow(challengeBranchCostMults[0], data.prestigeBranch1Level);
-        challengeBranchCosts[1] = challengeBranchBaseCosts[1] * Pow(challengeBranchCostMults[1], data.prestigeBranch2Level);
+        challengeBranchCosts[0] = challengeBranchBaseCosts[0] * Pow(challengeBranchCostMults[0], data.challengeBranch1Level);
+        challengeBranchCosts[1] = challengeBranchBaseCosts[1] * Pow(challengeBranchCostMults[1], data.challengeBranch2Level);
 
         for (int i = 0; i < 2; i++)
         {
-            challengeBranchText[i].text = challengeBranchLevels[i] >= challengeBranchMaxLevels[i] ? "MAX" : challengeBranchDesc[i];
             if (challengeBranchLevels[i] > challengeBranchMaxLevels[i])
                 challengeBranchLevels[i] = challengeBranchMaxLevels[i];
         }
@@ -92,6 +88,12 @@ public class ChallengeBranch : MonoBehaviour
             data.isChallengeBranch2Locked = true;
     }
 
+    public void TextManager()
+    {
+        challengeBranchText[0].text = challengeBranchLevels[0] >= challengeBranchMaxLevels[0] ? "MAX" : $"Unlock Sterlitzia Challenge Cost:{Methods.NotationMethod(challengeBranchCosts[0], "F0")} Amps\nLevel:{Methods.NotationMethod(challengeBranchLevels[0], "F0")}/{Methods.NotationMethod(challengeBranchMaxLevels[0], "F0")}";
+        challengeBranchText[1].text = challengeBranchLevels[1] >= challengeBranchMaxLevels[1] ? "MAX" : $"Unlock Red Dwarf Challenge Cost:{Methods.NotationMethod(challengeBranchCosts[1], "F0")} Amps\nLevel:{Methods.NotationMethod(challengeBranchLevels[1], "F0")}/{Methods.NotationMethod(challengeBranchMaxLevels[1], "F0")}";
+    }
+
     public void BuyModule(int index)
     {
         if (isChallengeBranchModuleLocked[index]) return;
@@ -108,11 +110,11 @@ public class ChallengeBranch : MonoBehaviour
     public void ImageManager()
     {
         var data = techTree.game.data;
-        if (data.isMasteryBranch1Locked)
+        if (data.isChallengeBranch1Locked)
             challengeBranchIcons[0].sprite = lockedIcon;
         else
             challengeBranchIcons[0].sprite = challengeBranchLevels[0] >= challengeBranchMaxLevels[0] ? maxedIcon : unlockedIcon;
-        if (data.isMasteryBranch2Locked)
+        if (data.isChallengeBranch2Locked)
             challengeBranchIcons[1].sprite = lockedIcon;
         else
             challengeBranchIcons[1].sprite = challengeBranchLevels[1] >= challengeBranchMaxLevels[1] ? maxedIcon : unlockedIcon;

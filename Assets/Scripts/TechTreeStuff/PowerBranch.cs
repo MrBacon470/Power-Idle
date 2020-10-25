@@ -31,9 +31,8 @@ public class PowerBranch : MonoBehaviour
     public TechTreeManager techTree;
 
     [Header("Object Stuff")]
-    public Text[] powerBranchText;
+    public Text[] powerBranchText = new Text[2];
     public Image[] powerBranchIcons = new Image[2];
-    public string[] powerBranchDesc;
     [Header("Numbers")]
     public BigDouble[] powerBranchLevels;
     public BigDouble[] powerBranchMaxLevels;
@@ -49,15 +48,12 @@ public class PowerBranch : MonoBehaviour
     public void StartPower()
     {
         var data = techTree.game.data;
-        powerBranchText = new Text[2];
         powerBranchCosts = new BigDouble[2];
         powerBranchCostMults = new BigDouble[] { 10, 5 };
         powerBranchBaseCosts = new BigDouble[] { 1e3, 1e12 };
         powerBranchLevels = new BigDouble[2];
         powerBranchMaxLevels = new BigDouble[] { 20, 10 };
         isPowerBranchModuleLocked = new bool[2];
-        powerBranchDesc = new string[] {$"3x Power and Bytes Cost:{Methods.NotationMethod(powerBranchCosts[0],"F0")} Power\nLevel:{Methods.NotationMethod(powerBranchLevels[0],"F0")}/{Methods.NotationMethod(powerBranchMaxLevels[0],"F0")}"
-            ,$"Decrease R&D Costs by 5% Cost:{Methods.NotationMethod(powerBranchCosts[1],"F0")} Power\nLevel:{Methods.NotationMethod(powerBranchLevels[1],"F0")}/{Methods.NotationMethod(powerBranchMaxLevels[1],"F0")}"};
     }
     
     public void UpdatePower()
@@ -66,13 +62,13 @@ public class PowerBranch : MonoBehaviour
         ArrayManager();
         BoolManager();
         ImageManager();
+        TextManager();
 
         powerBranchCosts[0] = powerBranchBaseCosts[0] * Pow(powerBranchCostMults[0], data.powerBranch1Level);
         powerBranchCosts[1] = powerBranchBaseCosts[1] * Pow(powerBranchCostMults[1], data.powerBranch2Level);
 
         for(int i = 0; i < 2; i++)
         {
-            powerBranchText[i].text = powerBranchLevels[i] >= powerBranchMaxLevels[i] ? "MAX": powerBranchDesc[i];
             if (powerBranchLevels[i] > powerBranchMaxLevels[i])
                 powerBranchLevels[i] = powerBranchMaxLevels[i];
         }
@@ -89,6 +85,12 @@ public class PowerBranch : MonoBehaviour
             data.isPowerBranch2Locked = false;
         else
             data.isPowerBranch2Locked = true;
+    }
+
+    public void TextManager()
+    {
+        powerBranchText[0].text = powerBranchLevels[0] >= powerBranchMaxLevels[0] ? "MAX" : $"3x Power and Bytes Cost:{Methods.NotationMethod(powerBranchCosts[0], "F0")} Power\nLevel:{Methods.NotationMethod(powerBranchLevels[0], "F0")}/{Methods.NotationMethod(powerBranchMaxLevels[0], "F0")}";
+        powerBranchText[1].text = powerBranchLevels[1] >= powerBranchMaxLevels[1] ? "MAX" : $"Decrease R&D Costs by 5% Cost:{Methods.NotationMethod(powerBranchCosts[1], "F0")} Power\nLevel:{Methods.NotationMethod(powerBranchLevels[1], "F0")}/{Methods.NotationMethod(powerBranchMaxLevels[1], "F0")}";
     }
 
     public void ImageManager()

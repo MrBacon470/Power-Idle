@@ -42,9 +42,9 @@ public class ChallengeManager : MonoBehaviour
     public BigDouble challengeGoal3 => 1e38 * Pow(2.5, game.data.challengeLevel3);
 
 
-    public Text[] challengeText;
-    public GameObject[] challengePopUp;
-    public Text[] challengePopUpText;
+    public Text[] challengeText = new Text[3];
+    public GameObject[] challengePopUp = new GameObject[3];
+    public Text[] challengePopUpText = new Text[3];
 
     public BigDouble[] challengeReward;
     public BigDouble[] challengeLevels;
@@ -54,9 +54,6 @@ public class ChallengeManager : MonoBehaviour
     {
         challengeReward = new BigDouble[3];
         challengeLevels = new BigDouble[3];
-        challengeText = new Text[3];
-        challengePopUp = new GameObject[3];
-        challengePopUpText = new Text[3];
     }
 
     public void Run()

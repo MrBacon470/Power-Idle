@@ -31,9 +31,8 @@ public class ConsoleBranch : MonoBehaviour
     public TechTreeManager techTree;
 
     [Header("Object Stuff")]
-    public Text[] consoleBranchText;
+    public Text[] consoleBranchText = new Text[1];
     public Image[] consoleBranchIcons = new Image[1];
-    public string[] consoleBranchDesc;
     [Header("Numbers")]
     public BigDouble[] consoleBranchLevels;
     public BigDouble[] consoleBranchMaxLevels;
@@ -49,14 +48,12 @@ public class ConsoleBranch : MonoBehaviour
     public void StartConsole()
     {
         var data = techTree.game.data;
-        consoleBranchText = new Text[1];
         consoleBranchCosts = new BigDouble[1];
         consoleBranchCostMults = new BigDouble[] { 5 };
         consoleBranchBaseCosts = new BigDouble[] { 1e9 };
         consoleBranchLevels = new BigDouble[1];
         consoleBranchMaxLevels = new BigDouble[] { 10 };
         isConsoleBranchModuleLocked = new bool[1];
-        consoleBranchDesc = new string[] {$"5x Bytes/s Cost:{Methods.NotationMethod(consoleBranchCosts[0],"F0")} Bytes\nLevel:{Methods.NotationMethod(consoleBranchLevels[0],"F0")}/{Methods.NotationMethod(consoleBranchMaxLevels[0],"F0")}"};
     }
 
     public void UpdateConsole()
@@ -65,12 +62,12 @@ public class ConsoleBranch : MonoBehaviour
         ArrayManager();
         BoolManager();
         ImageManager();
+        TextManager();
 
         consoleBranchCosts[0] = consoleBranchBaseCosts[0] * Pow(consoleBranchCostMults[0], data.consoleBranch1Level);
 
         for (int i = 0; i < 1; i++)
         {
-            consoleBranchText[i].text = consoleBranchLevels[i] >= consoleBranchMaxLevels[i] ? "MAX" : consoleBranchDesc[i];
             if (consoleBranchLevels[i] > consoleBranchMaxLevels[i])
                 consoleBranchLevels[i] = consoleBranchMaxLevels[i];
         }
@@ -83,6 +80,11 @@ public class ConsoleBranch : MonoBehaviour
             data.isConsoleBranch1Locked = false;
         else
             data.isConsoleBranch1Locked = true;
+    }
+
+    public void TextManager()
+    {
+        consoleBranchText[0].text = consoleBranchLevels[0] >= consoleBranchMaxLevels[0] ? "MAX" : $"5x Bytes/s Cost:{Methods.NotationMethod(consoleBranchCosts[0], "F0")} Bytes\nLevel:{Methods.NotationMethod(consoleBranchLevels[0], "F0")}/{Methods.NotationMethod(consoleBranchMaxLevels[0], "F0")}";
     }
 
     public void BuyModule(int index)

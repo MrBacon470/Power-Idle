@@ -31,9 +31,8 @@ public class MasteryBranch : MonoBehaviour
     public TechTreeManager techTree;
 
     [Header("Object Stuff")]
-    public Text[] masteryBranchText;
+    public Text[] masteryBranchText = new Text[2];
     public Image[] masteryBranchIcons = new Image[2];
-    public string[] masteryBranchDesc;
     [Header("Numbers")]
     public BigDouble[] masteryBranchLevels;
     public BigDouble[] masteryBranchMaxLevels;
@@ -49,15 +48,12 @@ public class MasteryBranch : MonoBehaviour
     public void StartMastery()
     {
         var data = techTree.game.data;
-        masteryBranchText = new Text[2];
         masteryBranchCosts = new BigDouble[2];
         masteryBranchCostMults = new BigDouble[] { 20, 1 };
         masteryBranchBaseCosts = new BigDouble[] { 1e6, 1e75 };
         masteryBranchLevels = new BigDouble[2];
         masteryBranchMaxLevels = new BigDouble[] { 5, 1 };
         isMasteryBranchModuleLocked = new bool[2];
-        masteryBranchDesc = new string[] { $"2x Dyson Sphere Production Cost:{Methods.NotationMethod(masteryBranchCosts[0], "F0")} Super Conductors\nLevel:{Methods.NotationMethod(masteryBranchLevels[0], "F0")}/{Methods.NotationMethod(masteryBranchMaxLevels[0], "F0")}"
-            ,$"Convert Sun into Neutron Star 50x Dyson Sphere Production Cost:{Methods.NotationMethod(masteryBranchCosts[1], "F0")} Super Conductors\nLevel:{Methods.NotationMethod(masteryBranchLevels[1], "F0")}/{Methods.NotationMethod(masteryBranchMaxLevels[1], "F0")}" };
     }
 
     public void UpdateMastery()
@@ -66,13 +62,13 @@ public class MasteryBranch : MonoBehaviour
         ArrayManager();
         BoolManager();
         ImageManager();
+        TextManager();
 
         masteryBranchCosts[0] = masteryBranchBaseCosts[0] * Pow(masteryBranchCostMults[0], data.masteryBranch1Level);
         masteryBranchCosts[1] = masteryBranchBaseCosts[1] * Pow(masteryBranchCostMults[1], data.masteryBranch2Level);
 
-        for (int i = 0; i < 2; i++)
+        for(int i = 0; i < 2; i++)
         {
-            masteryBranchText[i].text = masteryBranchLevels[i] >= masteryBranchMaxLevels[i] ? "MAX" : masteryBranchDesc[i];
             if (masteryBranchLevels[i] > masteryBranchMaxLevels[i])
                 masteryBranchLevels[i] = masteryBranchMaxLevels[i];
         }
@@ -89,6 +85,12 @@ public class MasteryBranch : MonoBehaviour
             data.isMasteryBranch2Locked = false;
         else
             data.isMasteryBranch2Locked = true;
+    }
+
+    public void TextManager()
+    {
+        masteryBranchText[0].text = masteryBranchLevels[0] >= masteryBranchMaxLevels[0] ? "MAX" : $"2x Dyson Sphere Production Cost:{Methods.NotationMethod(masteryBranchCosts[0], "F0")} Super Conductors\nLevel:{Methods.NotationMethod(masteryBranchLevels[0], "F0")}/{Methods.NotationMethod(masteryBranchMaxLevels[0], "F0")}";
+        masteryBranchText[1].text = masteryBranchLevels[1] >= masteryBranchMaxLevels[1] ? "MAX" : $"Convert Sun into Neutron Star 50x Dyson Sphere Production Cost:{Methods.NotationMethod(masteryBranchCosts[1], "F0")} Super Conductors\nLevel:{Methods.NotationMethod(masteryBranchLevels[1], "F0")}/{Methods.NotationMethod(masteryBranchMaxLevels[1], "F0")}";
     }
 
     public void BuyModule(int index)

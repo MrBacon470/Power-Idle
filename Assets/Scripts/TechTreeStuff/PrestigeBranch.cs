@@ -31,9 +31,8 @@ public class PrestigeBranch : MonoBehaviour
     public TechTreeManager techTree;
 
     [Header("Object Stuff")]
-    public Text[] prestigeBranchText;
+    public Text[] prestigeBranchText = new Text[2];
     public Image[] prestigeBranchIcons = new Image[2];
-    public string[] prestigeBranchDesc;
     [Header("Numbers")]
     public BigDouble[] prestigeBranchLevels;
     public BigDouble[] prestigeBranchMaxLevels;
@@ -49,15 +48,12 @@ public class PrestigeBranch : MonoBehaviour
     public void StartPrestige()
     {
         var data = techTree.game.data;
-        prestigeBranchText = new Text[2];
         prestigeBranchCosts = new BigDouble[2];
         prestigeBranchCostMults = new BigDouble[] { 20, 1 };
         prestigeBranchBaseCosts = new BigDouble[] { 1e3, 1e45 };
         prestigeBranchLevels = new BigDouble[2];
         prestigeBranchMaxLevels = new BigDouble[] { 10, 1 };
         isPrestigeBranchModuleLocked = new bool[2];
-        prestigeBranchDesc = new string[] { $"Infusions Boosted by 1.5x Cost:{Methods.NotationMethod(prestigeBranchCosts[0], "F0")} Transformers\nLevel:{Methods.NotationMethod(prestigeBranchLevels[0], "F0")}/{Methods.NotationMethod(prestigeBranchMaxLevels[0], "F0")}"
-            ,$"Infusions Become Sacrafices Cost:{Methods.NotationMethod(prestigeBranchCosts[1], "F0")} Transformers\nLevel:{Methods.NotationMethod(prestigeBranchLevels[1], "F0")}/{Methods.NotationMethod(prestigeBranchMaxLevels[1], "F0")}" };
     }
 
     public void UpdatePrestige()
@@ -66,13 +62,13 @@ public class PrestigeBranch : MonoBehaviour
         ArrayManager();
         BoolManager();
         ImageManager();
+        TextManager();
 
         prestigeBranchCosts[0] = prestigeBranchBaseCosts[0] * Pow(prestigeBranchCostMults[0], data.prestigeBranch1Level);
         prestigeBranchCosts[1] = prestigeBranchBaseCosts[1] * Pow(prestigeBranchCostMults[1], data.prestigeBranch2Level);
 
         for (int i = 0; i < 2; i++)
         {
-            prestigeBranchText[i].text = prestigeBranchLevels[i] >= prestigeBranchMaxLevels[i] ? "MAX" : prestigeBranchDesc[i];
             if (prestigeBranchLevels[i] > prestigeBranchMaxLevels[i])
                 prestigeBranchLevels[i] = prestigeBranchMaxLevels[i];
         }
@@ -89,6 +85,12 @@ public class PrestigeBranch : MonoBehaviour
             data.isPrestigeBranch2Locked = false;
         else
             data.isPrestigeBranch2Locked = true;
+    }
+
+    public void TextManager()
+    {
+        prestigeBranchText[0].text = prestigeBranchLevels[0] >= prestigeBranchMaxLevels[0] ? "MAX" : $"Infusions Boosted by 1.5x Cost:{Methods.NotationMethod(prestigeBranchCosts[0], "F0")} Transformers\nLevel:{Methods.NotationMethod(prestigeBranchLevels[0], "F0")}/{Methods.NotationMethod(prestigeBranchMaxLevels[0], "F0")}";
+        prestigeBranchText[1].text = prestigeBranchLevels[1] >= prestigeBranchMaxLevels[1] ? "MAX" : $"Infusions Become Sacrafices Cost:{Methods.NotationMethod(prestigeBranchCosts[1], "F0")} Transformers\nLevel:{Methods.NotationMethod(prestigeBranchLevels[1], "F0")}/{Methods.NotationMethod(prestigeBranchMaxLevels[1], "F0")}";
     }
 
     public void BuyModule(int index)
@@ -109,11 +111,11 @@ public class PrestigeBranch : MonoBehaviour
     public void ImageManager()
     {
         var data = techTree.game.data;
-        if (data.isMasteryBranch1Locked)
+        if (data.isPrestigeBranch1Locked)
             prestigeBranchIcons[0].sprite = lockedIcon;
         else
             prestigeBranchIcons[0].sprite = prestigeBranchLevels[0] >= prestigeBranchMaxLevels[0] ? maxedIcon : unlockedIcon;
-        if (data.isMasteryBranch2Locked)
+        if (data.isPrestigeBranch2Locked)
             prestigeBranchIcons[1].sprite = lockedIcon;
         else
             prestigeBranchIcons[1].sprite = prestigeBranchLevels[1] >= prestigeBranchMaxLevels[1] ? maxedIcon : unlockedIcon;
