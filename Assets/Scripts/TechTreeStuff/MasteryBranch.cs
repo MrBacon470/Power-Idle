@@ -32,7 +32,7 @@ public class MasteryBranch : MonoBehaviour
 
     [Header("Object Stuff")]
     public Text[] masteryBranchText;
-    public Image[] masteryBranchIcons;
+    public Image[] masteryBranchIcons = new Image[2];
     public string[] masteryBranchDesc;
     [Header("Numbers")]
     public BigDouble[] masteryBranchLevels;
@@ -41,17 +41,21 @@ public class MasteryBranch : MonoBehaviour
     public BigDouble[] masteryBranchCosts;
     public BigDouble[] masteryBranchCostMults;
     public bool[] isMasteryBranchModuleLocked;
+    [Header("Sprites")]
+    public Sprite lockedIcon;
+    public Sprite unlockedIcon;
+    public Sprite maxedIcon;
 
     public void StartMastery()
     {
         var data = techTree.game.data;
         masteryBranchText = new Text[2];
-        masteryBranchIcons = new Image[2];
         masteryBranchCosts = new BigDouble[2];
         masteryBranchCostMults = new BigDouble[] { 20, 1 };
         masteryBranchBaseCosts = new BigDouble[] { 1e6, 1e75 };
         masteryBranchLevels = new BigDouble[2];
         masteryBranchMaxLevels = new BigDouble[] { 5, 1 };
+        isMasteryBranchModuleLocked = new bool[2];
         masteryBranchDesc = new string[] { $"2x Dyson Sphere Production Cost:{Methods.NotationMethod(masteryBranchCosts[0], "F0")} Super Conductors\nLevel:{Methods.NotationMethod(masteryBranchLevels[0], "F0")}/{Methods.NotationMethod(masteryBranchMaxLevels[0], "F0")}"
             ,$"Convert Sun into Neutron Star 50x Dyson Sphere Production Cost:{Methods.NotationMethod(masteryBranchCosts[1], "F0")} Super Conductors\nLevel:{Methods.NotationMethod(masteryBranchLevels[1], "F0")}/{Methods.NotationMethod(masteryBranchMaxLevels[1], "F0")}" };
     }
@@ -104,13 +108,13 @@ public class MasteryBranch : MonoBehaviour
     {
         var data = techTree.game.data;
         if (data.isMasteryBranch1Locked)
-            masteryBranchIcons[0].sprite = techTree.lockedIcon;
+            masteryBranchIcons[0].sprite = lockedIcon;
         else
-            masteryBranchIcons[0].sprite = masteryBranchLevels[0] >= masteryBranchMaxLevels[0] ? techTree.maxedIcon : techTree.unlockedIcon;
+            masteryBranchIcons[0].sprite = masteryBranchLevels[0] >= masteryBranchMaxLevels[0] ? maxedIcon : unlockedIcon;
         if (data.isMasteryBranch2Locked)
-            masteryBranchIcons[1].sprite = techTree.lockedIcon;
+            masteryBranchIcons[1].sprite = lockedIcon;
         else
-            masteryBranchIcons[1].sprite = masteryBranchLevels[1] >= masteryBranchMaxLevels[1] ? techTree.maxedIcon : techTree.unlockedIcon;
+            masteryBranchIcons[1].sprite = masteryBranchLevels[1] >= masteryBranchMaxLevels[1] ? maxedIcon : unlockedIcon;
 
     }
 

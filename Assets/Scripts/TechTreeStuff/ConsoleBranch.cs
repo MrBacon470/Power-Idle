@@ -32,7 +32,7 @@ public class ConsoleBranch : MonoBehaviour
 
     [Header("Object Stuff")]
     public Text[] consoleBranchText;
-    public Image[] consoleBranchIcons;
+    public Image[] consoleBranchIcons = new Image[1];
     public string[] consoleBranchDesc;
     [Header("Numbers")]
     public BigDouble[] consoleBranchLevels;
@@ -41,17 +41,21 @@ public class ConsoleBranch : MonoBehaviour
     public BigDouble[] consoleBranchCosts;
     public BigDouble[] consoleBranchCostMults;
     public bool[] isConsoleBranchModuleLocked;
+    [Header("Sprites")]
+    public Sprite lockedIcon;
+    public Sprite unlockedIcon;
+    public Sprite maxedIcon;
 
     public void StartConsole()
     {
         var data = techTree.game.data;
         consoleBranchText = new Text[1];
-        consoleBranchIcons = new Image[1];
         consoleBranchCosts = new BigDouble[1];
         consoleBranchCostMults = new BigDouble[] { 5 };
         consoleBranchBaseCosts = new BigDouble[] { 1e9 };
         consoleBranchLevels = new BigDouble[1];
         consoleBranchMaxLevels = new BigDouble[] { 10 };
+        isConsoleBranchModuleLocked = new bool[1];
         consoleBranchDesc = new string[] {$"5x Bytes/s Cost:{Methods.NotationMethod(consoleBranchCosts[0],"F0")} Bytes\nLevel:{Methods.NotationMethod(consoleBranchLevels[0],"F0")}/{Methods.NotationMethod(consoleBranchMaxLevels[0],"F0")}"};
     }
 
@@ -98,9 +102,9 @@ public class ConsoleBranch : MonoBehaviour
     {
         var data = techTree.game.data;
         if (data.isConsoleBranch1Locked)
-            consoleBranchIcons[0].sprite = techTree.lockedIcon;
+            consoleBranchIcons[0].sprite = lockedIcon;
         else
-            consoleBranchIcons[0].sprite = consoleBranchLevels[0] >= consoleBranchMaxLevels[0] ? techTree.maxedIcon : techTree.unlockedIcon;
+            consoleBranchIcons[0].sprite = consoleBranchLevels[0] >= consoleBranchMaxLevels[0] ? maxedIcon : unlockedIcon;
 
     }
 

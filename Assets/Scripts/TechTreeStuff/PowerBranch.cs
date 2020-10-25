@@ -32,7 +32,7 @@ public class PowerBranch : MonoBehaviour
 
     [Header("Object Stuff")]
     public Text[] powerBranchText;
-    public Image[] powerBranchIcons;
+    public Image[] powerBranchIcons = new Image[2];
     public string[] powerBranchDesc;
     [Header("Numbers")]
     public BigDouble[] powerBranchLevels;
@@ -41,17 +41,21 @@ public class PowerBranch : MonoBehaviour
     public BigDouble[] powerBranchCosts;
     public BigDouble[] powerBranchCostMults;
     public bool[] isPowerBranchModuleLocked;
+    [Header("Sprites")]
+    public Sprite lockedIcon;
+    public Sprite unlockedIcon;
+    public Sprite maxedIcon;
 
     public void StartPower()
     {
         var data = techTree.game.data;
         powerBranchText = new Text[2];
-        powerBranchIcons = new Image[2];
         powerBranchCosts = new BigDouble[2];
         powerBranchCostMults = new BigDouble[] { 10, 5 };
         powerBranchBaseCosts = new BigDouble[] { 1e3, 1e12 };
         powerBranchLevels = new BigDouble[2];
         powerBranchMaxLevels = new BigDouble[] { 20, 10 };
+        isPowerBranchModuleLocked = new bool[2];
         powerBranchDesc = new string[] {$"3x Power and Bytes Cost:{Methods.NotationMethod(powerBranchCosts[0],"F0")} Power\nLevel:{Methods.NotationMethod(powerBranchLevels[0],"F0")}/{Methods.NotationMethod(powerBranchMaxLevels[0],"F0")}"
             ,$"Decrease R&D Costs by 5% Cost:{Methods.NotationMethod(powerBranchCosts[1],"F0")} Power\nLevel:{Methods.NotationMethod(powerBranchLevels[1],"F0")}/{Methods.NotationMethod(powerBranchMaxLevels[1],"F0")}"};
     }
@@ -91,13 +95,13 @@ public class PowerBranch : MonoBehaviour
     {
         var data = techTree.game.data;
         if (data.isPowerBranch1Locked)
-            powerBranchIcons[0].sprite = techTree.lockedIcon;
+            powerBranchIcons[0].sprite = lockedIcon;
         else
-            powerBranchIcons[0].sprite = powerBranchLevels[0] >= powerBranchMaxLevels[0] ? techTree.maxedIcon : techTree.unlockedIcon;
+            powerBranchIcons[0].sprite = powerBranchLevels[0] >= powerBranchMaxLevels[0] ? maxedIcon : unlockedIcon;
         if (data.isPowerBranch2Locked)
-            powerBranchIcons[1].sprite = techTree.lockedIcon;
+            powerBranchIcons[1].sprite = lockedIcon;
         else
-            powerBranchIcons[1].sprite = powerBranchLevels[1] >= powerBranchMaxLevels[1] ? techTree.maxedIcon : techTree.unlockedIcon;
+            powerBranchIcons[1].sprite = powerBranchLevels[1] >= powerBranchMaxLevels[1] ? maxedIcon : unlockedIcon;
 
     }
 

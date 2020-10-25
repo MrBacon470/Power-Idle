@@ -81,7 +81,7 @@ public class ConsoleController : MonoBehaviour
             {
                 powerButtonImage.color = Color.green;
                 powerButtonText.text = "ON";
-                consoleInfoText.text = $"Script Loaded:" + scriptDesc[data.scriptIndex] + "\n" + bytesPerScript[data.scriptIndex];
+                consoleInfoText.text = $"Script Loaded:" + scriptDesc[data.scriptIndex] + "\n" + Methods.NotationMethod(totalBytesPerSecond(),"F0");
                 powerLossText.text = "-10 Power/s";
             }
             else
@@ -130,6 +130,10 @@ public class ConsoleController : MonoBehaviour
             temp = 1e5;
         if (data.byteInfusionULevel2 > 0)
             temp += temp * (0.05 * data.byteInfusionULevel2);
+        if (data.powerBranch1Level > 0)
+            temp *= 3 * data.powerBranch1Level;
+        if (data.consoleBranch1Level > 0)
+            temp *= 5 * data.consoleBranch1Level;
         return temp;
     }
 

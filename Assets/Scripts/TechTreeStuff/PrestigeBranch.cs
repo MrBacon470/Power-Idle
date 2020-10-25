@@ -32,7 +32,7 @@ public class PrestigeBranch : MonoBehaviour
 
     [Header("Object Stuff")]
     public Text[] prestigeBranchText;
-    public Image[] prestigeBranchIcons;
+    public Image[] prestigeBranchIcons = new Image[2];
     public string[] prestigeBranchDesc;
     [Header("Numbers")]
     public BigDouble[] prestigeBranchLevels;
@@ -41,17 +41,21 @@ public class PrestigeBranch : MonoBehaviour
     public BigDouble[] prestigeBranchCosts;
     public BigDouble[] prestigeBranchCostMults;
     public bool[] isPrestigeBranchModuleLocked;
+    [Header("Sprites")]
+    public Sprite lockedIcon;
+    public Sprite unlockedIcon;
+    public Sprite maxedIcon;
 
     public void StartPrestige()
     {
         var data = techTree.game.data;
         prestigeBranchText = new Text[2];
-        prestigeBranchIcons = new Image[2];
         prestigeBranchCosts = new BigDouble[2];
         prestigeBranchCostMults = new BigDouble[] { 20, 1 };
         prestigeBranchBaseCosts = new BigDouble[] { 1e3, 1e45 };
         prestigeBranchLevels = new BigDouble[2];
         prestigeBranchMaxLevels = new BigDouble[] { 10, 1 };
+        isPrestigeBranchModuleLocked = new bool[2];
         prestigeBranchDesc = new string[] { $"Infusions Boosted by 1.5x Cost:{Methods.NotationMethod(prestigeBranchCosts[0], "F0")} Transformers\nLevel:{Methods.NotationMethod(prestigeBranchLevels[0], "F0")}/{Methods.NotationMethod(prestigeBranchMaxLevels[0], "F0")}"
             ,$"Infusions Become Sacrafices Cost:{Methods.NotationMethod(prestigeBranchCosts[1], "F0")} Transformers\nLevel:{Methods.NotationMethod(prestigeBranchLevels[1], "F0")}/{Methods.NotationMethod(prestigeBranchMaxLevels[1], "F0")}" };
     }
@@ -92,10 +96,12 @@ public class PrestigeBranch : MonoBehaviour
         if (isPrestigeBranchModuleLocked[index]) return;
         if (prestigeBranchLevels[index] >= prestigeBranchMaxLevels[index]) return;
         var data = techTree.game.data;
-        if (data.superConductors >= prestigeBranchCosts[index])
+        if (data.transformers >= prestigeBranchCosts[index])
         {
             prestigeBranchLevels[index]++;
-            data.superConductors -= prestigeBranchCosts[index];
+            data.transformers -= prestigeBranchCosts[index];
+            if (index == 1 && !data.hasSacraficesBeenUnlocked)
+                data.hasSacraficesBeenUnlocked = true;
         }
         NonArrayManager();
     }
@@ -104,13 +110,13 @@ public class PrestigeBranch : MonoBehaviour
     {
         var data = techTree.game.data;
         if (data.isMasteryBranch1Locked)
-            prestigeBranchIcons[0].sprite = techTree.lockedIcon;
+            prestigeBranchIcons[0].sprite = lockedIcon;
         else
-            prestigeBranchIcons[0].sprite = prestigeBranchLevels[0] >= prestigeBranchMaxLevels[0] ? techTree.maxedIcon : techTree.unlockedIcon;
+            prestigeBranchIcons[0].sprite = prestigeBranchLevels[0] >= prestigeBranchMaxLevels[0] ? maxedIcon : unlockedIcon;
         if (data.isMasteryBranch2Locked)
-            prestigeBranchIcons[1].sprite = techTree.lockedIcon;
+            prestigeBranchIcons[1].sprite = lockedIcon;
         else
-            prestigeBranchIcons[1].sprite = prestigeBranchLevels[1] >= prestigeBranchMaxLevels[1] ? techTree.maxedIcon : techTree.unlockedIcon;
+            prestigeBranchIcons[1].sprite = prestigeBranchLevels[1] >= prestigeBranchMaxLevels[1] ? maxedIcon : unlockedIcon;
 
     }
 
@@ -128,7 +134,7 @@ public class PrestigeBranch : MonoBehaviour
     {
         var data = techTree.game.data;
 
-        data.masteryBranch1Level = prestigeBranchLevels[0];
-        data.masteryBranch2Level = prestigeBranchLevels[1];
+        data.prestigeBranch1Level = prestigeBranchLevels[0];
+        data.prestigeBranch2Level = prestigeBranchLevels[1];
     }
 }

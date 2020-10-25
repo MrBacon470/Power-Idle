@@ -35,11 +35,12 @@ public class ChallengeManager : MonoBehaviour
 
     private BigDouble reward1 => 1e6 * Pow(1.5, game.data.challengeLevel1);
     private BigDouble reward2 => 1e9 * Pow(1.75, game.data.challengeLevel2);
-    private BigDouble reward3 => 1e12 * Pow(2.5, game.data.challengeLevel3);
+    private BigDouble reward3 => 1e12 * Pow(5, game.data.challengeLevel3);
 
     public BigDouble challengeGoal1 => 1e38 * Pow(1.5, game.data.challengeLevel1);
     public BigDouble challengeGoal2 => 1e38 * Pow(1.75, game.data.challengeLevel2);
     public BigDouble challengeGoal3 => 1e38 * Pow(2.5, game.data.challengeLevel3);
+
 
     public Text[] challengeText;
     public GameObject[] challengePopUp;
@@ -73,9 +74,9 @@ public class ChallengeManager : MonoBehaviour
         {
             if(game.challengeCanvas.gameObject.activeSelf)
             {
-                challengeText[0].text = data.isChallenge2Active || data.isChallenge3Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Clean Energy\nUse only Manual Generators, Steam Turbines and Fusion Reactors to get to {Methods.NotationMethod(challengeGoal1, "F2")} Power\nReward: {Methods.NotationMethod(challengeReward[0], "F0")} Quarks\nCompletions: {Methods.NotationMethod(challengeLevels[0], "F0")}";
-                challengeText[1].text = data.isChallenge1Active || data.isChallenge3Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: No Console\nGet to {Methods.NotationMethod(challengeGoal2, "F2")} Power with no Bytes and No Boost\nReward: {Methods.NotationMethod(challengeReward[1], "F0")} Quarks\nCompletions: {Methods.NotationMethod(challengeLevels[1], "F0")}";
-                challengeText[2].text = data.isChallenge1Active || data.isChallenge2Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3, "F2")} Power with side effects of Clean Energy and No Console plus No Prestige and Mastery Upgrades\nReward: {Methods.NotationMethod(challengeReward[2], "F0")} Quarks\nCompletions: {Methods.NotationMethod(challengeLevels[2], "F0")}";
+                challengeText[0].text = data.isChallenge2Active || data.isChallenge3Active || data.isChallenge4Active || data.isChallenge5Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Clean Energy\nUse only Manual Generators, Steam Turbines and Fusion Reactors to get to {Methods.NotationMethod(challengeGoal1, "F2")} Power\nReward: {Methods.NotationMethod(challengeReward[0], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[0], "F0")}";
+                challengeText[1].text = data.isChallenge1Active || data.isChallenge3Active || data.isChallenge4Active || data.isChallenge5Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: No Console\nGet to {Methods.NotationMethod(challengeGoal2, "F2")} Power with no Bytes and No Boost\nReward: {Methods.NotationMethod(challengeReward[1], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[1], "F0")}";
+                challengeText[2].text = data.isChallenge1Active || data.isChallenge2Active || data.isChallenge4Active || data.isChallenge5Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3, "F2")} Power with side effects of Clean Energy and No Console plus No Prestige and Mastery Upgrades\nReward: {Methods.NotationMethod(challengeReward[2], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[2], "F0")}";
             }
         }
     }

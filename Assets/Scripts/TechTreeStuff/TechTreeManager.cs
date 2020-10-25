@@ -52,6 +52,13 @@ public class TechTreeManager : MonoBehaviour
 
     public void UpdateTechTree()
     {
+        var data = game.data;
+        if(!data.isTechTreeUnlocked)
+        {
+            if (data.power > 1e3 && data.hasPrestiged)
+                data.isTechTreeUnlocked = true;
+        }
+
         console.UpdateConsole();
         power.UpdatePower();
         prestige.UpdatePrestige();

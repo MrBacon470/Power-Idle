@@ -45,7 +45,14 @@ public class IdleGame : MonoBehaviour
     public ScriptLibrary scriptLibrary;
     public ByteInfusionManager bytes;
     public ChallengeManager challenge;
-    
+    public TechTreeManager techTree;
+    [Header("Branch Controllers")]
+    public ConsoleBranch consoleB;
+    public PowerBranch power;
+    public PrestigeBranch prestigeB;
+    public MasteryBranch masteryB;
+    public ChallengeBranch challengeB;
+
     public Text powerText;
     public Text powerPerSecText;
 
@@ -103,6 +110,11 @@ public class IdleGame : MonoBehaviour
         scriptLibrary.StartLibrary();
         bytes.StartInfusion();
         challenge.StartChallenges();
+        power.StartPower();
+        consoleB.StartConsole();
+        prestigeB.StartPrestige();
+        masteryB.StartMastery();
+        challengeB.StartChallenge();
 
         if (data.quarks > 0)
         {
@@ -134,6 +146,11 @@ public class IdleGame : MonoBehaviour
         scriptLibrary.Run();
         bytes.Run();
         challenge.Run();
+        power.UpdatePower();
+        consoleB.UpdateConsole();
+        prestigeB.UpdatePrestige();
+        masteryB.UpdateMastery();
+        challengeB.UpdateChallenge();
 
         if (data.frameRateType == 0)
             Application.targetFrameRate = 60;
@@ -243,6 +260,8 @@ public class IdleGame : MonoBehaviour
             temp *= console.BytesBoost();
         if (data.amps > 0)
             temp *= challenge.QuarkBoost();
+        if(data.powerBranch1Level > 0)
+            temp *= 30 * data.powerBranch1Level;
         if (data.isConsoleOn)
             temp -= 10;
         return temp;

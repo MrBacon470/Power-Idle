@@ -117,12 +117,16 @@ public class PlayerData
     public BigDouble challengeLevel1;
     public BigDouble challengeLevel2;
     public BigDouble challengeLevel3;
+    public BigDouble challengeLevel4;
+    public BigDouble challengeLevel5;
     public BigDouble amps;
     public BigDouble quarks;
 
     public bool isChallenge1Active;
     public bool isChallenge2Active;
     public bool isChallenge3Active;
+    public bool isChallenge4Active;
+    public bool isChallenge5Active;
 
     public bool isChallengesUnlocked;
     #endregion
@@ -154,6 +158,14 @@ public class PlayerData
 
     public bool isPrestigeBranch1Locked;
     public bool isPrestigeBranch2Locked;
+    public bool hasSacraficesBeenUnlocked;
+    #endregion
+    #region Challenge Branch
+    public BigDouble challengeBranch1Level;
+    public BigDouble challengeBranch2Level;
+
+    public bool isChallengeBranch1Locked;
+    public bool isChallengeBranch2Locked;
     #endregion
     #endregion
 
@@ -235,12 +247,16 @@ public class PlayerData
         challengeLevel1 = 0;
         challengeLevel2 = 0;
         challengeLevel3 = 0;
+        challengeLevel4 = 0;
+        challengeLevel5 = 0;
         amps = 0;
         quarks = 0;
 
         isChallenge1Active = false;
         isChallenge2Active = false;
         isChallenge3Active = false;
+        isChallenge4Active = false;
+        isChallenge5Active = false;
         isChallengesUnlocked = false;
         #endregion
 
@@ -271,6 +287,14 @@ public class PlayerData
 
         isPrestigeBranch1Locked = true;
         isPrestigeBranch2Locked = true;
+        #endregion
+        #region Challenge Branch
+        challengeBranch1Level = 0;
+        challengeBranch2Level = 0;
+
+        isChallengeBranch1Locked = true;
+        isChallengeBranch2Locked = true;
+        hasSacraficesBeenUnlocked = false;
         #endregion
         #endregion
     }
