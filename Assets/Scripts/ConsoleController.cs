@@ -31,6 +31,7 @@ using System;
 public class ConsoleController : MonoBehaviour
 {
     public IdleGame game;
+    public KuakaManager kuaka;
 
     public GameObject consolePopup;
     public Text consoleInfoText;
@@ -134,6 +135,8 @@ public class ConsoleController : MonoBehaviour
             temp *= 3 * data.powerBranch1Level;
         if (data.consoleBranch1Level > 0)
             temp *= 5 * data.consoleBranch1Level;
+        if (kuaka.burnToggle)
+            temp *= 20;
         return temp;
     }
 

@@ -47,6 +47,7 @@ public class IdleGame : MonoBehaviour
     public ChallengeManager challenge;
     public TechTreeManager techTree;
     public AchievementManager achievement;
+    public KuakaManager kuaka;
     [Header("Branch Controllers")]
     public ConsoleBranch consoleB;
     public PowerBranch power;
@@ -86,6 +87,7 @@ public class IdleGame : MonoBehaviour
     public Canvas challengeCanvas;
     public Canvas startScreen;
     public Canvas achievementCanvas;
+    public Canvas kuakaCanvas;
 
     public void Start()
     {
@@ -106,6 +108,7 @@ public class IdleGame : MonoBehaviour
         byteInfusionCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
         achievementCanvas.gameObject.SetActive(false);
+        kuakaCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
@@ -118,6 +121,7 @@ public class IdleGame : MonoBehaviour
         prestigeB.StartPrestige();
         masteryB.StartMastery();
         challengeB.StartChallenge();
+        kuaka.StartKuaka();
 
         if (data.quarks > 0)
         {
@@ -155,6 +159,7 @@ public class IdleGame : MonoBehaviour
         masteryB.UpdateMastery();
         challengeB.UpdateChallenge();
         achievement.Run();
+        kuaka.UpdateKuaka();
 
         if (data.frameRateType == 0)
             Application.targetFrameRate = 60;
@@ -166,8 +171,11 @@ public class IdleGame : MonoBehaviour
 
         transformersText.text = data.hasPrestiged ? $"{Methods.NotationMethod(data.transformers, "F2")} Transformers" : "Not Discovered Yet";
         superConductorsText.text = data.hasMastered ? $"{Methods.NotationMethod(data.superConductors, "F2")} Super Conductors" : "Not Discovered Yet";
-        powerPerSecText.text = Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
-        powerText.text = data.power >= 1.79e308 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0");
+        powerPerSecText.text = data.isChallenge4Active ? "Sterlitzia Power/s": Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
+        if (!data.isChallenge4Active)
+            powerText.text = data.power >= 1.79e308 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0");
+        else
+            powerText.text = "Sterlitzia Power";
         quarkText.text = data.amps <= 0 ? "Not Discovered Yet" : $"{Methods.NotationMethod(data.amps, "F2")} Amps";
         quarkBoostText.text = data.amps <= 0 ? "?????" : $"{Methods.NotationMethod(challenge.QuarkBoost(), "F2")}";
 
@@ -266,6 +274,8 @@ public class IdleGame : MonoBehaviour
             temp *= challenge.QuarkBoost();
         if(data.powerBranch1Level > 0)
             temp *= 30 * data.powerBranch1Level;
+        if (kuaka.burnToggle)
+            temp *= 20;
         if (data.isConsoleOn)
             temp -= 10;
         return temp;
@@ -318,6 +328,9 @@ public class IdleGame : MonoBehaviour
             case "achievement":
                 achievementCanvas.gameObject.SetActive(true);
                 break;
+            case "kuaka":
+                kuakaCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -336,6 +349,7 @@ public class IdleGame : MonoBehaviour
         challengeCanvas.gameObject.SetActive(false);
         byteInfusionCanvas.gameObject.SetActive(false);
         achievementCanvas.gameObject.SetActive(false);
+        kuakaCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

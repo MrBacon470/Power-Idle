@@ -117,6 +117,8 @@ public class DysonSphereController : MonoBehaviour
             temp *= 2 * data.masteryBranch1Level;
         if (data.masteryBranch2Level > 0)
             temp *= 50;
+        if (data.isChallenge5Active)
+            temp = 0;
         return temp;
     }
 }

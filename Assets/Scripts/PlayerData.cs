@@ -33,6 +33,7 @@ public class PlayerData
     public BigDouble kuakaCoin;
     public bool hasPrestiged;
     public bool hasMastered;
+    public bool isKuakaCoinUnlocked;
     #endregion
     #region settings/daily
     public bool dailyRewardReady;
@@ -187,7 +188,7 @@ public class PlayerData
     public PlayerData()
     {
         power = 10;
-        kuakaCoin = 0;
+        kuakaCoin = 1;
         notationType = 0;
         frameRateType = 0;
         audioType = 0;
@@ -200,6 +201,7 @@ public class PlayerData
 
         hasMastered = false;
         hasPrestiged = false;
+        isKuakaCoinUnlocked = false;
 
         #region Upgrades
         productionUpgrade1Level = 0;
