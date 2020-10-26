@@ -73,7 +73,7 @@ public class Methods : MonoBehaviour
                     var mantissa2 = x / Pow(10, exponent);
 
                     if (x < 1000) return x.ToString("F2"); // Normal Number
-                    if (x > 1e306) return mantissa2.ToString("F2") + "e" + exponent2; //over 1e308 sci notation
+                    if (x < prefixes.Count * 3) return mantissa2.ToString("F2") + "e" + exponent2;
                     return (x / Pow(10, thirdExponent)).ToString("F2") + prefixes[thirdExponent.ToDouble()]; //word notation
 
                 }
@@ -183,6 +183,35 @@ public class Methods : MonoBehaviour
         {297, " Octononagintillion" },
         {300, " Novemnonagintillion" },
         {303, " Centillion" },
+        {306, " Uncentillion" },
+        {309, " Duocentillion" },
+        {312, " Trecentillion" },
+        {315, " Quattuorcentillion" },
+        {318, " Quincentillion" },
+        {321, " Sexcentillion" },
+        {324, " Septencentillion" },
+        {327, " Octocentillion" },
+        {330, " Novencentillion" },
+        {333, " Decicentillion" },
+        {336, " Undecicentillion" },
+        {339, " Duodecicentillion" },
+        {342, " Tredecicentillion" },
+        {345, " Quattuorcentillion" },
+        {348, " Quindecicentillion" },
+        {351, " Sedecicentillion" },
+        {354, " Septendecicentillion" },
+        {357, " Octodecicentillion" },
+        {360, " Novemdecicentillion" },
+        {363, " Vigincentillion" },
+        {366, " Unvigincentillion" },
+        {369, " Duovigincentillion" },
+        {372, " Tresvigincentillion" },
+        {375, " Quattuorvigincentillion" },
+        {378, " Quinvigincentillion" },
+        {381, " Sesvigincentillion" },
+        {384, " Septemvigincentillion" },
+        {387, " Octovigincentillion" },
+        {390, " Novemvigincentillion" },
     };
 
     public static void BuyMax(ref BigDouble c, BigDouble b, float r, ref BigDouble k)
