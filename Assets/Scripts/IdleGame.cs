@@ -46,6 +46,7 @@ public class IdleGame : MonoBehaviour
     public ByteInfusionManager bytes;
     public ChallengeManager challenge;
     public TechTreeManager techTree;
+    public AchievementManager achievement;
     [Header("Branch Controllers")]
     public ConsoleBranch consoleB;
     public PowerBranch power;
@@ -84,6 +85,7 @@ public class IdleGame : MonoBehaviour
     public Canvas byteInfusionCanvas;
     public Canvas challengeCanvas;
     public Canvas startScreen;
+    public Canvas achievementCanvas;
 
     public void Start()
     {
@@ -103,6 +105,7 @@ public class IdleGame : MonoBehaviour
         techTreeCanvas.gameObject.SetActive(false);
         byteInfusionCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
+        achievementCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
@@ -151,6 +154,7 @@ public class IdleGame : MonoBehaviour
         prestigeB.UpdatePrestige();
         masteryB.UpdateMastery();
         challengeB.UpdateChallenge();
+        achievement.Run();
 
         if (data.frameRateType == 0)
             Application.targetFrameRate = 60;
@@ -311,6 +315,9 @@ public class IdleGame : MonoBehaviour
             case "bytes":
                 byteInfusionCanvas.gameObject.SetActive(true);
                 break;
+            case "achievement":
+                achievementCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -328,6 +335,7 @@ public class IdleGame : MonoBehaviour
         techTreeCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
         byteInfusionCanvas.gameObject.SetActive(false);
+        achievementCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

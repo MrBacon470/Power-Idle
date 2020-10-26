@@ -169,6 +169,18 @@ public class PlayerData
     #endregion
     #endregion
 
+    #region achievements
+    public bool isAchievement1Locked;
+    public bool isAchievement2Locked;
+    public bool isAchievement3Locked;
+    public bool isAchievement4Locked;
+    public bool isAchievement5Locked;
+    public bool isAchievement6Locked;
+    public bool isAchievement7Locked;
+    public bool isAchievement8Locked;
+    public bool isAchievement9Locked;
+    #endregion
+
     public PlayerData()
     {
         power = 10;
@@ -299,6 +311,18 @@ public class PlayerData
         isChallengeBranch2Locked = true;
         hasSacraficesBeenUnlocked = false;
         #endregion
+        #endregion
+
+        #region achievements
+        isAchievement1Locked = true;
+        isAchievement2Locked = true;
+        isAchievement3Locked = true;
+        isAchievement4Locked = true;
+        isAchievement5Locked = true;
+        isAchievement6Locked = true;
+        isAchievement7Locked = true;
+        isAchievement8Locked = true;
+        isAchievement9Locked = true;
         #endregion
     }
 }
