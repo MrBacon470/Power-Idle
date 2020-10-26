@@ -55,6 +55,9 @@ public class ConsoleController : MonoBehaviour
     {
         var data = game.data;
 
+        if (data.power <= 10 || game.TotalPowerPerSecond() == 0)
+            data.isConsoleOn = false;
+
         if (data.isChallenge2Active)
             data.isConsoleOn = false;
             
