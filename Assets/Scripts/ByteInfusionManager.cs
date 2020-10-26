@@ -31,9 +31,9 @@ public class ByteInfusionManager : MonoBehaviour
 {
     public IdleGame game;
 
-    private BigDouble Cost1 => 1e5 * Pow(1.5, game.data.byteInfusionULevel1);
-    private BigDouble Cost2 => 1e6 * Pow(1.75, game.data.byteInfusionULevel2);
-    private BigDouble Cost3 => 1e7 * Pow(2.5, game.data.byteInfusionULevel3);
+    private BigDouble Cost1 => 1e5 * Pow(1.15, game.data.byteInfusionULevel1);
+    private BigDouble Cost2 => 1e6 * Pow(1.25, game.data.byteInfusionULevel2);
+    private BigDouble Cost3 => 1e7 * Pow(1.5, game.data.byteInfusionULevel3);
 
     public Text[] infusionsText = new Text[3];
 

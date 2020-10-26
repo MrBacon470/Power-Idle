@@ -41,9 +41,9 @@ public class InfusionManager : MonoBehaviour
     public Text titleText;
     public Text infoText;
 
-    private BigDouble Cost1 => 1e5 * Pow(1.5, game.data.infusionULevel1);
-    private BigDouble Cost2 => 1e6 * Pow(1.5, game.data.infusionULevel2);
-    private BigDouble Cost3 => 1e7 * Pow(2.5, game.data.infusionULevel3);
+    private BigDouble Cost1 => 1e5 * Pow(1.15, game.data.infusionULevel1);
+    private BigDouble Cost2 => 1e6 * Pow(1.25, game.data.infusionULevel2);
+    private BigDouble Cost3 => 1e7 * Pow(1.5, game.data.infusionULevel3);
 
     public Text[] infusionsText = new Text[3];
 
