@@ -38,6 +38,8 @@ public class InfusionManager : MonoBehaviour
     public Image buttonIcon;
     public Text buttonText;
     public Image[] infusionImages = new Image[3];
+    public Text titleText;
+    public Text infoText;
 
     private BigDouble Cost1 => 1e5 * Pow(1.5, game.data.infusionULevel1);
     private BigDouble Cost2 => 1e6 * Pow(1.5, game.data.infusionULevel2);
@@ -68,11 +70,15 @@ public class InfusionManager : MonoBehaviour
         {
             buttonIcon.sprite = sacraficeIcon;
             buttonText.text = "Sacrafices";
+            titleText.text = "Sacrafices";
+            infoText.text = "Sacrafice Transformers\nTo Upgrade Stats";
         }
         else
         {
             buttonIcon.sprite = infusionIcon;
             buttonText.text = "Infusions";
+            titleText.text = "Infusions";
+            infoText.text = "Infuse Transformers\nTo Upgrade Stats";
         }
 
         void UI()

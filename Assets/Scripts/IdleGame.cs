@@ -83,7 +83,7 @@ public class IdleGame : MonoBehaviour
     public Canvas techTreeCanvas;
     public Canvas byteInfusionCanvas;
     public Canvas challengeCanvas;
-    //public Canvas startScreen;
+    public Canvas startScreen;
 
     public void Start()
     {
@@ -91,8 +91,8 @@ public class IdleGame : MonoBehaviour
         Screen.SetResolution(1920, 1080, false);
         Application.runInBackground = true;
 
-        //startScreen.gameObject.SetActive(true);
-        mainMenuGroup.gameObject.SetActive(true);
+        startScreen.gameObject.SetActive(true);
+        mainMenuGroup.gameObject.SetActive(false);
         settingsGroup.gameObject.SetActive(false);
         researchCanvas.gameObject.SetActive(false);
         sphereCanvas.gameObject.SetActive(false);
@@ -305,9 +305,6 @@ public class IdleGame : MonoBehaviour
             case "techtree":
                 techTreeCanvas.gameObject.SetActive(true);
                 break;
-            //case "start":
-                //startScreen.gameObject.SetActive(true);
-                //break;
             case "challenge":
                 challengeCanvas.gameObject.SetActive(true);
                 break;
@@ -319,7 +316,7 @@ public class IdleGame : MonoBehaviour
 
     void DisableAll()
     {
-        //startScreen.gameObject.SetActive(false);
+        startScreen.gameObject.SetActive(false);
         mainMenuGroup.gameObject.SetActive(false);
         settingsGroup.gameObject.SetActive(false);
         researchCanvas.gameObject.SetActive(false);

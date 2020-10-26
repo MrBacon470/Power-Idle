@@ -172,6 +172,9 @@ public class PlayerData
     public PlayerData()
     {
         power = 10;
+        notationType = 0;
+        frameRateType = 0;
+        audioType = 0;
 
         currentDay = 0;
         UTCtime = DateTime.UtcNow;
