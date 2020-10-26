@@ -134,6 +134,8 @@ public class IdleGame : MonoBehaviour
 
     public void Update()
     {
+        if (data.power < 10 && data.isConsoleOn)
+            data.power = 10;
         if (data.power < 0)
             data.power = 0;
         if (data.powerCollected < data.power)
