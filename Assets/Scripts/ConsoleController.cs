@@ -139,7 +139,10 @@ public class ConsoleController : MonoBehaviour
 
     public BigDouble BytesBoost()
     {
+        var data = game.data;
         var temp = game.data.bytes * 0.01;
+        if (data.isChallenge2Active || data.isChallenge3Active)
+            temp = 0;
         return temp + 1;
     }
 }

@@ -30,6 +30,7 @@ public class PlayerData
     #region main stuff
     public BigDouble power;
     public BigDouble powerCollected;
+    public BigDouble kuakaCoin;
     public bool hasPrestiged;
     public bool hasMastered;
     #endregion
@@ -179,11 +180,14 @@ public class PlayerData
     public bool isAchievement7Locked;
     public bool isAchievement8Locked;
     public bool isAchievement9Locked;
+    public bool isAchievement10Locked;
+    public bool isAchievement11Locked;
     #endregion
 
     public PlayerData()
     {
         power = 10;
+        kuakaCoin = 0;
         notationType = 0;
         frameRateType = 0;
         audioType = 0;
@@ -323,6 +327,8 @@ public class PlayerData
         isAchievement7Locked = true;
         isAchievement8Locked = true;
         isAchievement9Locked = true;
+        isAchievement10Locked = true;
+        isAchievement11Locked = true;
         #endregion
     }
 }
