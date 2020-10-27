@@ -130,6 +130,8 @@ public class IdleGame : MonoBehaviour
         }
         TotalPowerPerSecond();
         Methods.NotationSettings = data.notationType;
+        data.audioType = 1;
+        data.frameRateType = 0;
     }
 
     public void Update()

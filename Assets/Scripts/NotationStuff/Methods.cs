@@ -65,7 +65,14 @@ public class Methods : MonoBehaviour
             case 2:
                 {
                     return WordNotation.Notate(x);
-
+                }
+            case 3:
+                {
+                    return LetterNotation.Notate(x);
+                }
+            case 4:
+                {
+                    return CancerNotation.Notate(x);
                 }
         }
         return "";

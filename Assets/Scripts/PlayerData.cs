@@ -33,6 +33,7 @@ public class PlayerData
     public BigDouble kuakaCoin;
     public bool hasPrestiged;
     public bool hasMastered;
+    public bool hasTranscended;
     public bool isKuakaCoinUnlocked;
     #endregion
     #region settings/daily
@@ -201,6 +202,7 @@ public class PlayerData
 
         hasMastered = false;
         hasPrestiged = false;
+        hasTranscended = false;
         isKuakaCoinUnlocked = false;
 
         #region Upgrades

@@ -64,6 +64,12 @@ public class Settings : MonoBehaviour
             case 2:
                 notationTypeText.text = "Notation:Word";
                 break;
+            case 3:
+                notationTypeText.text = "Notation:Letter";
+                break;
+            case 4:
+                notationTypeText.text = "Notation:Cancer";
+                break;
         }
     }
 
@@ -103,7 +109,7 @@ public class Settings : MonoBehaviour
     public void ChangeNotation()
     {
         var note = game.data.notationType;
-        if (note == 2) 
+        if (note == 4) 
             note = -1;
         note++;
         /* switch (note)
