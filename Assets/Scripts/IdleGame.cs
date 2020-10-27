@@ -143,6 +143,11 @@ public class IdleGame : MonoBehaviour
         if (data.isSoftCapped && data.power > 1.79e308)
             data.power = 1.79e308;
 
+        if (data.kuakaCoin < 1e38)
+            data.isAchievement10Locked = true;
+        if (data.kuakaCoin < 1.79e308)
+            data.isAchievement11Locked = true;
+
         prestige.Run();
         upgrades.RunUpgradesUI();
         upgrades.RunUpgrades();

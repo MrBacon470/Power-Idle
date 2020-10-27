@@ -64,17 +64,7 @@ public class Methods : MonoBehaviour
                 }
             case 2:
                 {
-
-                    var exponent = Floor(Log10(x));
-                    var thirdExponent = 3 * Floor(exponent / 3);
-                    var mantissa = x / Pow(10, thirdExponent);
-
-                    var exponent2 = Floor(Log10(Abs(x)));
-                    var mantissa2 = x / Pow(10, exponent);
-
-                    if (x < 1000) return x.ToString("F2"); // Normal Number
-                    if (x < prefixes.Count * 3) return mantissa2.ToString("F2") + "e" + exponent2;
-                    return (x / Pow(10, thirdExponent)).ToString("F2") + prefixes[thirdExponent.ToDouble()]; //word notation
+                    return WordNotation.Notate(x);
 
                 }
         }

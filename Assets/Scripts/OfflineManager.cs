@@ -53,8 +53,8 @@ public class OfflineManager : MonoBehaviour
             offlinePopUp.gameObject.SetActive(true);
             TimeSpan timer = TimeSpan.FromSeconds(rawTime);
             timeAwayText.text = $"You were away for\n<color=#FF0000>{timer:dd\\:hh\\:mm\\:ss}</color>";
-            BigDouble powerGains = game.TotalPowerPerSecond() * offlineTime;
-            BigDouble bytesGains = game.console.totalBytesPerSecond() * offlineTime;
+            BigDouble powerGains = game.TotalPowerPerSecond() <= 0 ? 0 : game.TotalPowerPerSecond() * offlineTime;
+            BigDouble bytesGains = game.console.totalBytesPerSecond() <= 0 ? 0 : game.console.totalBytesPerSecond() * offlineTime;
             if(powerGains < 0 || bytesGains < 0)
             {
                 GainText.text = $"You Earned:\n<color=#E7D600>+0.00 (Error) Power</color>";
