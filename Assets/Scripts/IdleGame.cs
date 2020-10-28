@@ -71,6 +71,7 @@ public class IdleGame : MonoBehaviour
     public GameObject consoleButton;
     public GameObject challengeButton;
     public GameObject techTreeButton;
+    public GameObject transcensionButton;
     
     public BigDouble plasmaTemp;
 
@@ -88,6 +89,7 @@ public class IdleGame : MonoBehaviour
     public Canvas startScreen;
     public Canvas achievementCanvas;
     public Canvas kuakaCanvas;
+    public Canvas transcensionCanvas;
 
     public void Start()
     {
@@ -109,6 +111,7 @@ public class IdleGame : MonoBehaviour
         challengeCanvas.gameObject.SetActive(false);
         achievementCanvas.gameObject.SetActive(false);
         kuakaCanvas.gameObject.SetActive(false);
+        transcensionCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
@@ -145,9 +148,9 @@ public class IdleGame : MonoBehaviour
         if (data.isSoftCapped && data.power > 1.79e308)
             data.power = 1.79e308;
 
-        if (data.kuakaCoin < 1e38)
+        if (data.kuakaCoin < 1e38 && !data.isKuakaCoinUnlocked)
             data.isAchievement10Locked = true;
-        if (data.kuakaCoin < 1.79e308)
+        if (data.kuakaCoin < 1.79e308 && !data.isKuakaCoinUnlocked)
             data.isAchievement11Locked = true;
 
         prestige.Run();
@@ -220,6 +223,11 @@ public class IdleGame : MonoBehaviour
             techTreeButton.gameObject.SetActive(true);
         else
             techTreeButton.gameObject.SetActive(false);
+
+        if (data.hasTranscended)
+            transcensionButton.gameObject.SetActive(true);
+        else
+            transcensionButton.gameObject.SetActive(false);
 
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
@@ -340,6 +348,9 @@ public class IdleGame : MonoBehaviour
             case "kuaka":
                 kuakaCanvas.gameObject.SetActive(true);
                 break;
+            case "transcend":
+                transcensionCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -359,6 +370,7 @@ public class IdleGame : MonoBehaviour
         byteInfusionCanvas.gameObject.SetActive(false);
         achievementCanvas.gameObject.SetActive(false);
         kuakaCanvas.gameObject.SetActive(false);
+        transcensionCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

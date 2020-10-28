@@ -186,6 +186,10 @@ public class PlayerData
     public bool isAchievement11Locked;
     #endregion
 
+    #region Transcension
+    public BigDouble realityShards;
+    #endregion
+
     public PlayerData()
     {
         power = 10;
@@ -333,6 +337,9 @@ public class PlayerData
         isAchievement9Locked = true;
         isAchievement10Locked = true;
         isAchievement11Locked = true;
+        #endregion
+
+        #region Transcension
         #endregion
     }
 }
