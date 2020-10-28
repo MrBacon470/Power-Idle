@@ -30,8 +30,11 @@ using System;
 
 public class TranscensionManager : MonoBehaviour
 {
+    [Header("Scripts")]
     public IdleGame game;
-
+    public TomeManager tome;
+    public CorruptionController corruption;
+    [Header("UI Stuff")]
     public GameObject transcendMenu;
 
     public Text shardsText;
@@ -40,6 +43,7 @@ public class TranscensionManager : MonoBehaviour
     public Canvas mainCanvas;
     public Canvas corruptionCanvas;
     public Canvas tomeCanvas;
+    public Canvas mainScreenCanvas;
 
     [Header("Achievements")]
     public GameObject[] achievements = new GameObject[7];
@@ -48,11 +52,15 @@ public class TranscensionManager : MonoBehaviour
     public void Start()
     {
         var data = game.data;
+        tome.StartTomes();
+        corruption.StartCorruption();
     }
 
     public void Update()
     {
         var data = game.data;
+        tome.Run();
+        corruption.Run();
 
         data.realityShardsToGet = 10 * Sqrt(data.power + data.transformers + data.bytes + data.superConductors / Log10(1000));
 
@@ -135,5 +143,6 @@ public class TranscensionManager : MonoBehaviour
         mainCanvas.gameObject.SetActive(false);
         corruptionCanvas.gameObject.SetActive(false);
         tomeCanvas.gameObject.SetActive(false);
+        mainScreenCanvas.gameObject.SetActive(false);
     }
 }

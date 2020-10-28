@@ -65,9 +65,9 @@ public class AchievementManager : MonoBehaviour
             data.isAchievement8Locked = false;
         if (data.challengeLevel1 > 0 && data.challengeLevel2 > 0 && data.challengeLevel3 > 0 && data.isAchievement9Locked)
             data.isAchievement9Locked = false;
-        if (data.kuakaCoin >= 1e38 && data.isAchievement10Locked)
+        if (data.kuakaCoin >= 1e38 && data.isAchievement10Locked && data.isKuakaCoinUnlocked)
             data.isAchievement10Locked = false;
-        if (data.kuakaCoin >= 1.79e308 && data.isAchievement11Locked)
+        if (data.kuakaCoin >= 1.79e308 && data.isAchievement11Locked && data.isKuakaCoinUnlocked)
             data.isAchievement11Locked = false;
     }
 

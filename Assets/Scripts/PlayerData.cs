@@ -191,6 +191,36 @@ public class PlayerData
     public BigDouble realityShardsToGet;
     #endregion
 
+    #region Tomes
+    public BigDouble tomes1Level;
+    public BigDouble tomes2Level;
+    public BigDouble tomes3Level;
+    public BigDouble tomes4Level;
+    public BigDouble tomes5Level;
+    #endregion
+
+    #region Corruption
+    public BigDouble corruption;
+    public BigDouble corruptionCapacity;
+
+    public BigDouble corruptUpgrade1Level;
+    public BigDouble corruptUpgrade2Level;
+    public BigDouble corruptUpgrade3Level;
+
+    public BigDouble corruptUpgrade1Produced;
+    public BigDouble corruptUpgrade2Produced;
+    #endregion
+
+    #region Trancension Achievements
+    public bool isTransAchievement1Locked;
+    public bool isTransAchievement2Locked;
+    public bool isTransAchievement3Locked;
+    public bool isTransAchievement4Locked;
+    public bool isTransAchievement5Locked;
+    public bool isTransAchievement6Locked;
+    public bool isTransAchievement7Locked;
+    #endregion
+
     public PlayerData()
     {
         power = 10;
@@ -343,6 +373,35 @@ public class PlayerData
         #region Transcension
         realityShards = 0;
         realityShardsToGet = 0;
+        #endregion
+
+        #region Tomes
+        tomes1Level = 0;
+        tomes2Level = 0;
+        tomes3Level = 0;
+        tomes4Level = 0;
+        tomes5Level = 0;
+        #endregion
+
+        #region Corruption
+        corruption = 0;
+        corruptionCapacity = 0;
+
+        corruptUpgrade1Level = 0;
+        corruptUpgrade2Level = 0;
+        corruptUpgrade3Level = 0;
+
+        
+        #endregion
+
+        #region transcension achievements
+        isTransAchievement1Locked = true;
+        isTransAchievement2Locked = true;
+        isTransAchievement3Locked = true;
+        isTransAchievement4Locked = true;
+        isTransAchievement5Locked = true;
+        isTransAchievement6Locked = true;
+        isTransAchievement7Locked = true;
         #endregion
     }
 }

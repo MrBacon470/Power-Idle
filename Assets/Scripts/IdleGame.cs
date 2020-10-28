@@ -147,9 +147,9 @@ public class IdleGame : MonoBehaviour
         if (data.isSoftCapped && data.power > 1.79e308)
             data.power = 1.79e308;
 
-        if (data.kuakaCoin < 1e38 && !data.isKuakaCoinUnlocked)
+        if (!data.isKuakaCoinUnlocked)
             data.isAchievement10Locked = true;
-        if (data.kuakaCoin < 1.79e308 && !data.isKuakaCoinUnlocked)
+        if (!data.isKuakaCoinUnlocked)
             data.isAchievement11Locked = true;
 
         prestige.Run();
@@ -292,8 +292,13 @@ public class IdleGame : MonoBehaviour
             temp *= 30 * data.powerBranch1Level;
         if (kuaka.burnToggle)
             temp *= 20;
+        if (data.tomes1Level > 0)
+            temp *= 5 * data.tomes1Level;
+        if (data.tomes3Level > 0)
+            temp *= (data.transformers / 4) * data.tomes3Level;
         if (data.isConsoleOn)
             temp -= 10;
+        
         return temp;
     }
 

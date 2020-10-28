@@ -140,6 +140,8 @@ public class ConsoleController : MonoBehaviour
             temp *= 5 * data.consoleBranch1Level;
         if (kuaka.burnToggle)
             temp *= 20;
+        if (data.tomes2Level > 0)
+            temp *= 2 * data.tomes2Level;
         return temp;
     }
 
@@ -149,6 +151,8 @@ public class ConsoleController : MonoBehaviour
         var temp = game.data.bytes * 0.01;
         if (data.isChallenge2Active || data.isChallenge3Active)
             temp = 0;
+        if (data.tomes2Level > 0)
+            temp *= 2 * data.tomes2Level;
         return temp + 1;
     }
 }

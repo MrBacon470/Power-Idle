@@ -119,6 +119,8 @@ public class DysonSphereController : MonoBehaviour
             temp *= 50;
         if (data.isChallenge5Active)
             temp = 0;
+        if (data.tomes4Level > 0)
+            temp *= (data.superConductors / 4) * data.tomes4Level;
         return temp;
     }
 }
