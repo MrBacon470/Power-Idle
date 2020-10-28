@@ -42,7 +42,7 @@ public class PrestigeManager : MonoBehaviour
 
         data.transformersToGet = 150 * Sqrt(data.power / 2.5e4);
 
-        if (data.currentPollution >= 409.8e6)
+        if (data.currentPollution >= game.pollution.totalPollution)
             prestigeMenu.gameObject.SetActive(true);
         else
             prestigeMenu.gameObject.SetActive(false);

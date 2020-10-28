@@ -188,6 +188,7 @@ public class PlayerData
 
     #region Transcension
     public BigDouble realityShards;
+    public BigDouble realityShardsToGet;
     #endregion
 
     public PlayerData()
@@ -340,6 +341,8 @@ public class PlayerData
         #endregion
 
         #region Transcension
+        realityShards = 0;
+        realityShardsToGet = 0;
         #endregion
     }
 }

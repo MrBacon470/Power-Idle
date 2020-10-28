@@ -30,6 +30,7 @@ using System;
 
 public class IdleGame : MonoBehaviour
 {
+    [Header("Scripts")]
     public PlayerData data;
     public OfflineManager offline;
     public SaveSystem nonStaticSaveSystem;
@@ -54,7 +55,7 @@ public class IdleGame : MonoBehaviour
     public PrestigeBranch prestigeB;
     public MasteryBranch masteryB;
     public ChallengeBranch challengeB;
-
+    [Header("Texts")]
     public Text powerText;
     public Text powerPerSecText;
 
@@ -65,16 +66,14 @@ public class IdleGame : MonoBehaviour
     public Text quarkBoostText;
 
     public Text saveTimerText;
-
+    [Header("Buttons")]
     public GameObject infusionButton;
     public GameObject megaButton;
     public GameObject consoleButton;
     public GameObject challengeButton;
     public GameObject techTreeButton;
     public GameObject transcensionButton;
-    
-    public BigDouble plasmaTemp;
-
+    [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
     public Canvas sphereCanvas;

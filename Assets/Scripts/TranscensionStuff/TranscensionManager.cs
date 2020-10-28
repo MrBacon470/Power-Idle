@@ -35,11 +35,15 @@ public class TranscensionManager : MonoBehaviour
     public GameObject transcendMenu;
 
     public Text shardsText;
-    public Text shardsBoostText;
+    public Text transcendText;
 
     public Canvas mainCanvas;
     public Canvas corruptionCanvas;
     public Canvas tomeCanvas;
+
+    [Header("Achievements")]
+    public GameObject[] achievements = new GameObject[7];
+
 
     public void Start()
     {
@@ -50,10 +54,46 @@ public class TranscensionManager : MonoBehaviour
     {
         var data = game.data;
 
+        data.realityShardsToGet = 10 * Sqrt(data.power + data.transformers + data.bytes + data.superConductors / Log10(1000));
+
         if (data.power >= 1.79e308 && data.bytes >= 1.79e308 && data.transformers >= 1.79e308 && data.superConductors >= 1.79e308)
             transcendMenu.gameObject.SetActive(true);
         else
             transcendMenu.gameObject.SetActive(false);
+
+        if(game.transcensionCanvas.gameObject.activeSelf)
+        {
+            shardsText.text = $"{Methods.NotationMethod(data.realityShards, "F0")} Reality Shards";
+        }
+
+        if(transcendMenu.gameObject.activeSelf)
+        {
+            transcendText.text = $"Transcend +{Methods.NotationMethod(data.realityShardsToGet, "F0")} Reality Shards";
+        }
+
+        if(game.achievementCanvas.gameObject.activeSelf)
+        {
+            if(data.hasTranscended)
+            {
+                achievements[0].gameObject.SetActive(true);
+                achievements[1].gameObject.SetActive(true);
+                achievements[2].gameObject.SetActive(true);
+                achievements[3].gameObject.SetActive(true);
+                achievements[4].gameObject.SetActive(true);
+                achievements[5].gameObject.SetActive(true);
+                achievements[6].gameObject.SetActive(true);
+            }
+            else
+            {
+                achievements[0].gameObject.SetActive(false);
+                achievements[1].gameObject.SetActive(false);
+                achievements[2].gameObject.SetActive(false);
+                achievements[3].gameObject.SetActive(false);
+                achievements[4].gameObject.SetActive(false);
+                achievements[5].gameObject.SetActive(false);
+                achievements[6].gameObject.SetActive(false);
+            }
+        }
     }
 
     public void Transcend()
@@ -61,7 +101,16 @@ public class TranscensionManager : MonoBehaviour
         var data = game.data;
         if (data.power < 1.79e308 || data.bytes < 1.79e308 || data.transformers < 1.79e308 || data.superConductors < 1.79e308) return;
 
-        
+        data.realityShards += data.realityShardsToGet;
+
+        data.power = 10;
+        data.bytes = 0;
+        data.transformers = 0;
+        data.superConductors = 0;
+        data.transformersToGet = 0;
+        data.superConductorsToGet = 0;
+        data.realityShardsToGet = 0;
+        data.kuakaCoin = 0;
     }
 
     public void ChangeTabs(string id)
