@@ -56,7 +56,7 @@ public class CorruptionController : MonoBehaviour
         TextManager();
 
 
-        data.corruptionCapacity = data.realityShards * 4;
+        data.corruptionCapacity = 1e6 + data.realityShards * 4;
 
         if (data.corruption / data.corruptionCapacity > 1)
             data.corruption = data.corruptionCapacity;
@@ -75,7 +75,7 @@ public class CorruptionController : MonoBehaviour
         corruptUpgradesText[0].text = $"Harvester 1 Corruption/s\nCost:{Methods.NotationMethod(Cost1, "F0")}\nLevel:{Methods.NotationMethod(data.corruptUpgrade1Level + data.corruptUpgrade1Produced, "F0")}";
         corruptUpgradesText[1].text = $"Fabricator 1 Harvester/s\nCost:{Methods.NotationMethod(Cost2, "F0")}\nLevel:{Methods.NotationMethod(data.corruptUpgrade2Level + data.corruptUpgrade2Produced, "F0")}";
         corruptUpgradesText[2].text = $"Synthesiser 1 Fabricator/s\nCost:{Methods.NotationMethod(Cost3, "F0")}\nLevel:{Methods.NotationMethod(data.corruptUpgrade3Level, "F0")}";
-        corruptionText.text = $"C̶o̷r̴r̴u̸p̴t̸i̵o̴n̷:{Methods.NotationMethod(data.corruption, "F0")}\nCapacity Filled:{Methods.NotationMethod(data.corruption / data.corruptionCapacity, "F0")}%";
+        corruptionText.text = $"C̶o̷r̴r̴u̸p̴t̸i̵o̴n̷:{Methods.NotationMethod(data.corruption, "F0")}\nCapacity Filled:{Methods.NotationMethod((data.corruption / data.corruptionCapacity) * 100,"F2")}%";
         corruptionBoostText.text = $"Corrupt Boost:+{Methods.NotationMethod(corruptBoost(), "F0")}x";
     }
 

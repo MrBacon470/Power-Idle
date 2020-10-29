@@ -66,50 +66,52 @@ public class TrancensionAchievementManager : MonoBehaviour
     public void TextManager()
     {
         var data = game.data;
-
-        achievementTexts[0].text = $"Reality Bearer Reach {Methods.NotationMethod(1e38, "F0")} Reality Shards";
-        achievementTexts[1].text = $"Reality Writer Reach {Methods.NotationMethod(1.79e308, "F0")} Reality Shards";
-        achievementTexts[2].text = $"Small Problem Reach {Methods.NotationMethod(1e38, "F0")} Corruption";
-        achievementTexts[3].text = $"Large Problem Reach {Methods.NotationMethod(1.79e308, "F0")} Corruption";
-        achievementTexts[4].text = $"Wizard Upgrade All Tomes Once";
-        achievementTexts[5].text = $"Alchemist Upgrade All Tomes 10 times";
-        achievementTexts[6].text = $"Mystic Upgrade Max Out All Tomes";
+        if(game.achievementCanvas.gameObject.activeSelf)
+        {
+            achievementTexts[0].text = $"Reality Bearer Reach {Methods.NotationMethod(1e38, "F0")} Reality Shards";
+            achievementTexts[1].text = $"Reality Writer Reach {Methods.NotationMethod(1.79e308, "F0")} Reality Shards";
+            achievementTexts[2].text = $"Small Problem Reach {Methods.NotationMethod(1e38, "F0")} Corruption";
+            achievementTexts[3].text = $"Large Problem Reach {Methods.NotationMethod(1.79e308, "F0")} Corruption";
+            achievementTexts[4].text = $"Wizard Upgrade All Tomes Once";
+            achievementTexts[5].text = $"Alchemist Upgrade All Tomes 10 times";
+            achievementTexts[6].text = $"Mystic Upgrade Max Out All Tomes";
+        }
     }
 
     public void ImageManager()
     {
         var data = game.data;
-        if (data.isAchievement1Locked)
+        if (data.isTransAchievement1Locked)
             achievementIcons[0].sprite = lockedIcon;
         else
             achievementIcons[0].sprite = unlockedIcon;
 
-        if (data.isAchievement2Locked)
+        if (data.isTransAchievement2Locked)
             achievementIcons[1].sprite = lockedIcon;
         else
             achievementIcons[1].sprite = unlockedIcon;
 
-        if (data.isAchievement3Locked)
+        if (data.isTransAchievement3Locked)
             achievementIcons[2].sprite = lockedIcon;
         else
             achievementIcons[2].sprite = unlockedIcon;
 
-        if (data.isAchievement4Locked)
+        if (data.isTransAchievement4Locked)
             achievementIcons[3].sprite = lockedIcon;
         else
             achievementIcons[3].sprite = unlockedIcon;
 
-        if (data.isAchievement5Locked)
+        if (data.isTransAchievement5Locked)
             achievementIcons[4].sprite = lockedIcon;
         else
             achievementIcons[4].sprite = unlockedIcon;
 
-        if (data.isAchievement6Locked)
+        if (data.isTransAchievement6Locked)
             achievementIcons[5].sprite = lockedIcon;
         else
             achievementIcons[5].sprite = unlockedIcon;
 
-        if (data.isAchievement7Locked)
+        if (data.isTransAchievement7Locked)
             achievementIcons[6].sprite = lockedIcon;
         else
             achievementIcons[6].sprite = unlockedIcon;

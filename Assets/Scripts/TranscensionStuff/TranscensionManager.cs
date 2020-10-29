@@ -34,6 +34,7 @@ public class TranscensionManager : MonoBehaviour
     public IdleGame game;
     public TomeManager tome;
     public CorruptionController corruption;
+    public TrancensionAchievementManager achievement;
     [Header("UI Stuff")]
     public GameObject transcendMenu;
 
@@ -43,7 +44,8 @@ public class TranscensionManager : MonoBehaviour
     public Canvas mainCanvas;
     public Canvas corruptionCanvas;
     public Canvas tomeCanvas;
-    public Canvas mainScreenCanvas;
+
+    public GameObject transcensionButton;
 
     [Header("Achievements")]
     public GameObject[] achievements = new GameObject[7];
@@ -61,15 +63,21 @@ public class TranscensionManager : MonoBehaviour
         var data = game.data;
         tome.Run();
         corruption.Run();
+        achievement.Run();
 
-        data.realityShardsToGet = 10 * Sqrt(data.power + data.transformers + data.bytes + data.superConductors / Log10(1000));
+        data.realityShardsToGet = Sqrt(data.power + data.transformers + data.bytes + data.superConductors / Log10(1e308));
 
         if (data.power >= 1.79e308 && data.bytes >= 1.79e308 && data.transformers >= 1.79e308 && data.superConductors >= 1.79e308)
             transcendMenu.gameObject.SetActive(true);
         else
             transcendMenu.gameObject.SetActive(false);
 
-        if(game.transcensionCanvas.gameObject.activeSelf)
+        if (!data.hasTranscended)
+            transcensionButton.gameObject.SetActive(false);
+        else
+            transcensionButton.gameObject.SetActive(true);
+
+        if (game.transcensionCanvas.gameObject.activeSelf)
         {
             shardsText.text = $"{Methods.NotationMethod(data.realityShards, "F0")} Reality Shards";
         }
@@ -143,6 +151,5 @@ public class TranscensionManager : MonoBehaviour
         mainCanvas.gameObject.SetActive(false);
         corruptionCanvas.gameObject.SetActive(false);
         tomeCanvas.gameObject.SetActive(false);
-        mainScreenCanvas.gameObject.SetActive(false);
     }
 }

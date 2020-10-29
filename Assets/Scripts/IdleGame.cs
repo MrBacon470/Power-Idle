@@ -72,7 +72,6 @@ public class IdleGame : MonoBehaviour
     public GameObject consoleButton;
     public GameObject challengeButton;
     public GameObject techTreeButton;
-    public GameObject transcensionButton;
     [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
@@ -223,10 +222,7 @@ public class IdleGame : MonoBehaviour
         else
             techTreeButton.gameObject.SetActive(false);
 
-        if (data.hasTranscended)
-            transcensionButton.gameObject.SetActive(true);
-        else
-            transcensionButton.gameObject.SetActive(false);
+
 
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
