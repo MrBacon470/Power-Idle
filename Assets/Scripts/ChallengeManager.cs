@@ -205,12 +205,12 @@ public class ChallengeManager : MonoBehaviour
     public void Conditions()
     {
         var data = game.data;
-        if(data.isChallenge1Active)
+        if(data.isChallenge1Active || data.isChallenge4Active)
             if(data.power >= challengeGoal1)
             {
                 CompleteChallenge(0);
             }
-        if (data.isChallenge2Active)
+        if (data.isChallenge2Active || data.isChallenge5Active)
             if (data.power >= challengeGoal2)
             {
                 CompleteChallenge(1);
