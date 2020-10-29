@@ -38,17 +38,17 @@ public class OfflineManager : MonoBehaviour
 
     public DateTime currentTime;
 
-    public async void LoadOfflineProduction()
+    public void LoadOfflineProduction()
     {
         var data = game.data;
         if(data.offlineProgressCheck)
         {
             var tempOfflineTime = Convert.ToInt64(PlayerPrefs.GetString("OfflineTime"));
             var oldTime = DateTime.FromBinary(tempOfflineTime);
-            var currentTime = await AwaitGetUTCTIme();
+            var currentTime = DateTime.Now;
             var difference = currentTime.Subtract(oldTime);
             var rawTime = (float)difference.TotalSeconds;
-            var offlineTime = rawTime / 10;
+            var offlineTime = rawTime / 5;
 
             offlinePopUp.gameObject.SetActive(true);
             TimeSpan timer = TimeSpan.FromSeconds(rawTime);
@@ -68,13 +68,6 @@ public class OfflineManager : MonoBehaviour
         }
     }
 
-    public DateTime currentUTCDateTime;
-    public async Task<DateTime> AwaitGetUTCTIme()
-    {
-        StartCoroutine(daily.GetUTCTime());
-        await Task.Delay(1000);
-        return daily.tempDateTime;
-    }
 
     public void CloseOffline()
     {
