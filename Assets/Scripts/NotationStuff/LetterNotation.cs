@@ -10,9 +10,9 @@ public static class LetterNotation
         long illion = exponent / 3 - 1;
         string word = "";
 
-        if (illion == 0) word = " thousand";
-        else if (illion < 1000) word = " " + GetTier1Root(illion) + "illion";
-        else word = " " + GetTier2Root(illion) + "illion";
+        if (illion == 0) word = " K";
+        else if (illion < 1000) word = " " + GetTier1Root(illion) + "";
+        else word = " " + GetTier2Root(illion) + "";
 
         if (illion < 1000000000) return (value / new BigDouble(1, exponent)).ToString("F" + precision) + word;
         else return "a" + word;

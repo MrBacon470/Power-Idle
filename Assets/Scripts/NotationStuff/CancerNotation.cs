@@ -15,7 +15,7 @@ public static class CancerNotation
         long illion = exponent / 3 - 1;
         string word = "";
 
-        if (illion == 0) word = " thousand";
+        if (illion == 0) word = " Flame";
         else if (illion < 1000) word = " " + GetTier1Root(illion) + "illion";
         else word = " " + GetTier2Root(illion) + "illion";
 
@@ -45,7 +45,7 @@ public static class CancerNotation
 
         string[] onesRoot = { "", "lol", "lmao", "lmfao", "lmbao", "heck", "rofl", "nani", "uhh", "noo" };
         string[] tensRoot = { "", "kek", "stupid", "nope", "how bout", "crud", "crap", "holup", "crap", "kuaka" };
-        string[] hundredRoot = { "", "ivy", "howw", "impossible", "sterlitzia", "ehh", "heckin", "feck", "reverse", "ducdat" };
+        string[] hundredRoot = { "", "ivy", "howw", "impossible", "sterlitizia", "ehh", "heckin", "feck", "reverse", "ducdat" };
 
         if (mode == 1)
         {
@@ -111,7 +111,7 @@ public static class CancerNotation
     }
 
     static string GetTier2Root(long value) {
-        string[] prefixes = { "", "mill", "micr", "nan", "pic", "femt", "att", "zept" };
+        string[] prefixes = { "", "Bacon", "Burnt", "Crispy", "Torched", "There", "Well", "How" };
 
         long prefix = (long)(Math.Log(value, 1000));
 

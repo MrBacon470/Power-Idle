@@ -112,7 +112,7 @@ public class IdleGame : MonoBehaviour
         kuakaCanvas.gameObject.SetActive(false);
         transcensionCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
-        offline.LoadOfflineProduction();
+        //offline.LoadOfflineProduction();
         infuse.StartInfusion();
         console.StartConsole();
         scriptLibrary.StartLibrary();
