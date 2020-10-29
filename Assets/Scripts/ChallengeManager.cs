@@ -44,8 +44,6 @@ public class ChallengeManager : MonoBehaviour
 
 
     public Text[] challengeText = new Text[3];
-    public GameObject[] challengePopUp = new GameObject[3];
-    public Text[] challengePopUpText = new Text[3];
 
     public BigDouble[] challengeReward;
     public BigDouble[] challengeLevels;
@@ -171,23 +169,19 @@ public class ChallengeManager : MonoBehaviour
             case 0:
                 data.amps += reward1;
                 data.isChallenge1Active = false;
+                data.isChallenge4Active = false;
                 data.challengeLevel1++;
-                challengePopUp[0].gameObject.SetActive(true);
-                challengePopUpText[0].text = $"CHALLENGE 1 COMPLETED\nREWARD:{Methods.NotationMethod(reward1, "F0")} AMPS";
                 break;
             case 1:
                 data.amps += reward2;
                 data.isChallenge2Active = false;
+                data.isChallenge5Active = false;
                 data.challengeLevel2++;
-                challengePopUp[1].gameObject.SetActive(true);
-                challengePopUpText[1].text = $"CHALLENGE 2 COMPLETED\nREWARD:{Methods.NotationMethod(reward2, "F0")} AMPS";
                 break;
             case 2:
                 data.amps += reward3;
                 data.isChallenge3Active = false;
                 data.challengeLevel3++;
-                challengePopUp[2].gameObject.SetActive(true);
-                challengePopUpText[2].text = $"CHALLENGE 3 COMPLETED\nREWARD:{Methods.NotationMethod(reward3, "F0")} AMPS";
                 break;
         }
     }
@@ -222,12 +216,6 @@ public class ChallengeManager : MonoBehaviour
             }
     }
 
-    public void ClosePopup()
-    {
-        challengePopUp[0].gameObject.SetActive(false);
-        challengePopUp[1].gameObject.SetActive(false);
-        challengePopUp[2].gameObject.SetActive(false);
-    }
     public BigDouble QuarkBoost()
     {
         var temp = game.data.amps * 0.1;
