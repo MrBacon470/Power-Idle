@@ -102,9 +102,9 @@ public class KuakaManager : MonoBehaviour
             kuakaTexts[1].text = data.kuakaCoin < 10 ? "Not Enough Kuaka Coin" : $"Convert Kuaka Coin to Power";
 
         if (burnToggle)
-            kuakaTexts[1].text = $"Losing 1 KuakaCoin/s\nBoosting +{Methods.NotationMethod(20, "F2")}x";
+            kuakaTexts[2].text = $"Losing 1 KuakaCoin/s\nBoosting +{Methods.NotationMethod(20, "F2")}x";
         else
-            kuakaTexts[1].text = data.kuakaCoin < 10 ? $"Not Enough Kuaka Coin" : "Burn Kuaka Coin For Boost";
+            kuakaTexts[2].text = data.kuakaCoin < 10 ? $"Not Enough Kuaka Coin" : "Burn Kuaka Coin For Boost";
 
         kuakaText.text = $"{Methods.NotationMethod(data.kuakaCoin, "F2")} Kuaka Coin";
     }
