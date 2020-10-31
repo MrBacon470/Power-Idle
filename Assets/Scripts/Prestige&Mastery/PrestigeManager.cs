@@ -35,19 +35,18 @@ public class PrestigeManager : MonoBehaviour
     public Text prestigeText;
     public GameObject prestigeMenu;
 
+    public BigDouble transformersToGet => 150 * Sqrt(game.data.power / 2.5e4) * (0.05 * game.data.infusionULevel3 + 1) * (0.05 * game.data.byteInfusionULevel3 + 1) * (0.05 * game.data.prestigeBranch1Level + 1);
 
     public void Run()
     {
         var data = game.data;
-
-        data.transformersToGet = 150 * Sqrt(data.power / 2.5e4);
 
         if (data.currentPollution >= game.pollution.totalPollution)
             prestigeMenu.gameObject.SetActive(true);
         else
             prestigeMenu.gameObject.SetActive(false);
 
-        prestigeText.text = $"Prestige +{Methods.NotationMethod(data.transformersToGet, "F2")} Transformers";
+        prestigeText.text = $"Prestige +{Methods.NotationMethod(transformersToGet, "F2")} Transformers";
     }
 
     public void Prestige()
@@ -56,9 +55,7 @@ public class PrestigeManager : MonoBehaviour
 
         data.hasPrestiged = true;
 
-        data.transformers += data.transformersToGet + (data.transformersToGet * (0.05 * data.infusionULevel3));
-        data.transformers += data.transformersToGet * (0.05 * data.byteInfusionULevel3);
-        data.transformers += data.transformersToGet * (0.05 * data.prestigeBranch1Level);
+        data.transformers += transformersToGet;
 
         data.power = 10;
         data.productionUpgrade1Level = 0;

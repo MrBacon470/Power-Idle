@@ -47,6 +47,8 @@ public class TranscensionManager : MonoBehaviour
 
     public GameObject transcensionButton;
 
+    public BigDouble realityShardsToGet => Sqrt(game.data.power + game.data.transformers + game.data.bytes + game.data.superConductors / Log10(1e308));
+
     [Header("Achievements")]
     public GameObject[] achievements = new GameObject[7];
 
@@ -65,7 +67,7 @@ public class TranscensionManager : MonoBehaviour
         corruption.Run();
         achievement.Run();
 
-        data.realityShardsToGet = Sqrt(data.power + data.transformers + data.bytes + data.superConductors / Log10(1e308));
+        
 
         if (data.power >= 1.79e308 && data.bytes >= 1.79e308 && data.transformers >= 1.79e308 && data.superConductors >= 1.79e308)
             transcendMenu.gameObject.SetActive(true);
@@ -84,7 +86,7 @@ public class TranscensionManager : MonoBehaviour
 
         if(transcendMenu.gameObject.activeSelf)
         {
-            transcendText.text = $"Transcend +{Methods.NotationMethod(data.realityShardsToGet, "F0")} Reality Shards";
+            transcendText.text = $"Transcend +{Methods.NotationMethod(realityShardsToGet, "F0")} Reality Shards";
         }
 
         if(game.achievementCanvas.gameObject.activeSelf)
@@ -117,15 +119,12 @@ public class TranscensionManager : MonoBehaviour
         var data = game.data;
         if (data.power < 1.79e308 || data.bytes < 1.79e308 || data.transformers < 1.79e308 || data.superConductors < 1.79e308) return;
 
-        data.realityShards += data.realityShardsToGet;
+        data.realityShards += realityShardsToGet;
 
         data.power = 10;
         data.bytes = 0;
         data.transformers = 0;
         data.superConductors = 0;
-        data.transformersToGet = 0;
-        data.superConductorsToGet = 0;
-        data.realityShardsToGet = 0;
         data.kuakaCoin = 0;
     }
 

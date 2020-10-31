@@ -81,9 +81,7 @@ public class PlayerData
     #endregion
     #region Prestige
     public BigDouble transformers;
-    public BigDouble transformersToGet;
     public BigDouble superConductors;
-    public BigDouble superConductorsToGet;
     #endregion
 
     #region Infusions
@@ -188,7 +186,6 @@ public class PlayerData
 
     #region Transcension
     public BigDouble realityShards;
-    public BigDouble realityShardsToGet;
     #endregion
 
     #region Tomes
@@ -274,9 +271,7 @@ public class PlayerData
         researchIndex = 0;
 
         transformers = 0;
-        transformersToGet = 0;
         superConductors = 0;
-        superConductorsToGet = 0;
 
         array1Complete = false;
         array2Complete = false;
@@ -372,7 +367,6 @@ public class PlayerData
 
         #region Transcension
         realityShards = 0;
-        realityShardsToGet = 0;
         #endregion
 
         #region Tomes
