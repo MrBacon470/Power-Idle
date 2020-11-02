@@ -113,14 +113,6 @@ public class DysonSphereController : MonoBehaviour
             temp += 1e12;
         if (data.array3Complete)
             temp += 1e14;
-        if (data.masteryBranch1Level > 0)
-            temp *= 2 * data.masteryBranch1Level;
-        if (data.masteryBranch2Level > 0)
-            temp *= 50;
-        if (data.isChallenge5Active)
-            temp = 0;
-        if (data.tomes4Level > 0)
-            temp *= (data.superConductors / 4) * data.tomes4Level;
         return temp;
     }
 }

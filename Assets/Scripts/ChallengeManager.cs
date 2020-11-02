@@ -32,7 +32,6 @@ public class ChallengeManager : MonoBehaviour
     public IdleGame game;
     public UpgradesManager upgrades;
     public ResearchManager research;
-    public ChallengeBranch challenge;
 
     private BigDouble reward1 => 1e6 * Pow(1.5, game.data.challengeLevel1);
     private BigDouble reward2 => 1e9 * Pow(1.75, game.data.challengeLevel2);
@@ -59,9 +58,6 @@ public class ChallengeManager : MonoBehaviour
     {
         var data = game.data;
 
-        if (data.power >= 1e18 && data.hasPrestiged && data.isConsoleUnlocked)
-            data.isChallengesUnlocked = true;
-
         UI();
         ArrayManager();
         Conditions();
@@ -70,16 +66,11 @@ public class ChallengeManager : MonoBehaviour
         {
             if(game.challengeCanvas.gameObject.activeSelf)
             {
-                if (challenge.challengeBranchLevels[0] > 0)
-                    challengeText[0].text = data.isChallenge2Active || data.isChallenge3Active || data.isChallenge1Active || data.isChallenge5Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Sterlitzia\nAll Numbers Are replaced with Sterliztia\nGet To{Methods.NotationMethod(challengeGoal1, "F2")} Power\nReward: {Methods.NotationMethod(reward1, "F2")}";
-                else
-                    challengeText[0].text = data.isChallenge5Active || data.isChallenge3Active || data.isChallenge4Active || data.isChallenge1Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Clean Energy\nUse only Manual Generators, Steam Turbines and Fusion Reactors to get to {Methods.NotationMethod(challengeGoal1, "F2")} Power\nReward: {Methods.NotationMethod(challengeReward[0], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[0], "F0")}";
-                if (challenge.challengeBranchLevels[1] > 0)
-                    challengeText[1].text = data.isChallenge1Active || data.isChallenge3Active || data.isChallenge2Active || data.isChallenge4Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Red Dwarf\nYour DysonSphere no longer produces power\nGet to{Methods.NotationMethod(challengeGoal2, "F2")} Power\nReward: {Methods.NotationMethod(reward2, "F2")}";
-                else
-                    challengeText[1].text = data.isChallenge1Active || data.isChallenge3Active || data.isChallenge4Active || data.isChallenge5Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: No Console\nGet to {Methods.NotationMethod(challengeGoal2, "F2")} Power with no Bytes and No Boost\nReward: {Methods.NotationMethod(challengeReward[1], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[1], "F0")}";
+                challengeText[0].text = data.isChallenge3Active || data.isChallenge1Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Clean Energy\nUse only Manual Generators, Steam Turbines and Fusion Reactors to get to {Methods.NotationMethod(challengeGoal1, "F2")} Power\nReward: {Methods.NotationMethod(challengeReward[0], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[0], "F0")}";
+                
+                challengeText[1].text = data.isChallenge1Active || data.isChallenge3Active? "OTHER CHALLENGE ACTIVE" : $"Challenge: No Console\nGet to {Methods.NotationMethod(challengeGoal2, "F2")} Power with no Bytes and No Boost\nReward: {Methods.NotationMethod(challengeReward[1], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[1], "F0")}";
 
-                challengeText[2].text = data.isChallenge1Active || data.isChallenge2Active || data.isChallenge4Active || data.isChallenge5Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3, "F2")} Power with side effects of Clean Energy and No Console plus No Prestige and Mastery Upgrades\nReward: {Methods.NotationMethod(challengeReward[2], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[2], "F0")}";
+                challengeText[2].text = data.isChallenge1Active || data.isChallenge2Active? "OTHER CHALLENGE ACTIVE" : $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3, "F2")} Power with side effects of Clean Energy and No Console plus No Prestige and Mastery Upgrades\nReward: {Methods.NotationMethod(challengeReward[2], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[2], "F0")}";
             }
         }
     }
@@ -90,23 +81,15 @@ public class ChallengeManager : MonoBehaviour
         if (data.isChallenge1Active) return;
         if (data.isChallenge2Active) return;
         if (data.isChallenge3Active) return;
-        if (data.isChallenge4Active) return;
-        if (data.isChallenge5Active) return;
         switch (id)
         {
             case 0:
-                if (challenge.challengeBranchLevels[0] <= 0)
-                    data.isChallenge1Active = true;
-                else
-                    data.isChallenge4Active = true;
+                data.isChallenge1Active = true;
                 StartChallenge();
                 break;
 
             case 1:
-                if (challenge.challengeBranchLevels[1] <= 0)
-                    data.isChallenge2Active = true;
-                else
-                    data.isChallenge5Active = true;
+                data.isChallenge2Active = true;
                 StartChallenge();
                 break;
 
@@ -125,8 +108,6 @@ public class ChallengeManager : MonoBehaviour
         data.isChallenge1Active = false;
         data.isChallenge2Active = false;
         data.isChallenge3Active = false;
-        data.isChallenge4Active = false;
-        data.isChallenge5Active = false;
     }
 
     public void StartChallenge()
@@ -170,13 +151,11 @@ public class ChallengeManager : MonoBehaviour
             case 0:
                 data.amps += reward1;
                 data.isChallenge1Active = false;
-                data.isChallenge4Active = false;
                 data.challengeLevel1++;
                 break;
             case 1:
                 data.amps += reward2;
                 data.isChallenge2Active = false;
-                data.isChallenge5Active = false;
                 data.challengeLevel2++;
                 break;
             case 2:
@@ -200,12 +179,12 @@ public class ChallengeManager : MonoBehaviour
     public void Conditions()
     {
         var data = game.data;
-        if(data.isChallenge1Active || data.isChallenge4Active)
+        if(data.isChallenge1Active)
             if(data.power >= challengeGoal1)
             {
                 CompleteChallenge(0);
             }
-        if (data.isChallenge2Active || data.isChallenge5Active)
+        if (data.isChallenge2Active)
             if (data.power >= challengeGoal2)
             {
                 CompleteChallenge(1);

@@ -30,16 +30,6 @@ using static BreakInfinity.BigDouble;
 public class InfusionManager : MonoBehaviour
 {
     public IdleGame game;
-    [Header("Image Stuff")]
-    public Sprite sacraficeIcon;
-    public Sprite infusionIcon;
-    public Sprite sacraficeBG;
-    public Sprite infusionBG;
-    public Image buttonIcon;
-    public Text buttonText;
-    public Image[] infusionImages = new Image[3];
-    public Text titleText;
-    public Text infoText;
 
     private BigDouble Cost1 => 1e5 * Pow(1.15, game.data.infusionULevel1);
     private BigDouble Cost2 => 1e6 * Pow(1.25, game.data.infusionULevel2);
@@ -66,41 +56,14 @@ public class InfusionManager : MonoBehaviour
         ArrayManager();
         UI();
 
-        if(data.hasSacraficesBeenUnlocked)
-        {
-            buttonIcon.sprite = sacraficeIcon;
-            buttonText.text = "Sacrafices";
-            titleText.text = "Sacrafices";
-            infoText.text = "Sacrafice Transformers\nTo Upgrade Stats";
-        }
-        else
-        {
-            buttonIcon.sprite = infusionIcon;
-            buttonText.text = "Infusions";
-            titleText.text = "Infusions";
-            infoText.text = "Infuse Transformers\nTo Upgrade Stats";
-        }
 
         void UI()
         {
             for (var i = 0; i < infusionsText.Length; i++)
             {
-                infusionsText[i].text = data.hasSacraficesBeenUnlocked ? $"{costDesc[i]}\nCost: {Methods.NotationMethod(infusionUCosts[i] + data.transformers / 2, "F0")} Transformers\nLevel {infusionULevels[i]}" : $"{costDesc[i]}\nCost: {Methods.NotationMethod(infusionUCosts[i], "F0")} Transformers\nLevel {infusionULevels[i]}";
+                infusionsText[i].text = $"{costDesc[i]}\nCost: {Methods.NotationMethod(infusionUCosts[i], "F0")} Transformers\nLevel {infusionULevels[i]}";
             }
-            if(data.hasSacraficesBeenUnlocked)
-            {
-                for(int i = 0; i < 3; i++)
-                {
-                    infusionImages[i].sprite = sacraficeBG;
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    infusionImages[i].sprite = infusionBG;
-                }
-            }
+            
         }
     }
 
@@ -124,18 +87,10 @@ public class InfusionManager : MonoBehaviour
         void Buy(ref BigDouble level)
         {
             var data = game.data;
-            if(!data.hasSacraficesBeenUnlocked)
-            {
-                if (data.transformers < infusionUCosts[id]) return;
-                data.transformers -= infusionUCosts[id];
-                level++;
-            }
-            else
-            {
-                if (data.transformers < (infusionUCosts[id] + data.transformers / 2)) return;
-                data.transformers -= infusionUCosts[id] + data.transformers / 2;
-                level += 10;
-            }
+            if (data.transformers < infusionUCosts[id]) return;
+            data.transformers -= infusionUCosts[id];
+            level++;
+            
         }
 
     }

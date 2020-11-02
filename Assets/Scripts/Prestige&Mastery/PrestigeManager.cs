@@ -30,42 +30,43 @@ using static BreakInfinity.BigDouble;
 public class PrestigeManager : MonoBehaviour
 {
     public IdleGame game;
-    public UpgradesManager upgrades;
     public ResearchManager research;
+    public UpgradesManager upgrades;
     public Text prestigeText;
-    public GameObject prestigeMenu;
+    public Text prestigeBoostText;
 
-    public BigDouble transformersToGet => 150 * Sqrt(game.data.power / 2.5e4) * (0.05 * game.data.infusionULevel3 + 1) * (0.05 * game.data.byteInfusionULevel3 + 1) * (0.05 * game.data.prestigeBranch1Level + 1);
+    public GameObject prestigeMenu;
+    public BigDouble transformersToGet => 150 * Sqrt(game.data.power * 2) + (150 * Sqrt(game.data.power * 2)) + (0.05 * game.data.infusionULevel3);
 
     public void Run()
     {
         var data = game.data;
-
         if (data.currentPollution >= game.pollution.totalPollution)
             prestigeMenu.gameObject.SetActive(true);
         else
             prestigeMenu.gameObject.SetActive(false);
 
-        prestigeText.text = $"Prestige +{Methods.NotationMethod(transformersToGet, "F2")} Transformers";
+        if (prestigeMenu.gameObject.activeSelf)
+            prestigeText.text = $"Prestige +{Methods.NotationMethod(transformersToGet, "F0")} Transformers";
+
+        if (data.transformers > 0)
+            prestigeBoostText.text = $"Current Boost: +{Methods.NotationMethod(TransformerBoost(), "F0")}x";
     }
 
     public void Prestige()
     {
         var data = game.data;
+        if (data.currentPollution < game.pollution.totalPollution) return;
 
         data.hasPrestiged = true;
 
         data.transformers += transformersToGet;
 
         data.power = 10;
-        data.productionUpgrade1Level = 0;
-        data.productionUpgrade2Level = 0;
-        data.productionUpgrade3Level = 0;
-        data.productionUpgrade4Level = 0;
-        data.productionUpgrade5Level = 0;
-        data.productionUpgrade6Level = 0;
-        data.productionUpgrade7Level = 0;
-        data.productionUpgrade8Level = 0;
+        data.powerCollected = 10;
+
+        data.productionUpgrade1Level = data.productionUpgrade2Level = data.productionUpgrade3Level = data.productionUpgrade4Level = data.productionUpgrade5Level = data.productionUpgrade6Level
+            = data.productionUpgrade7Level = data.productionUpgrade8Level = 0;
 
         data.isCompleted0 = true;
         data.isCompleted1 = false;
@@ -82,5 +83,13 @@ public class PrestigeManager : MonoBehaviour
 
         upgrades.Deactivate();
         research.Activate();
+    }
+
+    public BigDouble TransformerBoost()
+    {
+        var data = game.data;
+        BigDouble temp = data.transformers * 0.00001;
+
+        return temp + 1;
     }
 }

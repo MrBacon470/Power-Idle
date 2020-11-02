@@ -60,14 +60,8 @@ public class MasteryManager : MonoBehaviour
 
         data.power = 10;
         data.transformers = 0;
-        data.productionUpgrade1Level = 0;
-        data.productionUpgrade2Level = 0;
-        data.productionUpgrade3Level = 0;
-        data.productionUpgrade4Level = 0;
-        data.productionUpgrade5Level = 0;
-        data.productionUpgrade6Level = 0;
-        data.productionUpgrade7Level = 0;
-        data.productionUpgrade8Level = 0;
+        data.productionUpgrade1Level = data.productionUpgrade2Level = data.productionUpgrade3Level = data.productionUpgrade4Level = data.productionUpgrade5Level = data.productionUpgrade6Level
+            = data.productionUpgrade7Level = data.productionUpgrade8Level = 0;
 
         data.isCompleted0 = true;
         data.isCompleted1 = false;

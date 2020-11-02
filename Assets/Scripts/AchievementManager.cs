@@ -34,8 +34,8 @@ public class AchievementManager : MonoBehaviour
     public Sprite lockedIcon;
     public Sprite unlockedIcon;
     [Header("Storage")]
-    public Image[] achievementIcons = new Image[11];
-    public Text[] achievementTexts = new Text[11];
+    public Image[] achievementIcons = new Image[9];
+    public Text[] achievementTexts = new Text[9];
 
     public void Run()
     {
@@ -55,20 +55,16 @@ public class AchievementManager : MonoBehaviour
             data.isAchievement3Locked = false;
         if (data.transformers > 1.79e308 && data.isAchievement4Locked)
             data.isAchievement4Locked = false;
-        if (data.bytes > 1e38 && data.isAchievement5Locked)
+        if (data.superConductors > 1e38 && data.isAchievement5Locked)
             data.isAchievement5Locked = false;
-        if (data.bytes > 1.79e308 && data.isAchievement6Locked)
+        if (data.superConductors > 1.79e308 && data.isAchievement6Locked)
             data.isAchievement6Locked = false;
-        if (data.superConductors > 1e38 && data.isAchievement7Locked)
+        if (data.challengeLevel1 > 0 && data.challengeLevel2 > 0 && data.challengeLevel3 > 0 && data.isAchievement7Locked)
             data.isAchievement7Locked = false;
-        if (data.superConductors > 1.79e308 && data.isAchievement8Locked)
+        if (data.kuakaCoin >= 1e38 && data.isAchievement8Locked && data.isKuakaCoinUnlocked)
             data.isAchievement8Locked = false;
-        if (data.challengeLevel1 > 0 && data.challengeLevel2 > 0 && data.challengeLevel3 > 0 && data.isAchievement9Locked)
+        if (data.kuakaCoin >= 1.79e308 && data.isAchievement9Locked && data.isKuakaCoinUnlocked)
             data.isAchievement9Locked = false;
-        if (data.kuakaCoin >= 1e38 && data.isAchievement10Locked && data.isKuakaCoinUnlocked)
-            data.isAchievement10Locked = false;
-        if (data.kuakaCoin >= 1.79e308 && data.isAchievement11Locked && data.isKuakaCoinUnlocked)
-            data.isAchievement11Locked = false;
     }
 
     public void TextManager()
@@ -79,13 +75,26 @@ public class AchievementManager : MonoBehaviour
         achievementTexts[1].text = $"Power Hungry Reach {Methods.NotationMethod(1.79e308, "F0")} Power";
         achievementTexts[2].text = $"Transformered Reach {Methods.NotationMethod(1e38, "F0")} Transformers";
         achievementTexts[3].text = $"Transformer Addict Reach {Methods.NotationMethod(1.79e308, "F0")} Transformers";
-        achievementTexts[4].text = $"Script Compiler Reach {Methods.NotationMethod(1e38, "F0")} Bytes";
-        achievementTexts[5].text = $"Quantum Compiling Reach {Methods.NotationMethod(1.79e308, "F0")} Bytes";
-        achievementTexts[6].text = $"Super Maniac Reach {Methods.NotationMethod(1e38, "F0")} Super Conductors";
-        achievementTexts[7].text = $"Super Insanity Reach {Methods.NotationMethod(1.79e308, "F0")} Super Conductors";
-        achievementTexts[8].text = $"Completionist Complete Every Challenge Once";
-        achievementTexts[9].text = $"Smol Kuaka Reach {Methods.NotationMethod(1e38, "F0")} Kuaka Coin";
-        achievementTexts[10].text = $"Lrg Kuaka Reach {Methods.NotationMethod(1.79e308, "F0")} Kuaka Coin";
+        achievementTexts[4].text = $"Super Maniac Reach {Methods.NotationMethod(1e38, "F0")} Super Conductors";
+        achievementTexts[5].text = $"Super Insanity Reach {Methods.NotationMethod(1.79e308, "F0")} Super Conductors";
+        achievementTexts[6].text = $"Completionist Complete Every Challenge Once";
+        achievementTexts[7].text = $"Smol Kuaka Reach {Methods.NotationMethod(1e38, "F0")} Kuaka Coin";
+        achievementTexts[8].text = $"Lrg Kuaka Reach {Methods.NotationMethod(1.79e308, "F0")} Kuaka Coin";
+    }
+
+    public void ResetAchievements()
+    {
+        var data = game.data;
+
+        data.isAchievement1Locked = true;
+        data.isAchievement2Locked = true;
+        data.isAchievement3Locked = true;
+        data.isAchievement4Locked = true;
+        data.isAchievement5Locked = true;
+        data.isAchievement6Locked = true;
+        data.isAchievement7Locked = true;
+        data.isAchievement8Locked = true;
+        data.isAchievement9Locked = true;
     }
 
     public void ImageManager()
@@ -136,14 +145,5 @@ public class AchievementManager : MonoBehaviour
         else
             achievementIcons[8].sprite = unlockedIcon;
 
-        if (data.isAchievement10Locked)
-            achievementIcons[9].sprite = lockedIcon;
-        else
-            achievementIcons[9].sprite = unlockedIcon;
-
-        if (data.isAchievement11Locked)
-            achievementIcons[10].sprite = lockedIcon;
-        else
-            achievementIcons[10].sprite = unlockedIcon;
     }
 }

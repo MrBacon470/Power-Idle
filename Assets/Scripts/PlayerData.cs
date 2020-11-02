@@ -33,8 +33,9 @@ public class PlayerData
     public BigDouble kuakaCoin;
     public bool hasPrestiged;
     public bool hasMastered;
-    public bool hasTranscended;
     public bool isKuakaCoinUnlocked;
+    public bool isSoftCapped;
+    public bool hasAchievementsBeenReset;
     #endregion
     #region settings/daily
     public bool dailyRewardReady;
@@ -94,81 +95,22 @@ public class PlayerData
     public bool array2Complete;
     public bool array3Complete;
     #endregion
-    #region ConsoleStuff
-    public BigDouble bytes;
-    public bool isConsoleUnlocked;
-    public bool isConsoleOn;
-    public bool consolePopupClosed;
-    public int scriptIndex;
-    public bool isSoftCapped;
 
-    public bool isScript1Selected;
-    public bool isScript2Selected;
-    public bool isScript3Selected;
-    public bool isScript4Selected;
-    public bool isScript5Selected;
-    public bool isScript6Selected;
-
-    public BigDouble byteInfusionULevel1;
-    public BigDouble byteInfusionULevel2;
-    public BigDouble byteInfusionULevel3;
-    #endregion
 
     #region Challenges
     public BigDouble challengeLevel1;
     public BigDouble challengeLevel2;
     public BigDouble challengeLevel3;
-    public BigDouble challengeLevel4;
-    public BigDouble challengeLevel5;
     public BigDouble amps;
-    public BigDouble quarks;
 
     public bool isChallenge1Active;
     public bool isChallenge2Active;
     public bool isChallenge3Active;
-    public bool isChallenge4Active;
-    public bool isChallenge5Active;
 
     public bool isChallengesUnlocked;
     #endregion
 
-    #region techTreeStuff
-    public bool isTechTreeUnlocked;
-    #region Power Branch
-    public BigDouble powerBranch1Level;
-    public BigDouble powerBranch2Level;
 
-    public bool isPowerBranch1Locked;
-    public bool isPowerBranch2Locked;
-    #endregion
-    #region Console Branch
-    public BigDouble consoleBranch1Level;
-
-    public bool isConsoleBranch1Locked;
-    #endregion
-    #region Mastery Branch
-    public BigDouble masteryBranch1Level;
-    public BigDouble masteryBranch2Level;
-
-    public bool isMasteryBranch1Locked;
-    public bool isMasteryBranch2Locked;
-    #endregion
-    #region Prestige Branch
-    public BigDouble prestigeBranch1Level;
-    public BigDouble prestigeBranch2Level;
-
-    public bool isPrestigeBranch1Locked;
-    public bool isPrestigeBranch2Locked;
-    public bool hasSacraficesBeenUnlocked;
-    #endregion
-    #region Challenge Branch
-    public BigDouble challengeBranch1Level;
-    public BigDouble challengeBranch2Level;
-
-    public bool isChallengeBranch1Locked;
-    public bool isChallengeBranch2Locked;
-    #endregion
-    #endregion
 
     #region achievements
     public bool isAchievement1Locked;
@@ -184,39 +126,6 @@ public class PlayerData
     public bool isAchievement11Locked;
     #endregion
 
-    #region Transcension
-    public BigDouble realityShards;
-    #endregion
-
-    #region Tomes
-    public BigDouble tomes1Level;
-    public BigDouble tomes2Level;
-    public BigDouble tomes3Level;
-    public BigDouble tomes4Level;
-    public BigDouble tomes5Level;
-    #endregion
-
-    #region Corruption
-    public BigDouble corruption;
-    public BigDouble corruptionCapacity;
-
-    public BigDouble corruptUpgrade1Level;
-    public BigDouble corruptUpgrade2Level;
-    public BigDouble corruptUpgrade3Level;
-
-    public BigDouble corruptUpgrade1Produced;
-    public BigDouble corruptUpgrade2Produced;
-    #endregion
-
-    #region Trancension Achievements
-    public bool isTransAchievement1Locked;
-    public bool isTransAchievement2Locked;
-    public bool isTransAchievement3Locked;
-    public bool isTransAchievement4Locked;
-    public bool isTransAchievement5Locked;
-    public bool isTransAchievement6Locked;
-    public bool isTransAchievement7Locked;
-    #endregion
 
     public PlayerData()
     {
@@ -234,8 +143,9 @@ public class PlayerData
 
         hasMastered = false;
         hasPrestiged = false;
-        hasTranscended = false;
         isKuakaCoinUnlocked = false;
+        isSoftCapped = true;
+        hasAchievementsBeenReset = false;
 
         #region Upgrades
         productionUpgrade1Level = 0;
@@ -277,79 +187,21 @@ public class PlayerData
         array2Complete = false;
         array3Complete = false;
 
-        #region ConsoleStuff
-        bytes = 0;
-        isConsoleUnlocked = false;
-        isConsoleOn = false;
-        consolePopupClosed = false;
-        isSoftCapped = true;
-        scriptIndex = 0;
-        isScript1Selected = true;
-        isScript2Selected = false;
-        isScript3Selected = false;
-        isScript4Selected = false;
-        isScript5Selected = false;
-        isScript6Selected = false;
-
-        byteInfusionULevel1 = 0;
-        byteInfusionULevel2 = 0;
-        byteInfusionULevel3 = 0;
-        #endregion
+        
 
         #region Challenges
         challengeLevel1 = 0;
         challengeLevel2 = 0;
         challengeLevel3 = 0;
-        challengeLevel4 = 0;
-        challengeLevel5 = 0;
         amps = 0;
-        quarks = 0;
 
         isChallenge1Active = false;
         isChallenge2Active = false;
         isChallenge3Active = false;
-        isChallenge4Active = false;
-        isChallenge5Active = false;
         isChallengesUnlocked = false;
         #endregion
 
-        #region TechTreeStuff
-        isTechTreeUnlocked = false;
-        #region Power Branch
-        powerBranch1Level = 0;
-        powerBranch2Level = 0;
 
-        isPowerBranch1Locked = true;
-        isPowerBranch2Locked = true;
-        #endregion
-        #region Console Branch
-        consoleBranch1Level = 0;
-
-        isConsoleBranch1Locked = true;
-        #endregion
-        #region Mastery Branch
-        masteryBranch1Level = 0;
-        masteryBranch2Level = 0;
-
-        isMasteryBranch1Locked = true;
-        isMasteryBranch2Locked = true;
-        #endregion
-        #region Prestige Branch
-        prestigeBranch1Level = 0;
-        prestigeBranch2Level = 0;
-
-        isPrestigeBranch1Locked = true;
-        isPrestigeBranch2Locked = true;
-        #endregion
-        #region Challenge Branch
-        challengeBranch1Level = 0;
-        challengeBranch2Level = 0;
-
-        isChallengeBranch1Locked = true;
-        isChallengeBranch2Locked = true;
-        hasSacraficesBeenUnlocked = false;
-        #endregion
-        #endregion
 
         #region achievements
         isAchievement1Locked = true;
@@ -363,39 +215,6 @@ public class PlayerData
         isAchievement9Locked = true;
         isAchievement10Locked = true;
         isAchievement11Locked = true;
-        #endregion
-
-        #region Transcension
-        realityShards = 0;
-        #endregion
-
-        #region Tomes
-        tomes1Level = 0;
-        tomes2Level = 0;
-        tomes3Level = 0;
-        tomes4Level = 0;
-        tomes5Level = 0;
-        #endregion
-
-        #region Corruption
-        corruption = 0;
-        corruptionCapacity = 0;
-
-        corruptUpgrade1Level = 0;
-        corruptUpgrade2Level = 0;
-        corruptUpgrade3Level = 0;
-
-        
-        #endregion
-
-        #region transcension achievements
-        isTransAchievement1Locked = true;
-        isTransAchievement2Locked = true;
-        isTransAchievement3Locked = true;
-        isTransAchievement4Locked = true;
-        isTransAchievement5Locked = true;
-        isTransAchievement6Locked = true;
-        isTransAchievement7Locked = true;
         #endregion
     }
 }

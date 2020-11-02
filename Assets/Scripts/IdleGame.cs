@@ -34,7 +34,6 @@ public class IdleGame : MonoBehaviour
     public PlayerData data;
     public OfflineManager offline;
     public SaveSystem nonStaticSaveSystem;
-    public DailyRewardManager daily;
     public UpgradesManager upgrades;
     public ResearchManager research;
     public PollutionManager pollution;
@@ -42,19 +41,9 @@ public class IdleGame : MonoBehaviour
     public InfusionManager infuse;
     public MasteryManager mastery;
     public DysonSphereController dysonSphere;
-    public ConsoleController console;
-    public ScriptLibrary scriptLibrary;
-    public ByteInfusionManager bytes;
     public ChallengeManager challenge;
-    public TechTreeManager techTree;
     public AchievementManager achievement;
     public KuakaManager kuaka;
-    [Header("Branch Controllers")]
-    public ConsoleBranch consoleB;
-    public PowerBranch power;
-    public PrestigeBranch prestigeB;
-    public MasteryBranch masteryB;
-    public ChallengeBranch challengeB;
     [Header("Texts")]
     public Text powerText;
     public Text powerPerSecText;
@@ -71,7 +60,6 @@ public class IdleGame : MonoBehaviour
     public GameObject megaButton;
     public GameObject consoleButton;
     public GameObject challengeButton;
-    public GameObject techTreeButton;
     [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
@@ -79,15 +67,10 @@ public class IdleGame : MonoBehaviour
     public Canvas researchCanvas;
     public Canvas prestigeCanvas;
     public Canvas infusionCanvas;
-    public Canvas consoleCanvas;
-    public Canvas scriptLibraryCanvas;
-    public Canvas techTreeCanvas;
-    public Canvas byteInfusionCanvas;
     public Canvas challengeCanvas;
     public Canvas startScreen;
     public Canvas achievementCanvas;
     public Canvas kuakaCanvas;
-    public Canvas transcensionCanvas;
 
     public void Start()
     {
@@ -102,43 +85,31 @@ public class IdleGame : MonoBehaviour
         sphereCanvas.gameObject.SetActive(false);
         infusionCanvas.gameObject.SetActive(false);
         prestigeCanvas.gameObject.SetActive(false);
-        consoleCanvas.gameObject.SetActive(false);
-        scriptLibraryCanvas.gameObject.SetActive(false);
-        techTreeCanvas.gameObject.SetActive(false);
-        byteInfusionCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
         achievementCanvas.gameObject.SetActive(false);
         kuakaCanvas.gameObject.SetActive(false);
-        transcensionCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
-        console.StartConsole();
-        scriptLibrary.StartLibrary();
-        bytes.StartInfusion();
         challenge.StartChallenges();
-        power.StartPower();
-        consoleB.StartConsole();
-        prestigeB.StartPrestige();
-        masteryB.StartMastery();
-        challengeB.StartChallenge();
         kuaka.StartKuaka();
-
-        if (data.quarks > 0)
+        if(!data.hasAchievementsBeenReset)
         {
-            data.amps += data.quarks;
-            data.quarks = 0;
+            achievement.ResetAchievements();
+            data.hasAchievementsBeenReset = true;
         }
+        
+
         TotalPowerPerSecond();
         Methods.NotationSettings = data.notationType;
         data.audioType = 1;
         data.frameRateType = 0;
+
+        
     }
 
     public void Update()
     {
-        if (data.power < 10 && data.isConsoleOn)
-            data.power = 10;
         if (data.power < 0)
             data.power = 0;
         if (data.powerCollected < data.power)
@@ -151,6 +122,9 @@ public class IdleGame : MonoBehaviour
         if (!data.isKuakaCoinUnlocked)
             data.isAchievement11Locked = true;
 
+        if (data.power > 1e21 && data.hasPrestiged)
+            data.isChallengesUnlocked = true;
+
         prestige.Run();
         upgrades.RunUpgradesUI();
         upgrades.RunUpgrades();
@@ -159,15 +133,7 @@ public class IdleGame : MonoBehaviour
         infuse.Run();
         mastery.Run();
         dysonSphere.Run();
-        console.Run();
-        scriptLibrary.Run();
-        bytes.Run();
         challenge.Run();
-        power.UpdatePower();
-        consoleB.UpdateConsole();
-        prestigeB.UpdatePrestige();
-        masteryB.UpdateMastery();
-        challengeB.UpdateChallenge();
         achievement.Run();
         kuaka.UpdateKuaka();
 
@@ -181,11 +147,8 @@ public class IdleGame : MonoBehaviour
 
         transformersText.text = data.hasPrestiged ? $"{Methods.NotationMethod(data.transformers, "F2")} Transformers" : "Not Discovered Yet";
         superConductorsText.text = data.hasMastered ? $"{Methods.NotationMethod(data.superConductors, "F2")} Super Conductors" : "Not Discovered Yet";
-        powerPerSecText.text = data.isChallenge4Active ? "Sterlitzia Power/s": Methods.NotationMethod(TotalPowerPerSecond(), "F0") + " Power/s";
-        if (!data.isChallenge4Active)
-            powerText.text = data.power >= 1.79e308 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0");
-        else
-            powerText.text = "Sterlitzia Power";
+        powerText.text = data.power >= 1.79e308 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0");
+        powerPerSecText.text = $"{Methods.NotationMethod(TotalPowerPerSecond(), "F0")} Power/s";
         quarkText.text = data.amps <= 0 ? "Not Discovered Yet" : $"{Methods.NotationMethod(data.amps, "F2")} Amps";
         quarkBoostText.text = data.amps <= 0 ? "?????" : $"{Methods.NotationMethod(challenge.QuarkBoost(), "F2")}";
 
@@ -199,10 +162,6 @@ public class IdleGame : MonoBehaviour
         else
             megaButton.gameObject.SetActive(false);
 
-        if (data.isConsoleUnlocked)
-            consoleButton.gameObject.SetActive(true);
-        else
-            consoleButton.gameObject.SetActive(false);
 
         if (data.power > 1.79e308 && data.isSoftCapped)
             data.power = 1.79e308;
@@ -217,10 +176,6 @@ public class IdleGame : MonoBehaviour
         else
             challengeButton.gameObject.SetActive(false);
 
-        if (data.isTechTreeUnlocked)
-            techTreeButton.gameObject.SetActive(true);
-        else
-            techTreeButton.gameObject.SetActive(false);
 
 
 
@@ -273,27 +228,16 @@ public class IdleGame : MonoBehaviour
         temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
         if (data.infusionULevel1 > 0)
             temp += temp * (0.05 * data.infusionULevel1);
-        if(!data.isChallenge3Active && !data.isChallenge2Active)
-            if (data.byteInfusionULevel1 > 0)
-                temp += temp * (0.05 * data.byteInfusionULevel1);
         if (temp <= 0)
             temp = 0;
+        if (data.transformers > 0)
+            temp *= prestige.TransformerBoost();
         if (data.hasMastered)
             temp += dysonSphere.SpherePowerPerSec();
-        if (data.isConsoleUnlocked)
-            temp *= console.BytesBoost();
         if (data.amps > 0)
             temp *= challenge.QuarkBoost();
-        if(data.powerBranch1Level > 0)
-            temp *= 30 * data.powerBranch1Level;
         if (kuaka.burnToggle)
             temp *= 20;
-        if (data.tomes1Level > 0)
-            temp *= 5 * data.tomes1Level;
-        if (data.tomes3Level > 0)
-            temp *= (data.transformers / 4) * data.tomes3Level;
-        if (data.isConsoleOn)
-            temp -= 10;
         
         return temp;
     }
@@ -327,29 +271,14 @@ public class IdleGame : MonoBehaviour
             case "sphere":
                 sphereCanvas.gameObject.SetActive(true);
                 break;
-            case "console":
-                consoleCanvas.gameObject.SetActive(true);
-                break;
-            case "library":
-                scriptLibraryCanvas.gameObject.SetActive(true);
-                break;
-            case "techtree":
-                techTreeCanvas.gameObject.SetActive(true);
-                break;
             case "challenge":
                 challengeCanvas.gameObject.SetActive(true);
-                break;
-            case "bytes":
-                byteInfusionCanvas.gameObject.SetActive(true);
                 break;
             case "achievement":
                 achievementCanvas.gameObject.SetActive(true);
                 break;
             case "kuaka":
                 kuakaCanvas.gameObject.SetActive(true);
-                break;
-            case "transcend":
-                transcensionCanvas.gameObject.SetActive(true);
                 break;
         }
     }
@@ -363,14 +292,9 @@ public class IdleGame : MonoBehaviour
         sphereCanvas.gameObject.SetActive(false);
         infusionCanvas.gameObject.SetActive(false);
         prestigeCanvas.gameObject.SetActive(false);
-        consoleCanvas.gameObject.SetActive(false);
-        scriptLibraryCanvas.gameObject.SetActive(false);
-        techTreeCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
-        byteInfusionCanvas.gameObject.SetActive(false);
         achievementCanvas.gameObject.SetActive(false);
         kuakaCanvas.gameObject.SetActive(false);
-        transcensionCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()
