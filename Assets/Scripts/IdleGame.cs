@@ -44,6 +44,7 @@ public class IdleGame : MonoBehaviour
     public ChallengeManager challenge;
     public AchievementManager achievement;
     public KuakaManager kuaka;
+    public BreakController broken;
     [Header("Texts")]
     public Text powerText;
     public Text powerPerSecText;
@@ -58,8 +59,8 @@ public class IdleGame : MonoBehaviour
     [Header("Buttons")]
     public GameObject infusionButton;
     public GameObject megaButton;
-    public GameObject consoleButton;
     public GameObject challengeButton;
+    public GameObject repairButton;
     [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
@@ -71,11 +72,12 @@ public class IdleGame : MonoBehaviour
     public Canvas startScreen;
     public Canvas achievementCanvas;
     public Canvas kuakaCanvas;
+    public Canvas repairCanvas;
 
     public void Start()
     {
         Application.targetFrameRate = 60;
-        Screen.SetResolution(1920, 1080, false);
+        Screen.fullScreen = true;
         Application.runInBackground = true;
 
         startScreen.gameObject.SetActive(true);
@@ -88,11 +90,13 @@ public class IdleGame : MonoBehaviour
         challengeCanvas.gameObject.SetActive(false);
         achievementCanvas.gameObject.SetActive(false);
         kuakaCanvas.gameObject.SetActive(false);
+        repairCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
         challenge.StartChallenges();
         kuaka.StartKuaka();
+        broken.StartBreak();
         if(!data.hasAchievementsBeenReset)
         {
             achievement.ResetAchievements();
@@ -136,7 +140,8 @@ public class IdleGame : MonoBehaviour
         challenge.Run();
         achievement.Run();
         kuaka.UpdateKuaka();
-
+        if(data.hasPrestiged)
+            broken.Run();
         if (data.frameRateType == 0)
             Application.targetFrameRate = 60;
         else if (data.frameRateType == 1)
@@ -176,7 +181,10 @@ public class IdleGame : MonoBehaviour
         else
             challengeButton.gameObject.SetActive(false);
 
-
+        if (data.hasPrestiged)
+            repairButton.gameObject.SetActive(true);
+        else
+            repairButton.gameObject.SetActive(false);
 
 
         data.power += TotalPowerPerSecond() * Time.deltaTime;
@@ -218,19 +226,27 @@ public class IdleGame : MonoBehaviour
     public BigDouble TotalPowerPerSecond()
     {
         BigDouble temp = 0;
-        temp += (1 - (1 * pollution.pollutionBoost)) * data.productionUpgrade1Level;
-        temp += (5 - (5 * pollution.pollutionBoost)) * data.productionUpgrade2Level;
-        temp += (10 - (10 * pollution.pollutionBoost)) * data.productionUpgrade3Level;
-        temp += (100 - (100 * pollution.pollutionBoost)) * data.productionUpgrade4Level;
-        temp += (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade5Level;
-        temp += (1e4 - (1e4 * pollution.pollutionBoost)) * data.productionUpgrade6Level;
-        temp += (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade7Level;
-        temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
-        if (data.infusionULevel1 > 0)
+        if(!data.isGen1Broken)
+            temp += (1 - (1 * pollution.pollutionBoost)) * data.productionUpgrade1Level;
+        if(!data.isGen2Broken)
+            temp += (5 - (5 * pollution.pollutionBoost)) * data.productionUpgrade2Level;
+        if (!data.isGen3Broken)
+            temp += (10 - (10 * pollution.pollutionBoost)) * data.productionUpgrade3Level;
+        if (!data.isGen4Broken)
+            temp += (100 - (100 * pollution.pollutionBoost)) * data.productionUpgrade4Level;
+        if (!data.isGen5Broken)
+            temp += (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade5Level;
+        if (!data.isGen6Broken)
+            temp += (1e4 - (1e4 * pollution.pollutionBoost)) * data.productionUpgrade6Level;
+        if (!data.isGen7Broken)
+            temp += (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade7Level;
+        if (!data.isGen8Broken)
+            temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
+        if (data.infusionULevel1 > 0 && !data.isChallenge2Active)
             temp += temp * (0.05 * data.infusionULevel1);
         if (temp <= 0)
             temp = 0;
-        if (data.transformers > 0)
+        if (data.transformers > 0 && !data.isChallenge2Active)
             temp *= prestige.TransformerBoost();
         if (data.hasMastered)
             temp += dysonSphere.SpherePowerPerSec();
@@ -280,6 +296,9 @@ public class IdleGame : MonoBehaviour
             case "kuaka":
                 kuakaCanvas.gameObject.SetActive(true);
                 break;
+            case "repair":
+                repairCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -295,6 +314,7 @@ public class IdleGame : MonoBehaviour
         challengeCanvas.gameObject.SetActive(false);
         achievementCanvas.gameObject.SetActive(false);
         kuakaCanvas.gameObject.SetActive(false);
+        repairCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

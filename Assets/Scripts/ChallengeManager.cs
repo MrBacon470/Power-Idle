@@ -62,13 +62,16 @@ public class ChallengeManager : MonoBehaviour
         ArrayManager();
         Conditions();
 
+        if (data.hasPrestiged && data.power > 1e38 && !data.isChallengesUnlocked)
+            data.isChallengesUnlocked = true;
+
         void UI()
         {
             if(game.challengeCanvas.gameObject.activeSelf)
             {
-                challengeText[0].text = data.isChallenge3Active || data.isChallenge1Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Clean Energy\nUse only Manual Generators, Steam Turbines and Fusion Reactors to get to {Methods.NotationMethod(challengeGoal1, "F2")} Power\nReward: {Methods.NotationMethod(challengeReward[0], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[0], "F0")}";
+                challengeText[0].text = data.isChallenge3Active || data.isChallenge2Active ? "OTHER CHALLENGE ACTIVE" : $"Challenge: Clean Energy\nUse only Manual Generators, Steam Turbines and Fusion Reactors to get to {Methods.NotationMethod(challengeGoal1, "F2")} Power\nReward: {Methods.NotationMethod(challengeReward[0], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[0], "F0")}";
                 
-                challengeText[1].text = data.isChallenge1Active || data.isChallenge3Active? "OTHER CHALLENGE ACTIVE" : $"Challenge: No Console\nGet to {Methods.NotationMethod(challengeGoal2, "F2")} Power with no Bytes and No Boost\nReward: {Methods.NotationMethod(challengeReward[1], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[1], "F0")}";
+                challengeText[1].text = data.isChallenge1Active || data.isChallenge3Active? "OTHER CHALLENGE ACTIVE" : $"Challenge: No Transformers\nGet to {Methods.NotationMethod(challengeGoal2, "F2")} Power with no Transformer Boost and Infusions\nReward: {Methods.NotationMethod(challengeReward[1], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[1], "F0")}";
 
                 challengeText[2].text = data.isChallenge1Active || data.isChallenge2Active? "OTHER CHALLENGE ACTIVE" : $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3, "F2")} Power with side effects of Clean Energy and No Console plus No Prestige and Mastery Upgrades\nReward: {Methods.NotationMethod(challengeReward[2], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[2], "F0")}";
             }

@@ -110,7 +110,16 @@ public class PlayerData
     public bool isChallengesUnlocked;
     #endregion
 
-
+    #region Breaking
+    public bool isGen1Broken;
+    public bool isGen2Broken;
+    public bool isGen3Broken;
+    public bool isGen4Broken;
+    public bool isGen5Broken;
+    public bool isGen6Broken;
+    public bool isGen7Broken;
+    public bool isGen8Broken;
+    #endregion
 
     #region achievements
     public bool isAchievement1Locked;
@@ -201,7 +210,16 @@ public class PlayerData
         isChallengesUnlocked = false;
         #endregion
 
-
+        #region Breaking
+        isGen1Broken = false;
+        isGen2Broken = false;
+        isGen3Broken = false;
+        isGen4Broken = false;
+        isGen5Broken = false;
+        isGen6Broken = false;
+        isGen7Broken = false;
+        isGen8Broken = false;
+        #endregion
 
         #region achievements
         isAchievement1Locked = true;

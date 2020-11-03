@@ -61,7 +61,7 @@ public class InfusionManager : MonoBehaviour
         {
             for (var i = 0; i < infusionsText.Length; i++)
             {
-                infusionsText[i].text = $"{costDesc[i]}\nCost: {Methods.NotationMethod(infusionUCosts[i], "F0")} Transformers\nLevel {infusionULevels[i]}";
+                infusionsText[i].text = data.isChallenge2Active ? "Infusions\nDisabled": $"{costDesc[i]}\nCost: {Methods.NotationMethod(infusionUCosts[i], "F0")} Transformers\nLevel {infusionULevels[i]}";
             }
             
         }
