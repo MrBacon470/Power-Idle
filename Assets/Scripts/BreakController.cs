@@ -44,7 +44,9 @@ public class BreakController : MonoBehaviour
 
     public void StartBreak()
     {
+        
         var data = game.data;
+        if (!data.hasPrestiged) return;
         if (data.isGen1Broken)
             breakIndex = 0;
         if (data.isGen2Broken)
