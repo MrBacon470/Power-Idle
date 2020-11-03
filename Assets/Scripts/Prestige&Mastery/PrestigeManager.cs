@@ -81,6 +81,9 @@ public class PrestigeManager : MonoBehaviour
 
         data.currentPollution = 0;
 
+        game.broken.breakIndex = 8;
+        game.broken.breakTimer = 0;
+
         upgrades.Deactivate();
         research.Activate();
     }

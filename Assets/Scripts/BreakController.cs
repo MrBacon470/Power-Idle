@@ -62,6 +62,9 @@ public class BreakController : MonoBehaviour
         if (data.isGen8Broken)
             breakIndex = 7;
 
+        if (!data.isGen1Broken && !data.isGen2Broken && !data.isGen3Broken && !data.isGen4Broken && !data.isGen5Broken && !data.isGen6Broken && !data.isGen7Broken && !data.isGen8Broken)
+            breakIndex = 8;
+
         breakTimer = 0;
     }
 
