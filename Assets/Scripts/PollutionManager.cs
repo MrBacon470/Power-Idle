@@ -53,15 +53,31 @@ public class PollutionManager : MonoBehaviour
         if (data.currentPollution >= totalPollution)
             data.currentPollution = totalPollution;
 
-        pollutionText.text = $"Total Pollution: {Methods.NotationMethod((data.currentPollution / totalPollution) * 100, "F2")}%\n+{Methods.NotationMethod((pollutionAmount[0] * data.productionUpgrade2Level) + (pollutionAmount[1] * data.productionUpgrade3Level) + (pollutionAmount[2] * data.productionUpgrade4Level) + (pollutionAmount[3] * data.productionUpgrade5Level) + (pollutionAmount[4] * data.productionUpgrade7Level), "F2")} Pollution Per Tick";
-
+        pollutionText.text = $"Total Pollution: {Methods.NotationMethod((data.currentPollution / totalPollution) * 100, "F2")}%\n+{Methods.NotationMethod(pollutionPerSec(),"F0")} Pollution/s";
         if(tickTimer >= 2)
-            data.currentPollution += (pollutionAmount[0] * data.productionUpgrade2Level) + (pollutionAmount[1] * data.productionUpgrade3Level) + (pollutionAmount[2] * data.productionUpgrade4Level) + (pollutionAmount[3] * data.productionUpgrade5Level) + (pollutionAmount[4] * data.productionUpgrade7Level);
+            data.currentPollution += pollutionPerSec();
 
 
         if (tickTimer < 2)
             tickTimer += Time.deltaTime;
         else
             tickTimer = 0;
+    }
+
+    public BigDouble pollutionPerSec()
+    {
+        var data = game.data;
+        BigDouble temp = 0;
+        if (!data.isGen2Broken)
+            temp += pollutionAmount[0] * data.productionUpgrade2Level;
+        if (!data.isGen3Broken)
+            temp += pollutionAmount[1] * data.productionUpgrade3Level;
+        if (!data.isGen4Broken)
+            temp += pollutionAmount[2] * data.productionUpgrade4Level;
+        if (!data.isGen5Broken)
+            temp += pollutionAmount[3] * data.productionUpgrade5Level;
+        if (!data.isGen7Broken)
+            temp += pollutionAmount[4] * data.productionUpgrade7Level;
+        return temp;
     }
 }
