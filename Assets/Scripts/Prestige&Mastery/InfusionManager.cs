@@ -46,7 +46,7 @@ public class InfusionManager : MonoBehaviour
     {
         infusionUCosts = new BigDouble[3];
         infusionULevels = new BigDouble[3];
-        costDesc = new string[] { "5% More Power Per Second", "1.5x Pollution Capacity", "5% More Transformers On Prestiging" };
+        costDesc = new string[] { "25% More Power Per Second", "1.25x Pollution Capacity", "25% More Transformers On Prestiging" };
     }
 
     public void Run()

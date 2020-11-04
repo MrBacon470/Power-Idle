@@ -36,7 +36,7 @@ public class PrestigeManager : MonoBehaviour
     public Text prestigeBoostText;
 
     public GameObject prestigeMenu;
-    public BigDouble transformersToGet => game.data.isChallenge2Active ? 150 * Sqrt(game.data.power * 2) : 150 * Sqrt(game.data.power * 2) + (150 * Sqrt(game.data.power * 2)) + (0.05 * game.data.infusionULevel3);
+    public BigDouble transformersToGet => game.data.isChallenge2Active ? 150 * Sqrt(game.data.power * 2) : 150 * Sqrt(game.data.power * 2) + (150 * Sqrt(game.data.power * 2) * (0.25 * game.data.infusionULevel3));
 
     public void Run()
     {
@@ -83,6 +83,15 @@ public class PrestigeManager : MonoBehaviour
 
         game.broken.breakIndex = 8;
         game.broken.breakTimer = 0;
+
+        data.isGen1Broken = false;
+        data.isGen2Broken = false;
+        data.isGen3Broken = false;
+        data.isGen4Broken = false;
+        data.isGen5Broken = false;
+        data.isGen6Broken = false;
+        data.isGen7Broken = false;
+        data.isGen8Broken = false;
 
         upgrades.Deactivate();
         research.Activate();

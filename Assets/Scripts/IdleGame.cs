@@ -243,7 +243,7 @@ public class IdleGame : MonoBehaviour
         if (!data.isGen8Broken)
             temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
         if (data.infusionULevel1 > 0 && !data.isChallenge2Active)
-            temp += temp * (0.05 * data.infusionULevel1);
+            temp += temp * (0.25 * data.infusionULevel1);
         if (temp <= 0)
             temp = 0;
         if (data.transformers > 0 && !data.isChallenge2Active)
