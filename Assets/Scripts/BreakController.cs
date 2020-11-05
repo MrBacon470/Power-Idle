@@ -86,7 +86,7 @@ public class BreakController : MonoBehaviour
 
         if (breakIndex == 8)
             breakTimer += Time.deltaTime;
-        if (breakTimer >= 120 && breakIndex == 8)
+        if (breakTimer >= 300 && breakIndex == 8)
         {
             breakTimer = 0;
             breakIndex = rnd.Next(0, 7);
