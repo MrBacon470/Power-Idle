@@ -46,6 +46,7 @@ public class IdleGame : MonoBehaviour
     public AchievementManager achievement;
     public KuakaManager kuaka;
     public BreakController broken;
+    public HyperResearchManager hyper;
     [Header("Texts")]
     public Text powerText;
     public Text powerPerSecText;
@@ -62,6 +63,7 @@ public class IdleGame : MonoBehaviour
     public GameObject megaButton;
     public GameObject challengeButton;
     public GameObject repairButton;
+    public GameObject hyperButton;
     [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
@@ -74,6 +76,7 @@ public class IdleGame : MonoBehaviour
     public Canvas achievementCanvas;
     public Canvas kuakaCanvas;
     public Canvas repairCanvas;
+    public Canvas hyperCanvas;
 
     public void Start()
     {
@@ -92,6 +95,7 @@ public class IdleGame : MonoBehaviour
         achievementCanvas.gameObject.SetActive(false);
         kuakaCanvas.gameObject.SetActive(false);
         repairCanvas.gameObject.SetActive(false);
+        hyperCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
@@ -141,6 +145,7 @@ public class IdleGame : MonoBehaviour
         challenge.Run();
         achievement.Run();
         kuaka.UpdateKuaka();
+        hyper.Run();
         if(data.hasPrestiged)
             broken.Run();
         if (data.frameRateType == 0)
@@ -187,6 +192,13 @@ public class IdleGame : MonoBehaviour
         else
             repairButton.gameObject.SetActive(false);
 
+        if (data.power > 1e38 && data.isChallengesUnlocked && data.isKuakaCoinUnlocked && !data.isHyperUnlocked)
+            data.isHyperUnlocked = true;
+
+        if (data.isHyperUnlocked)
+            hyperButton.gameObject.SetActive(true);
+        else
+            hyperButton.gameObject.SetActive(false);
 
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
@@ -228,21 +240,21 @@ public class IdleGame : MonoBehaviour
     {
         BigDouble temp = 0;
         if(!data.isGen1Broken)
-            temp += (1 - (1 * pollution.pollutionBoost)) * data.productionUpgrade1Level;
+            temp += data.hyperIndex > 0 ? (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade1Level : (1 - (1 * pollution.pollutionBoost)) * data.productionUpgrade1Level;
         if(!data.isGen2Broken)
-            temp += (5 - (5 * pollution.pollutionBoost)) * data.productionUpgrade2Level;
+            temp += data.hyperIndex > 1 ? (5e3 - (5e3 * pollution.pollutionBoost)) * data.productionUpgrade2Level : (5 - (5 * pollution.pollutionBoost)) * data.productionUpgrade2Level;
         if (!data.isGen3Broken)
-            temp += (10 - (10 * pollution.pollutionBoost)) * data.productionUpgrade3Level;
+            temp += data.hyperIndex > 2 ? (1e4 - (1e4 * pollution.pollutionBoost)) * data.productionUpgrade3Level : (10 - (10 * pollution.pollutionBoost)) * data.productionUpgrade3Level;
         if (!data.isGen4Broken)
-            temp += (100 - (100 * pollution.pollutionBoost)) * data.productionUpgrade4Level;
+            temp += data.hyperIndex > 3 ? (1e5 - (1e5 * pollution.pollutionBoost)) * data.productionUpgrade4Level : (100 - (100 * pollution.pollutionBoost)) * data.productionUpgrade4Level;
         if (!data.isGen5Broken)
-            temp += (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade5Level;
+            temp += data.hyperIndex > 4 ? (1e6 - (1e6 * pollution.pollutionBoost)) * data.productionUpgrade5Level : (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade5Level;
         if (!data.isGen6Broken)
-            temp += (1e4 - (1e4 * pollution.pollutionBoost)) * data.productionUpgrade6Level;
+            temp += data.hyperIndex > 5 ? (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade6Level : (1e4 - (1e4 * pollution.pollutionBoost)) * data.productionUpgrade6Level;
         if (!data.isGen7Broken)
-            temp += (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade7Level;
+            temp += data.hyperIndex > 6 ? (1e10 - (1e10 * pollution.pollutionBoost)) * data.productionUpgrade7Level : (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade7Level;
         if (!data.isGen8Broken)
-            temp += (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
+            temp += data.hyperIndex > 7 ? (1e20 - (1e20 * pollution.pollutionBoost)) * data.productionUpgrade8Level : (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
         if (data.infusionULevel1 > 0 && !data.isChallenge2Active)
             temp += temp * (0.25 * data.infusionULevel1);
         if (temp <= 0)
@@ -300,6 +312,9 @@ public class IdleGame : MonoBehaviour
             case "repair":
                 repairCanvas.gameObject.SetActive(true);
                 break;
+            case "hyper":
+                hyperCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -316,6 +331,7 @@ public class IdleGame : MonoBehaviour
         achievementCanvas.gameObject.SetActive(false);
         kuakaCanvas.gameObject.SetActive(false);
         repairCanvas.gameObject.SetActive(false);
+        hyperCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

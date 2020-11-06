@@ -101,17 +101,38 @@ public class UpgradesManager : MonoBehaviour
                 productionUpgradeMaxText[i].text = $"Buy Max ({BuyProductionUpgradeMaxCount(i)})";
             }
 
+            if(data.hyperIndex <= 0)
                 productionUpgradeText[0].text = data.isGen1Broken ? "BROKEN PLEASE REPAIR" : $"Manual Generator\nCost: {GetUpgradeCost(0, productionUpgradeCost)} Power\nPower: {Methods.NotationMethod(productionUpgradePower[0], "F2")} Power/s\nLevel: {GetUpgradeLevel(0, productionUpgradeLevels)}";
+            else
+                productionUpgradeText[0].text = data.isGen1Broken ? "BROKEN PLEASE REPAIR" : $"Hyper Manual Generator\nCost: {GetUpgradeCost(0, productionUpgradeCost)} Power\nPower: {Methods.NotationMethod(1e3, "F2")} Power/s\nLevel: {GetUpgradeLevel(0, productionUpgradeLevels)}";
+            if(data.hyperIndex <= 1)
                 productionUpgradeText[1].text = data.isGen2Broken ? "BROKEN PLEASE REPAIR" : $"Wood Burner\nCost   {GetUpgradeCost(1, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[1], "F2")} Power/s\nLevel: {GetUpgradeLevel(1, productionUpgradeLevels)}";
+            else
+                productionUpgradeText[1].text = data.isGen2Broken ? "BROKEN PLEASE REPAIR" : $"Hyper Wood Burner\nCost   {GetUpgradeCost(1, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(5e3, "F2")} Power/s\nLevel: {GetUpgradeLevel(1, productionUpgradeLevels)}";
+            if(data.hyperIndex <= 2)
                 productionUpgradeText[2].text = data.isGen3Broken ? "BROKEN PLEASE REPAIR" : $"Coal Generator\nCost   {GetUpgradeCost(2, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[2], "F2")} Power/s\nLevel: {GetUpgradeLevel(2, productionUpgradeLevels)}";
+            else
+                productionUpgradeText[2].text = data.isGen3Broken ? "BROKEN PLEASE REPAIR" : $"Hyper Coal Generator\nCost   {GetUpgradeCost(2, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(1e4, "F2")} Power/s\nLevel: {GetUpgradeLevel(2, productionUpgradeLevels)}";
+            if(data.hyperIndex <= 3)
                 productionUpgradeText[3].text = data.isGen4Broken ? "BROKEN PLEASE REPAIR" : $"Oil Generator\nCost   {GetUpgradeCost(3, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[3], "F2")} Power/s\nLevel: {GetUpgradeLevel(3, productionUpgradeLevels)}";
+            else
+                productionUpgradeText[3].text = data.isGen4Broken ? "BROKEN PLEASE REPAIR" : $"Hyper Oil Generator\nCost   {GetUpgradeCost(3, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(1e5, "F2")} Power/s\nLevel: {GetUpgradeLevel(3, productionUpgradeLevels)}";
+            if(data.hyperIndex <= 4)
                 productionUpgradeText[4].text = data.isGen5Broken ? "BROKEN PLEASE REPAIR" : $"Natural Gas Generator\nCost   {GetUpgradeCost(4, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[4], "F2")} Power/s\nLevel: {GetUpgradeLevel(4, productionUpgradeLevels)}";
+            else
+                productionUpgradeText[4].text = data.isGen5Broken ? "BROKEN PLEASE REPAIR" : $"Hyper Natural Gas Generator\nCost   {GetUpgradeCost(4, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(1e6, "F2")} Power/s\nLevel: {GetUpgradeLevel(4, productionUpgradeLevels)}";
+            if(data.hyperIndex <= 5)
                 productionUpgradeText[5].text = data.isGen6Broken ? "BROKEN PLEASE REPAIR" : $"Steam Turbine\nCost   {GetUpgradeCost(5, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[5], "F2")} Power/s\nLevel: {GetUpgradeLevel(5, productionUpgradeLevels)}";
+            else
+                productionUpgradeText[5].text = data.isGen6Broken ? "BROKEN PLEASE REPAIR" : $"Hyper sSteam Turbine\nCost   {GetUpgradeCost(5, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(1e7, "F2")} Power/s\nLevel: {GetUpgradeLevel(5, productionUpgradeLevels)}";
+            if(data.hyperIndex <= 6)
                 productionUpgradeText[6].text = data.isGen7Broken ? "BROKEN PLEASE REPAIR" : $"Nuclear Reactor\nCost   {GetUpgradeCost(6, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[6], "F2")} Power/s\nLevel: {GetUpgradeLevel(6, productionUpgradeLevels)}";
+            else
+                productionUpgradeText[6].text = data.isGen7Broken ? "BROKEN PLEASE REPAIR" : $"Hyper Nuclear Reactor\nCost   {GetUpgradeCost(6, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(1e10, "F2")} Power/s\nLevel: {GetUpgradeLevel(6, productionUpgradeLevels)}";
+            if(data.hyperIndex <= 7)
                 productionUpgradeText[7].text = data.isGen8Broken ? "BROKEN PLEASE REPAIR" : $"Fusion Reactor\nCost   {GetUpgradeCost(7, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(productionUpgradePower[7], "F2")} Power/s\nLevel: {GetUpgradeLevel(7, productionUpgradeLevels)}";
-            
-            
-
+            else
+                productionUpgradeText[7].text = data.isGen8Broken ? "BROKEN PLEASE REPAIR" : $"Hyper Fusion Reactor\nCost   {GetUpgradeCost(7, productionUpgradeCost)}   Power\nPower:  {Methods.NotationMethod(1e20, "F2")} Power/s\nLevel: {GetUpgradeLevel(7, productionUpgradeLevels)}";
 
         }
 

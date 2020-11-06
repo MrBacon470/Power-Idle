@@ -36,6 +36,7 @@ public class PlayerData
     public bool isKuakaCoinUnlocked;
     public bool isSoftCapped;
     public bool hasAchievementsBeenReset;
+    public bool isHyperUnlocked;
     #endregion
     #region settings/daily
     public bool dailyRewardReady;
@@ -80,6 +81,21 @@ public class PlayerData
 
     public int researchIndex;
     #endregion
+
+    #region hyperStuff
+    public bool isHyperCompleted0;
+    public bool isHyperCompleted1;
+    public bool isHyperCompleted2;
+    public bool isHyperCompleted3;
+    public bool isHyperCompleted4;
+    public bool isHyperCompleted5;
+    public bool isHyperCompleted6;
+    public bool isHyperCompleted7;
+    public bool isHyperCompleted8;
+
+    public int hyperIndex;
+    #endregion
+
     #region Prestige
     public BigDouble transformers;
     public BigDouble superConductors;
@@ -155,6 +171,7 @@ public class PlayerData
         isKuakaCoinUnlocked = false;
         isSoftCapped = true;
         hasAchievementsBeenReset = false;
+        isHyperUnlocked = false;
 
         #region Upgrades
         productionUpgrade1Level = 0;
@@ -188,6 +205,20 @@ public class PlayerData
         isCompleted7 = false;
 
         researchIndex = 0;
+
+        #region hyperStuff
+        isHyperCompleted0 = true;
+        isHyperCompleted1 = false;
+        isHyperCompleted2 = false;
+        isHyperCompleted3 = false;
+        isHyperCompleted4 = false;
+        isHyperCompleted5 = false;
+        isHyperCompleted6 = false;
+        isHyperCompleted7 = false;
+        isHyperCompleted8 = false;
+
+        hyperIndex = 0;
+        #endregion
 
         transformers = 0;
         superConductors = 0;
