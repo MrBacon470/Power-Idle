@@ -37,9 +37,9 @@ public class ChallengeManager : MonoBehaviour
     private BigDouble reward2 => 1e9 * Pow(1.75, game.data.challengeLevel2);
     private BigDouble reward3 => 1e12 * Pow(5, game.data.challengeLevel3);
 
-    public BigDouble challengeGoal1 => 1e12 * Pow(1e5, game.data.challengeLevel1);
-    public BigDouble challengeGoal2 => 1e12 * Pow(1e5, game.data.challengeLevel2);
-    public BigDouble challengeGoal3 => 1e12 * Pow(1e5, game.data.challengeLevel3);
+    public BigDouble challengeGoal1 => 1e12 * Pow(1e20, game.data.challengeLevel1);
+    public BigDouble challengeGoal2 => 1e12 * Pow(1e20, game.data.challengeLevel2);
+    public BigDouble challengeGoal3 => 1e12 * Pow(1e20, game.data.challengeLevel3);
 
 
     public Text[] challengeText = new Text[3];
