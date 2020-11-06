@@ -43,7 +43,7 @@ public class Settings : MonoBehaviour
      * 3 = Word
      */
 
-    private void Start()
+    public void StartSettings()
     {
         UpdateNotationText();
         UpdateFPSText();

@@ -33,6 +33,7 @@ public class IdleGame : MonoBehaviour
 {
     [Header("Scripts")]
     public PlayerData data;
+    public Settings settings;
     public OfflineManager offline;
     public SaveSystem nonStaticSaveSystem;
     public UpgradesManager upgrades;
@@ -97,6 +98,9 @@ public class IdleGame : MonoBehaviour
         repairCanvas.gameObject.SetActive(false);
         hyperCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
+        Methods.NotationSettings = data.notationType;
+        data.audioType = 1;
+        data.frameRateType = 0;
         offline.LoadOfflineProduction();
         infuse.StartInfusion();
         challenge.StartChallenges();
@@ -110,10 +114,8 @@ public class IdleGame : MonoBehaviour
         
 
         TotalPowerPerSecond();
-        Methods.NotationSettings = data.notationType;
-        data.audioType = 1;
-        data.frameRateType = 0;
 
+        settings.StartSettings();
         
     }
 
