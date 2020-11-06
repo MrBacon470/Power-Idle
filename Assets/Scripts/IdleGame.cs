@@ -119,21 +119,6 @@ public class IdleGame : MonoBehaviour
 
     public void Update()
     {
-        if (data.power < 0)
-            data.power = 0;
-        if (data.powerCollected < data.power)
-            data.powerCollected = data.power;
-        if (data.isSoftCapped && data.power > 1.79e308)
-            data.power = 1.79e308;
-
-        if (!data.isKuakaCoinUnlocked)
-            data.isAchievement10Locked = true;
-        if (!data.isKuakaCoinUnlocked)
-            data.isAchievement11Locked = true;
-
-        if (data.power > 1e21 && data.hasPrestiged)
-            data.isChallengesUnlocked = true;
-
         prestige.Run();
         upgrades.RunUpgradesUI();
         upgrades.RunUpgrades();
@@ -146,6 +131,7 @@ public class IdleGame : MonoBehaviour
         achievement.Run();
         kuaka.UpdateKuaka();
         hyper.Run();
+
         if(data.hasPrestiged)
             broken.Run();
         if (data.frameRateType == 0)
@@ -203,8 +189,23 @@ public class IdleGame : MonoBehaviour
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
 
-            saveTimerText.text = saveTimer < 12 ? $"{Methods.NotationMethod(15 - saveTimer, "F2")} Safe To Quit" : $"{Methods.NotationMethod(15 - saveTimer, "F2")} Not Safe To Quit";
-            saveTimerText.color = saveTimer < 12 ? Color.green : Color.red; 
+        saveTimerText.text = saveTimer < 12 ? $"{Methods.NotationMethod(15 - saveTimer, "F2")} Safe To Quit" : $"{Methods.NotationMethod(15 - saveTimer, "F2")} Not Safe To Quit";
+        saveTimerText.color = saveTimer < 12 ? Color.green : Color.red;
+
+        if (data.power < 0)
+            data.power = 0;
+        if (data.powerCollected < data.power)
+            data.powerCollected = data.power;
+        if (data.isSoftCapped && data.power > 1.79e308)
+            data.power = 1.79e308;
+
+        if (!data.isKuakaCoinUnlocked)
+            data.isAchievement10Locked = true;
+        if (!data.isKuakaCoinUnlocked)
+            data.isAchievement11Locked = true;
+
+        if (data.power > 1e21 && data.hasPrestiged)
+            data.isChallengesUnlocked = true;
 
         saveTimer += Time.deltaTime;
 
