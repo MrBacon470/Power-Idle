@@ -241,19 +241,19 @@ public class IdleGame : MonoBehaviour
     {
         BigDouble temp = 0;
         if(!data.isGen1Broken)
-            temp += data.hyperIndex > 0 ? (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade1Level : (1 - (1 * pollution.pollutionBoost)) * data.productionUpgrade1Level;
+            temp += data.hyperIndex > 0 ? (1e5 - (1e5 * pollution.pollutionBoost)) * data.productionUpgrade1Level : (1 - (1 * pollution.pollutionBoost)) * data.productionUpgrade1Level;
         if(!data.isGen2Broken)
-            temp += data.hyperIndex > 1 ? (5e3 - (5e3 * pollution.pollutionBoost)) * data.productionUpgrade2Level : (5 - (5 * pollution.pollutionBoost)) * data.productionUpgrade2Level;
+            temp += data.hyperIndex > 1 ? (5e5 - (5e5 * pollution.pollutionBoost)) * data.productionUpgrade2Level : (5 - (5 * pollution.pollutionBoost)) * data.productionUpgrade2Level;
         if (!data.isGen3Broken)
-            temp += data.hyperIndex > 2 ? (1e4 - (1e4 * pollution.pollutionBoost)) * data.productionUpgrade3Level : (10 - (10 * pollution.pollutionBoost)) * data.productionUpgrade3Level;
+            temp += data.hyperIndex > 2 ? (1e6 - (1e6 * pollution.pollutionBoost)) * data.productionUpgrade3Level : (10 - (10 * pollution.pollutionBoost)) * data.productionUpgrade3Level;
         if (!data.isGen4Broken)
-            temp += data.hyperIndex > 3 ? (1e5 - (1e5 * pollution.pollutionBoost)) * data.productionUpgrade4Level : (100 - (100 * pollution.pollutionBoost)) * data.productionUpgrade4Level;
+            temp += data.hyperIndex > 3 ? (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade4Level : (100 - (100 * pollution.pollutionBoost)) * data.productionUpgrade4Level;
         if (!data.isGen5Broken)
-            temp += data.hyperIndex > 4 ? (1e6 - (1e6 * pollution.pollutionBoost)) * data.productionUpgrade5Level : (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade5Level;
+            temp += data.hyperIndex > 4 ? (1e8 - (1e8 * pollution.pollutionBoost)) * data.productionUpgrade5Level : (1e3 - (1e3 * pollution.pollutionBoost)) * data.productionUpgrade5Level;
         if (!data.isGen6Broken)
-            temp += data.hyperIndex > 5 ? (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade6Level : (1e4 - (1e4 * pollution.pollutionBoost)) * data.productionUpgrade6Level;
+            temp += data.hyperIndex > 5 ? (1e9 - (1e9 * pollution.pollutionBoost)) * data.productionUpgrade6Level : (1e4 - (1e4 * pollution.pollutionBoost)) * data.productionUpgrade6Level;
         if (!data.isGen7Broken)
-            temp += data.hyperIndex > 6 ? (1e10 - (1e10 * pollution.pollutionBoost)) * data.productionUpgrade7Level : (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade7Level;
+            temp += data.hyperIndex > 6 ? (1e12 - (1e12 * pollution.pollutionBoost)) * data.productionUpgrade7Level : (1e7 - (1e7 * pollution.pollutionBoost)) * data.productionUpgrade7Level;
         if (!data.isGen8Broken)
             temp += data.hyperIndex > 7 ? (1e20 - (1e20 * pollution.pollutionBoost)) * data.productionUpgrade8Level : (1e10- (1e10 * pollution.pollutionBoost)) * data.productionUpgrade8Level;
         if (data.infusionULevel1 > 0 && !data.isChallenge2Active)

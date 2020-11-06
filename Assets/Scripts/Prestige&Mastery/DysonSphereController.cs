@@ -65,9 +65,9 @@ public class DysonSphereController : MonoBehaviour
         else
             array3Button.gameObject.SetActive(false);
 
-        array1Text.text = data.array1Complete ? "Constructed" : $"Array 1 Cost: {Methods.NotationMethod(1e10, "F2")} Power";
-        array2Text.text = data.array2Complete ? "Constructed" : $"Array 1 Cost: {Methods.NotationMethod(1e10, "F2")} Transformers";
-        array3Text.text = data.array3Complete ? "Constructed" : $"Array 1 Cost: {Methods.NotationMethod(1e10, "F2")} Super Conductors";
+        array1Text.text = data.array1Complete ? "Constructed" : $"Array 1 Cost: {Methods.NotationMethod(1e100, "F2")} Power";
+        array2Text.text = data.array2Complete ? "Constructed" : $"Array 1 Cost: {Methods.NotationMethod(1e75, "F2")} Transformers";
+        array3Text.text = data.array3Complete ? "Constructed" : $"Array 1 Cost: {Methods.NotationMethod(1e50, "F2")} Super Conductors";
     }
 
     public void BuildArray1()
@@ -108,11 +108,11 @@ public class DysonSphereController : MonoBehaviour
         var data = game.data;
         BigDouble temp = 0;
         if (data.array1Complete)
-            temp += 1e10;
+            temp += 1e30;
         if (data.array2Complete)
-            temp += 1e12;
+            temp += 1e50;
         if (data.array3Complete)
-            temp += 1e14;
+            temp += 1e70;
         return temp;
     }
 }
