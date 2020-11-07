@@ -35,7 +35,9 @@ public class MasteryManager : MonoBehaviour
     public Text masteryText;
     public GameObject masteryMenu;
 
-    public BigDouble superConductorsToGet => 150 * Sqrt((game.data.power + game.data.transformers) / 1e307);
+    public BigDouble superConductorsToGet => 150 * Sqrt(game.data.power / 1.79e300);
+
+    public Text conductorBoostText;
 
     public void Run()
     {
@@ -78,5 +80,13 @@ public class MasteryManager : MonoBehaviour
 
         upgrades.Deactivate();
         research.Activate();
+    }
+
+    public BigDouble ConductorBoost()
+    {
+        var data = game.data;
+        BigDouble temp = data.superConductors * 0.01;
+
+        return temp + 1;
     }
 }

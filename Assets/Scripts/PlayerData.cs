@@ -106,6 +106,14 @@ public class PlayerData
     public BigDouble infusionULevel2;
     public BigDouble infusionULevel3;
     #endregion
+    #region Sacrafices
+    public BigDouble sacraficeULevel1;
+    public BigDouble sacraficeULevel2;
+    public BigDouble sacraficeULevel3;
+
+    public bool issacraficesUnlocked;
+    public int infusionIndex;
+    #endregion
     #region DysonSphere
     public bool array1Complete;
     public bool array2Complete;
@@ -239,6 +247,15 @@ public class PlayerData
         isChallenge2Active = false;
         isChallenge3Active = false;
         isChallengesUnlocked = false;
+        #endregion
+
+        #region Sacrafices
+        sacraficeULevel1 = 0;
+        sacraficeULevel2 = 0;
+        sacraficeULevel3 = 0;
+
+        issacraficesUnlocked = false;
+        infusionIndex = 0;
         #endregion
 
         #region Breaking

@@ -60,7 +60,7 @@ public class KuakaManager : MonoBehaviour
         if (data.kuakaCoin < 1)
             data.kuakaCoin = 1;
 
-        if (!data.isAchievement9Locked && !data.isKuakaCoinUnlocked)
+        if (!data.isAchievement7Locked && !data.isKuakaCoinUnlocked)
             data.isKuakaCoinUnlocked = true;
 
         if (harvestTimer > 0)

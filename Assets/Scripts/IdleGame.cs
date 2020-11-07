@@ -65,6 +65,7 @@ public class IdleGame : MonoBehaviour
     public GameObject challengeButton;
     public GameObject repairButton;
     public GameObject hyperButton;
+    public GameObject switchButton;
     [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
@@ -188,6 +189,11 @@ public class IdleGame : MonoBehaviour
         else
             hyperButton.gameObject.SetActive(false);
 
+        if (data.issacraficesUnlocked)
+            switchButton.gameObject.SetActive(true);
+        else
+            switchButton.gameObject.SetActive(false);
+
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
 
@@ -266,6 +272,8 @@ public class IdleGame : MonoBehaviour
             temp *= prestige.TransformerBoost();
         if (data.hasMastered)
             temp += dysonSphere.SpherePowerPerSec();
+        if (data.superConductors > 0)
+            temp *= mastery.ConductorBoost();
         if (data.amps > 0)
             temp *= challenge.QuarkBoost();
         if (kuaka.burnToggle)

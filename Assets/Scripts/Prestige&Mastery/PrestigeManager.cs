@@ -33,7 +33,6 @@ public class PrestigeManager : MonoBehaviour
     public ResearchManager research;
     public UpgradesManager upgrades;
     public Text prestigeText;
-    public Text prestigeBoostText;
 
     public GameObject prestigeMenu;
     public BigDouble transformersToGet => game.data.isChallenge2Active ? 150 * Sqrt(game.data.power * 2) : 150 * Sqrt(game.data.power * 2) + (150 * Sqrt(game.data.power * 2) * (0.25 * game.data.infusionULevel3));
@@ -49,8 +48,7 @@ public class PrestigeManager : MonoBehaviour
         if (prestigeMenu.gameObject.activeSelf)
             prestigeText.text = data.isChallenge2Active ? $"!Warning! Less Transformers on Prestige +{Methods.NotationMethod(transformersToGet,"F0")} Transformers" : $"Prestige +{Methods.NotationMethod(transformersToGet, "F0")} Transformers";
 
-        if (data.transformers > 0)
-            prestigeBoostText.text = data.isChallenge2Active ? "Boost Disabled" : $"Current Boost: +{Methods.NotationMethod(TransformerBoost(), "F0")}x";
+        
     }
 
     public void Prestige()

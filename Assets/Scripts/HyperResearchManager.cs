@@ -56,56 +56,56 @@ public class HyperResearchManager : MonoBehaviour
         {
             researchIcon.sprite = hyperIcons[0];
             nextResearchIcon.sprite = nextHyperIcons[0];
-            hyperInfoText.text = $"Hyper Manual Generator\nResearch Cost:{Methods.NotationMethod(hyperCosts[0], "F2")} Transformers";
-            hyperNextInfoText.text = $"Hyper Wood Burner\nResearch Cost:{Methods.NotationMethod(hyperCosts[1], "F2")} Transformers";
+            hyperInfoText.text = $"Anti-Grav Treadmill\nResearch Cost:{Methods.NotationMethod(hyperCosts[0], "F2")} Transformers";
+            hyperNextInfoText.text = $"Wood Plasmifier\nResearch Cost:{Methods.NotationMethod(hyperCosts[1], "F2")} Transformers";
         }
         if (data.isHyperCompleted1)
         {
             researchIcon.sprite = hyperIcons[1];
             nextResearchIcon.sprite = nextHyperIcons[1];
-            hyperInfoText.text = $"Hyper Wood Burner\nResearch Cost:{Methods.NotationMethod(hyperCosts[1], "F2")} Transformers";
-            hyperNextInfoText.text = $"Hyper Coal Generator\nResearch Cost:{Methods.NotationMethod(hyperCosts[2], "F2")} Transformers";
+            hyperInfoText.text = $"Wood Plasmifier\nResearch Cost:{Methods.NotationMethod(hyperCosts[1], "F2")} Transformers";
+            hyperNextInfoText.text = $"Coal Incinerator\nResearch Cost:{Methods.NotationMethod(hyperCosts[2], "F2")} Transformers";
         }
         if (data.isHyperCompleted2)
         {
             researchIcon.sprite = hyperIcons[2];
             nextResearchIcon.sprite = nextHyperIcons[2];
-            hyperInfoText.text = $"Hyper Coal Generator\nResearch Cost:{Methods.NotationMethod(hyperCosts[2], "F2")} Transformers";
-            hyperNextInfoText.text = $"Hyper Oil Generator\nResearch Cost:{Methods.NotationMethod(hyperCosts[3], "F2")} Transformers";
+            hyperInfoText.text = $"Coal Incinerator\nResearch Cost:{Methods.NotationMethod(hyperCosts[2], "F2")} Transformers";
+            hyperNextInfoText.text = $"Petroleum Burner\nResearch Cost:{Methods.NotationMethod(hyperCosts[3], "F2")} Transformers";
         }
         if (data.isHyperCompleted3)
         {
             researchIcon.sprite = hyperIcons[3];
             nextResearchIcon.sprite = nextHyperIcons[3];
-            hyperInfoText.text = $"Hyper Oil Generator\nResearch Cost:{Methods.NotationMethod(hyperCosts[3], "F2")} Transformers";
-            hyperNextInfoText.text = $"Hyper Natural Gas Generator\nResearch Cost:{Methods.NotationMethod(hyperCosts[4], "F2")} Transformers";
+            hyperInfoText.text = $"Petroleum Burner\nResearch Cost:{Methods.NotationMethod(hyperCosts[3], "F2")} Transformers";
+            hyperNextInfoText.text = $"Hot Gas Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[4], "F2")} Transformers";
         }
         if (data.isHyperCompleted4)
         {
             researchIcon.sprite = hyperIcons[4];
             nextResearchIcon.sprite = nextHyperIcons[4];
-            hyperInfoText.text = $"Hyper Natural Gas Generator\nResearch Cost:{Methods.NotationMethod(hyperCosts[4], "F2")} Transformers";
-            hyperNextInfoText.text = $"Hyper Steam Turbine\nResearch Cost:{Methods.NotationMethod(hyperCosts[5], "F2")} Transformers";
+            hyperInfoText.text = $"Hot Gas Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[4], "F2")} Transformers";
+            hyperNextInfoText.text = $"High Pressure Turbine\nResearch Cost:{Methods.NotationMethod(hyperCosts[5], "F2")} Transformers";
         }
         if (data.isHyperCompleted5)
         {
             researchIcon.sprite = hyperIcons[5];
             nextResearchIcon.sprite = nextHyperIcons[5];
-            hyperInfoText.text = $"Hyper Steam Turbine\nResearch Cost:{Methods.NotationMethod(hyperCosts[5], "F2")} Transformers";
-            hyperNextInfoText.text = $"Hyper Nuclear Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[6], "F2")} Transformers";
+            hyperInfoText.text = $"High Pressure Turbine\nResearch Cost:{Methods.NotationMethod(hyperCosts[5], "F2")} Transformers";
+            hyperNextInfoText.text = $"Molten Salt Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[6], "F2")} Transformers";
         }
         if (data.isHyperCompleted6)
         {
             researchIcon.sprite = hyperIcons[6];
             nextResearchIcon.sprite = nextHyperIcons[7];
-            hyperInfoText.text = $"Hyper Nuclear Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[6], "F2")} Transformers";
-            hyperNextInfoText.text = $"Hyper Fusion Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[7], "F2")} Transformers";
+            hyperInfoText.text = $"Molten Salt Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[6], "F2")} Transformers";
+            hyperNextInfoText.text = $"Zero Point Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[7], "F2")} Transformers";
         }
         if (data.isHyperCompleted7)
         {
             researchIcon.sprite = hyperIcons[7];
             nextResearchIcon.gameObject.SetActive(false);
-            hyperInfoText.text = $"Hyper Fusion Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[7], "F2")} Transformers";
+            hyperInfoText.text = $"Zero Point Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[7], "F2")} Transformers";
             hyperNextInfoText.text = $"No More Research";
         }
         if (data.isHyperCompleted8)
@@ -131,7 +131,7 @@ public class HyperResearchManager : MonoBehaviour
         if (data.researchIndex <= 7)
             data.transformers -= hyperCosts[data.hyperIndex];
 
-        switch (data.researchIndex)
+        switch (data.hyperIndex)
         {
             case 0:
                 data.isHyperCompleted0 = false;
@@ -166,8 +166,8 @@ public class HyperResearchManager : MonoBehaviour
                 data.isHyperCompleted8 = true;
                 break;
         }
-        if (data.researchIndex <= 7)
-            data.researchIndex++;
+        if (data.hyperIndex <= 7)
+            data.hyperIndex++;
         else return;
     }
 
