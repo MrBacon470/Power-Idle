@@ -9,5 +9,5 @@ Mobile UI and Major Contributer: FlamemasterNXF1<br/>
 Music Artist: StreliziaMK1™<br/>
 Word Notation Dynamic Generator: Ducdat0507
 # Avalibility
-https://mrbacon470.itch.io/power-idle
+https://mrbacon470.itch.io/power-idle<br/>
 Platforms: Macos, Windows, Linux and Android(Coming Soon)
