@@ -1,6 +1,6 @@
 # Idle-Power
 An Idle Game about power production
-Includes: 2 Layer Prestige, Pollution?, 8 Upgrades, 3 Mastery Upgrades, Infusions & More
+Includes: 2 Layer Prestige, Pollution?, 8 Power Producers, 3 Prestige Upgrades + 3 Mastery Upgrades, Challenges, Achievements & More
 # Break Infinity
 Credits for BreakInfinity.cs Razenpok/BreakInfinity.cs 
 # Credits
