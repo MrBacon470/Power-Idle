@@ -113,6 +113,8 @@ public class DysonSphereController : MonoBehaviour
             temp += 1e50;
         if (data.array3Complete)
             temp += 1e70;
+        if (data.sacraficeULevel1 > 0)
+            temp *= 1.75 * data.sacraficeULevel1;
         return temp;
     }
 }

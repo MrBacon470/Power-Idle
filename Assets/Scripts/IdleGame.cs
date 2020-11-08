@@ -215,6 +215,12 @@ public class IdleGame : MonoBehaviour
         if (data.power > 1e21 && data.hasPrestiged)
             data.isChallengesUnlocked = true;
 
+        if (data.sacraficeULevel3 > 0)
+            data.transformers += (data.transformers * 0.01) * Time.deltaTime;
+
+        if (data.hasMastered && data.superConductors >= 1e38)
+            data.issacraficesUnlocked = true;
+
         saveTimer += Time.deltaTime;
 
         if (!(saveTimer >= 15)) return;
