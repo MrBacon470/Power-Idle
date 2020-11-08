@@ -8,5 +8,6 @@ Created By MrBacon470 (c) 2020<br/>
 Mobile UI and Major Contributer: FlamemasterNXF1<br/>
 Music Artist: StreliziaMK1™<br/>
 Word Notation Dynamic Generator: Ducdat0507
-# Avability
+# Avalibility
 https://mrbacon470.itch.io/power-idle
+Platforms: Macos, Windows, Linux and Android(Coming Soon)
