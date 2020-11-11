@@ -34,8 +34,8 @@ public class AchievementManager : MonoBehaviour
     public Sprite lockedIcon;
     public Sprite unlockedIcon;
     [Header("Storage")]
-    public Image[] achievementIcons = new Image[9];
-    public Text[] achievementTexts = new Text[9];
+    public Image[] achievementIcons = new Image[11];
+    public Text[] achievementTexts = new Text[11];
 
     public void Run()
     {
@@ -65,6 +65,10 @@ public class AchievementManager : MonoBehaviour
             data.isAchievement8Locked = false;
         if (data.kuakaCoin >= 1.79e308 && data.isAchievement9Locked && data.isKuakaCoinUnlocked)
             data.isAchievement9Locked = false;
+        if (data.isFlameCoinUnlocked && data.flameCoin > 1e38 && data.isAchievement10Locked)
+            data.isAchievement10Locked = false;
+        if (data.isFlameCoinUnlocked && data.flameCoin > 1.79e308 && data.isAchievement11Locked)
+            data.isAchievement11Locked = false;
     }
 
     public void TextManager()
@@ -80,6 +84,8 @@ public class AchievementManager : MonoBehaviour
         achievementTexts[6].text = $"Completionist Complete Every Challenge Once";
         achievementTexts[7].text = $"Smol Kuaka Reach {Methods.NotationMethod(1e38, "F0")} Kuaka Coin";
         achievementTexts[8].text = $"Lrg Kuaka Reach {Methods.NotationMethod(1.79e308, "F0")} Kuaka Coin";
+        achievementTexts[7].text = $"Jalapeño Reach {Methods.NotationMethod(1e38, "F0")} Flame Coin";
+        achievementTexts[8].text = $"Carolina Reaper Reach {Methods.NotationMethod(1.79e308, "F0")} Flame Coin";
     }
 
     public void ResetAchievements()
@@ -95,6 +101,8 @@ public class AchievementManager : MonoBehaviour
         data.isAchievement7Locked = true;
         data.isAchievement8Locked = true;
         data.isAchievement9Locked = true;
+        data.isAchievement10Locked = true;
+        data.isAchievement11Locked = true;
     }
 
     public void ImageManager()
@@ -144,6 +152,16 @@ public class AchievementManager : MonoBehaviour
             achievementIcons[8].sprite = lockedIcon;
         else
             achievementIcons[8].sprite = unlockedIcon;
+
+        if (data.isAchievement10Locked)
+            achievementIcons[9].sprite = lockedIcon;
+        else
+            achievementIcons[9].sprite = unlockedIcon;
+
+        if (data.isAchievement11Locked)
+            achievementIcons[10].sprite = lockedIcon;
+        else
+            achievementIcons[11].sprite = unlockedIcon;
 
     }
 }

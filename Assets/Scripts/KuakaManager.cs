@@ -31,6 +31,7 @@ using System;
 public class KuakaManager : MonoBehaviour
 {
     public IdleGame game;
+    public FlameManager flame;
 
     public GameObject kuakaButton;
 
@@ -71,7 +72,14 @@ public class KuakaManager : MonoBehaviour
             powerToggle = false;
 
         if (powerToggle)
+        {
             data.power += 1e45 * Time.deltaTime;
+            data.kuakaCoin -= 1 * Time.deltaTime;
+        }
+        if(burnToggle)
+        {
+            data.kuakaCoin -= 1 * Time.deltaTime;
+        }
 
         if(!data.isKuakaCoinUnlocked)
         {
@@ -92,7 +100,7 @@ public class KuakaManager : MonoBehaviour
     {
         var data = game.data;
         if (harvestTimer <= 0)
-            kuakaTexts[0].text = "Kuaka Coin Harvest Ready +1.01x";
+            kuakaTexts[0].text = flame.burnToggle ? "Kuaka Coin Harvest Ready +20x" : "Kuaka Coin Harvest Ready +1.01x";
         else
             kuakaTexts[0].text = $"Harvest Cool Down:{Methods.NotationMethod(harvestTimer, "F0")}";
 
@@ -113,7 +121,10 @@ public class KuakaManager : MonoBehaviour
     {
         var data = game.data;
         if (harvestTimer > 0) return;
-        data.kuakaCoin *= 1.01;
+        if (flame.burnToggle)
+            data.kuakaCoin *= 20;
+        else
+            data.kuakaCoin *= 1.01;
         harvestTimer = 30;
     }
 
@@ -136,7 +147,7 @@ public class KuakaManager : MonoBehaviour
     {
         var data = game.data;
 
-        if (!burnToggle)
+        if (!powerToggle)
         {
             if (data.kuakaCoin < 10) return;
             powerToggle = true;

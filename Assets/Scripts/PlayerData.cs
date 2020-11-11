@@ -31,9 +31,11 @@ public class PlayerData
     public BigDouble power;
     public BigDouble powerCollected;
     public BigDouble kuakaCoin;
+    public BigDouble flameCoin;
     public bool hasPrestiged;
     public bool hasMastered;
     public bool isKuakaCoinUnlocked;
+    public bool isFlameCoinUnlocked;
     public bool isSoftCapped;
     public bool hasAchievementsBeenReset;
     public bool isHyperUnlocked;
@@ -164,6 +166,7 @@ public class PlayerData
     {
         power = 10;
         kuakaCoin = 1;
+        flameCoin = 1;
         notationType = 0;
         frameRateType = 0;
         audioType = 0;
@@ -177,6 +180,7 @@ public class PlayerData
         hasMastered = false;
         hasPrestiged = false;
         isKuakaCoinUnlocked = false;
+        isFlameCoinUnlocked = false;
         isSoftCapped = true;
         hasAchievementsBeenReset = false;
         isHyperUnlocked = false;

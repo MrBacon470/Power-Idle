@@ -46,6 +46,7 @@ public class IdleGame : MonoBehaviour
     public ChallengeManager challenge;
     public AchievementManager achievement;
     public KuakaManager kuaka;
+    public FlameManager flame;
     public BreakController broken;
     public HyperResearchManager hyper;
     [Header("Texts")]
@@ -77,6 +78,7 @@ public class IdleGame : MonoBehaviour
     public Canvas startScreen;
     public Canvas achievementCanvas;
     public Canvas kuakaCanvas;
+    public Canvas flameCanvas;
     public Canvas repairCanvas;
     public Canvas hyperCanvas;
 
@@ -98,6 +100,7 @@ public class IdleGame : MonoBehaviour
         kuakaCanvas.gameObject.SetActive(false);
         repairCanvas.gameObject.SetActive(false);
         hyperCanvas.gameObject.SetActive(false);
+        flameCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         Methods.NotationSettings = data.notationType;
         data.audioType = 1;
@@ -106,6 +109,7 @@ public class IdleGame : MonoBehaviour
         infuse.StartInfusion();
         challenge.StartChallenges();
         kuaka.StartKuaka();
+        flame.StartFlame();
         broken.StartBreak();
         if(!data.hasAchievementsBeenReset)
         {
@@ -133,6 +137,7 @@ public class IdleGame : MonoBehaviour
         challenge.Run();
         achievement.Run();
         kuaka.UpdateKuaka();
+        flame.UpdateFlame();
         hyper.Run();
 
         if(data.hasPrestiged)
@@ -332,6 +337,9 @@ public class IdleGame : MonoBehaviour
             case "hyper":
                 hyperCanvas.gameObject.SetActive(true);
                 break;
+            case "flame":
+                flameCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -349,6 +357,7 @@ public class IdleGame : MonoBehaviour
         kuakaCanvas.gameObject.SetActive(false);
         repairCanvas.gameObject.SetActive(false);
         hyperCanvas.gameObject.SetActive(false);
+        flameCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()
