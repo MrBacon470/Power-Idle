@@ -121,7 +121,7 @@ public class FlameManager : MonoBehaviour
         var data = game.data;
         if (harvestTimer > 0) return;
         data.flameCoin *= 1.01;
-        harvestTimer = 30;
+        harvestTimer = 60;
     }
 
     public void Unlock()
