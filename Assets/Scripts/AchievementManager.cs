@@ -84,8 +84,8 @@ public class AchievementManager : MonoBehaviour
         achievementTexts[6].text = $"Completionist Complete Every Challenge Once";
         achievementTexts[7].text = $"Smol Kuaka Reach {Methods.NotationMethod(1e38, "F0")} Kuaka Coin";
         achievementTexts[8].text = $"Lrg Kuaka Reach {Methods.NotationMethod(1.79e308, "F0")} Kuaka Coin";
-        achievementTexts[7].text = $"Jalapeño Reach {Methods.NotationMethod(1e38, "F0")} Flame Coin";
-        achievementTexts[8].text = $"Carolina Reaper Reach {Methods.NotationMethod(1.79e308, "F0")} Flame Coin";
+        achievementTexts[9].text = $"Jalapeño Reach {Methods.NotationMethod(1e38, "F0")} Flame Coin";
+        achievementTexts[10].text = $"Carolina Reaper Reach {Methods.NotationMethod(1.79e308, "F0")} Flame Coin";
     }
 
     public void ResetAchievements()
