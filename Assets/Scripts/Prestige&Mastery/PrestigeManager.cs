@@ -35,7 +35,7 @@ public class PrestigeManager : MonoBehaviour
     public Text prestigeText;
 
     public GameObject prestigeMenu;
-    public BigDouble transformersToGet => game.data.isChallenge2Active ? 150 * Sqrt(game.data.power * 2) : 150 * Sqrt(game.data.power * 2) + (150 * Sqrt(game.data.power * 2) * (0.25 * game.data.infusionULevel3));
+    public BigDouble transformersToGet => game.data.isChallenge2Active || game.data.isChallenge2Active ? 300 * Sqrt(game.data.power * 2.5) : 300 * Sqrt(game.data.power * 2.5) + (150 * Sqrt(game.data.power * 2) * (0.25 * game.data.infusionULevel3));
 
     public void Run()
     {
@@ -98,7 +98,7 @@ public class PrestigeManager : MonoBehaviour
     public BigDouble TransformerBoost()
     {
         var data = game.data;
-        BigDouble temp = data.transformers * 0.00001;
+        BigDouble temp = data.transformers * 0.0001;
 
         return temp + 1;
     }

@@ -106,12 +106,12 @@ public class FlameManager : MonoBehaviour
         if (powerToggle)
             flameTexts[1].text = $"Losing 1 FlameCoin/s\nGaining {Methods.NotationMethod(1, "F2")} Kuaka/s";
         else
-            flameTexts[1].text = data.kuakaCoin < 10 ? "Not Enough Flame Coin" : $"Convert Flame Coin to Kuaka";
+            flameTexts[1].text = data.flameCoin < 10 ? "Not Enough Flame Coin" : $"Convert Flame Coin to Kuaka";
 
         if (burnToggle)
             flameTexts[2].text = $"Losing 1 FlameCoin/s\nBoosting Kuaka Harvesting +{Methods.NotationMethod(20, "F2")}";
         else
-            flameTexts[2].text = data.kuakaCoin < 10 ? $"Not Enough Flame Coin" : "Burn Flame Coin For Boost";
+            flameTexts[2].text = data.flameCoin < 10 ? $"Not Enough Flame Coin" : "Burn Flame Coin For Boost";
 
         flameText.text = $"{Methods.NotationMethod(data.flameCoin, "F2")} Flame Coin";
     }
