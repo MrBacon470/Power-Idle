@@ -49,6 +49,7 @@ public class IdleGame : MonoBehaviour
     public FlameManager flame;
     public BreakController broken;
     public HyperResearchManager hyper;
+    public BHBController BHB;
     [Header("Texts")]
     public Text powerText;
     public Text powerPerSecText;
@@ -67,6 +68,7 @@ public class IdleGame : MonoBehaviour
     public GameObject repairButton;
     public GameObject hyperButton;
     public GameObject switchButton;
+    public GameObject BHBButton;
     [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
@@ -81,6 +83,7 @@ public class IdleGame : MonoBehaviour
     public Canvas flameCanvas;
     public Canvas repairCanvas;
     public Canvas hyperCanvas;
+    public Canvas BHBCanvas;
 
     public void Start()
     {
@@ -101,6 +104,7 @@ public class IdleGame : MonoBehaviour
         repairCanvas.gameObject.SetActive(false);
         hyperCanvas.gameObject.SetActive(false);
         flameCanvas.gameObject.SetActive(false);
+        BHBCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         Methods.NotationSettings = data.notationType;
         data.audioType = 1;
@@ -111,6 +115,8 @@ public class IdleGame : MonoBehaviour
         kuaka.StartKuaka();
         flame.StartFlame();
         broken.StartBreak();
+
+
         if(!data.hasAchievementsBeenReset)
         {
             achievement.ResetAchievements();
@@ -139,6 +145,8 @@ public class IdleGame : MonoBehaviour
         kuaka.UpdateKuaka();
         flame.UpdateFlame();
         hyper.Run();
+        if(data.isBHBUnlocked)
+            BHB.Run();
 
         if(data.hasPrestiged)
             broken.Run();
@@ -199,6 +207,11 @@ public class IdleGame : MonoBehaviour
         else
             switchButton.gameObject.SetActive(false);
 
+        if(data.isBHBUnlocked)
+            BHBButton.gameObject.SetActive(true);
+        else
+            BHBButton.gameObject.SetActive(false);
+
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
 
@@ -225,6 +238,9 @@ public class IdleGame : MonoBehaviour
 
         if (data.hasMastered && data.superConductors >= 1e38)
             data.issacraficesUnlocked = true;
+        
+        if(data.isHyperCompleted9)
+            data.isBHBUnlocked = true;
 
         saveTimer += Time.deltaTime;
 
@@ -340,6 +356,9 @@ public class IdleGame : MonoBehaviour
             case "flame":
                 flameCanvas.gameObject.SetActive(true);
                 break;
+            case "BHB":
+                BHBCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -358,6 +377,7 @@ public class IdleGame : MonoBehaviour
         repairCanvas.gameObject.SetActive(false);
         hyperCanvas.gameObject.SetActive(false);
         flameCanvas.gameObject.SetActive(false);
+        BHBCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()
