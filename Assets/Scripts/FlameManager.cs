@@ -74,12 +74,12 @@ public class FlameManager : MonoBehaviour
 
         if (powerToggle)
         {
-            data.power += 1e45 * Time.deltaTime;
-            data.kuakaCoin -= 1 * Time.deltaTime;
+            data.kuakaCoin += 1e4 * Time.deltaTime;
+            data.flameCoin -= 1 * Time.deltaTime;
         }
         if (burnToggle)
         {
-            data.kuakaCoin -= 1 * Time.deltaTime;
+            data.flameCoin -= 1 * Time.deltaTime;
         }
 
         if (!data.isFlameCoinUnlocked)
