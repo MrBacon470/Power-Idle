@@ -141,6 +141,18 @@ public class ChallengeManager : MonoBehaviour
         data.researchIndex = 0;
 
         data.currentPollution = 0;
+        
+        game.broken.breakIndex = 8;
+        game.broken.breakTimer = 0;
+
+        data.isGen1Broken = false;
+        data.isGen2Broken = false;
+        data.isGen3Broken = false;
+        data.isGen4Broken = false;
+        data.isGen5Broken = false;
+        data.isGen6Broken = false;
+        data.isGen7Broken = false;
+        data.isGen8Broken = false;
 
         upgrades.Deactivate();
         research.Activate();
