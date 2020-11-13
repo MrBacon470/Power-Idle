@@ -37,7 +37,7 @@ public class MasteryManager : MonoBehaviour
 
     public BigDouble superConductorsToGet => 150 * Sqrt(game.data.power / 1.79e300) + (150 * Sqrt(game.data.power / 1.79e300) * (.25 * game.data.sacraficeULevel2));
 
-    public Text conductorBoostText;
+    
 
     public void Run()
     {

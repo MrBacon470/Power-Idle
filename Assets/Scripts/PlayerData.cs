@@ -94,6 +94,7 @@ public class PlayerData
     public bool isHyperCompleted6;
     public bool isHyperCompleted7;
     public bool isHyperCompleted8;
+    public bool isHyperCompleted9;
 
     public int hyperIndex;
     #endregion
@@ -161,6 +162,12 @@ public class PlayerData
     public bool isAchievement11Locked;
     #endregion
 
+    #region Black Hole Bomb
+    public bool isBHBUnlocked;
+    public int hc1Level;
+    public int hc2Level;
+    public int hc3Level;
+    #endregion
 
     public PlayerData()
     {
@@ -228,6 +235,7 @@ public class PlayerData
         isHyperCompleted6 = false;
         isHyperCompleted7 = false;
         isHyperCompleted8 = false;
+        isHyperCompleted9 = false;
 
         hyperIndex = 0;
         #endregion
@@ -285,6 +293,13 @@ public class PlayerData
         isAchievement9Locked = true;
         isAchievement10Locked = true;
         isAchievement11Locked = true;
+        #endregion
+
+        #region Black Hole Bomb
+        isBHBUnlocked = false;
+        hc1Level = 0;
+        hc2Level = 0;
+        hc3Level = 0;
         #endregion
     }
 }
