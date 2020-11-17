@@ -45,7 +45,7 @@ public class UpgradesManager : MonoBehaviour
     private void Start()
     {
         productionUpgradeCostMults = new BigDouble[] { 1.05, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75 };
-        productionUpgradePower = new BigDouble[] { 1, 5, 10, 100, 1e3, 1e4, 1e7, 1e10};
+        productionUpgradePower = new BigDouble[] { 1, 10, 100, 1e3, 1e4, 1e5, 1e7, 1e10};
         productionUpgradeBaseCosts = new BigDouble[] { 10, 100, 1e3, 1e4, 1.5e4, 1e5, 1e6, 1e8 };
         productionUpgradeCost = new BigDouble[8];
         productionUpgradeLevels = new BigDouble[8];

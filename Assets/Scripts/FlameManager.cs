@@ -99,7 +99,7 @@ public class FlameManager : MonoBehaviour
     {
         var data = game.data;
         if (harvestTimer <= 0)
-            flameTexts[0].text = "FlameCoin Harvest Ready +1.01x";
+            flameTexts[0].text = "FlameCoin Harvest Ready +1.10x";
         else
             flameTexts[0].text = $"Harvest Cool Down:{Methods.NotationMethod(harvestTimer, "F0")}";
 
@@ -120,7 +120,7 @@ public class FlameManager : MonoBehaviour
     {
         var data = game.data;
         if (harvestTimer > 0) return;
-        data.flameCoin *= 1.01;
+        data.flameCoin *= 1.10;
         harvestTimer = 60;
     }
 

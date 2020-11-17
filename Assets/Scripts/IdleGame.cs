@@ -69,6 +69,7 @@ public class IdleGame : MonoBehaviour
     public GameObject hyperButton;
     public GameObject switchButton;
     public GameObject BHBButton;
+    public GameObject PMButton;
     [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
@@ -84,6 +85,8 @@ public class IdleGame : MonoBehaviour
     public Canvas repairCanvas;
     public Canvas hyperCanvas;
     public Canvas BHBCanvas;
+    public Canvas mainPrestigeCanvas;
+    public Canvas mainCanvas;
 
     public void Start()
     {
@@ -105,6 +108,8 @@ public class IdleGame : MonoBehaviour
         hyperCanvas.gameObject.SetActive(false);
         flameCanvas.gameObject.SetActive(false);
         BHBCanvas.gameObject.SetActive(false);
+        mainCanvas.gameObject.SetActive(true);
+        mainPrestigeCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         Methods.NotationSettings = data.notationType;
         data.audioType = 1;
@@ -175,6 +180,10 @@ public class IdleGame : MonoBehaviour
         else
             megaButton.gameObject.SetActive(false);
 
+        if(data.hasPrestiged || data.hasMastered)
+            PMButton.gameObject.SetActive(true);
+        else
+            PMButton.gameObject.SetActive(false);
 
         if (data.power > 1.79e308 && data.isSoftCapped)
             data.power = 1.79e308;
@@ -321,43 +330,59 @@ public class IdleGame : MonoBehaviour
         {
             
             case "research":
+                mainCanvas.gameObject.SetActive(true);
                 researchCanvas.gameObject.SetActive(true);
                 break;
             case "main":
+                mainCanvas.gameObject.SetActive(true);
                 mainMenuGroup.gameObject.SetActive(true);
                 break;
             case "settings":
+                mainCanvas.gameObject.SetActive(true);
                 settingsGroup.gameObject.SetActive(true);
                 break;
             case "infuse":
+                mainPrestigeCanvas.gameObject.SetActive(true);
                 infusionCanvas.gameObject.SetActive(true);
                 break;
             case "prestige":
+                mainCanvas.gameObject.SetActive(true);
                 prestigeCanvas.gameObject.SetActive(true);
                 break;
             case "sphere":
+                mainPrestigeCanvas.gameObject.SetActive(true);
                 sphereCanvas.gameObject.SetActive(true);
                 break;
             case "challenge":
+                mainCanvas.gameObject.SetActive(true);
                 challengeCanvas.gameObject.SetActive(true);
                 break;
             case "achievement":
+                mainCanvas.gameObject.SetActive(true);
                 achievementCanvas.gameObject.SetActive(true);
                 break;
             case "kuaka":
+                mainCanvas.gameObject.SetActive(true);
                 kuakaCanvas.gameObject.SetActive(true);
                 break;
             case "repair":
+                mainCanvas.gameObject.SetActive(true);
                 repairCanvas.gameObject.SetActive(true);
                 break;
             case "hyper":
+                mainPrestigeCanvas.gameObject.SetActive(true);
                 hyperCanvas.gameObject.SetActive(true);
                 break;
             case "flame":
+                mainCanvas.gameObject.SetActive(true);
                 flameCanvas.gameObject.SetActive(true);
                 break;
             case "BHB":
+                mainPrestigeCanvas.gameObject.SetActive(true);
                 BHBCanvas.gameObject.SetActive(true);
+                break;
+            case "P&M":
+                mainPrestigeCanvas.gameObject.SetActive(true);
                 break;
         }
     }
@@ -378,6 +403,8 @@ public class IdleGame : MonoBehaviour
         hyperCanvas.gameObject.SetActive(false);
         flameCanvas.gameObject.SetActive(false);
         BHBCanvas.gameObject.SetActive(false);
+        mainPrestigeCanvas.gameObject.SetActive(false);
+        mainCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()
@@ -386,6 +413,12 @@ public class IdleGame : MonoBehaviour
         ChangeTabs("main");
         upgrades.Deactivate();
         research.Activate();
+    }
+
+    public void Quit()
+    {
+        Save();
+        Application.Quit();
     }
 
 }

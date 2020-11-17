@@ -33,6 +33,7 @@ public class PrestigeManager : MonoBehaviour
     public ResearchManager research;
     public UpgradesManager upgrades;
     public Text prestigeText;
+    public RectTransform content;
 
     public GameObject prestigeMenu;
     public BigDouble transformersToGet => game.data.isChallenge2Active || game.data.isChallenge2Active ? 300 * Sqrt(game.data.power * 4) : 300 * Sqrt(game.data.power * 4) + (300 * Sqrt(game.data.power * 4) * (0.25 * game.data.infusionULevel3));
@@ -93,6 +94,7 @@ public class PrestigeManager : MonoBehaviour
 
         upgrades.Deactivate();
         research.Activate();
+        content.anchoredPosition = new Vector2(content.anchoredPosition.x, 0);
     }
 
     public BigDouble TransformerBoost()
