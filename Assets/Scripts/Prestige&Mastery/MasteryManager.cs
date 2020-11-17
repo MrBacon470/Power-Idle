@@ -34,8 +34,9 @@ public class MasteryManager : MonoBehaviour
     public ResearchManager research;
     public Text masteryText;
     public GameObject masteryMenu;
+    public HyperResearchManager hyper;
 
-    public BigDouble superConductorsToGet => 150 * Sqrt(game.data.power / 1.79e300) + (150 * Sqrt(game.data.power / 1.79e300) * (.25 * game.data.sacraficeULevel2));
+    public BigDouble superConductorsToGet => 150 * Sqrt(game.data.power / 1e154) + (150 * Sqrt(game.data.power / 1e154) * (.25 * game.data.sacraficeULevel2));
 
     
 
@@ -43,7 +44,7 @@ public class MasteryManager : MonoBehaviour
     {
         var data = game.data;
 
-        if (data.power >= 1.79e308)
+        if (data.power >= 1e154)
             masteryMenu.gameObject.SetActive(true);
         else
             masteryMenu.gameObject.SetActive(false);
@@ -74,12 +75,25 @@ public class MasteryManager : MonoBehaviour
         data.isCompleted6 = false;
         data.isCompleted7 = false;
 
+        data.isHyperCompleted0 = true;
+        data.isHyperCompleted1 = false;
+        data.isHyperCompleted2 = false;
+        data.isHyperCompleted3 = false;
+        data.isHyperCompleted4 = false;
+        data.isHyperCompleted5 = false;
+        data.isHyperCompleted6 = false;
+        data.isHyperCompleted7 = false;
+        data.isHyperCompleted8 = false;
+        data.isHyperCompleted9 = false;
+
         data.researchIndex = 0;
+        data.hyperIndex = 0;
 
         data.currentPollution = 0;
 
         upgrades.Deactivate();
         research.Activate();
+        hyper.ActivateHyper();
     }
 
     public BigDouble ConductorBoost()
