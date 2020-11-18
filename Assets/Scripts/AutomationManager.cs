@@ -81,39 +81,39 @@ public class AutomationManager : MonoBehaviour
         switch (index)
         {
             case 0:
-            if(data.power < 1e68) return;
             if(data.isAuto1Unlocked)
             {
                 Toggle(0);
             }
             else
             {
+                if(data.power < 1e68) return;
                 data.power -= 1e68;
                 data.isAuto1Unlocked = true;
             }
             break;
             
             case 1:
-            if(data.transformers < 1e68) return;
             if(data.isAuto2Unlocked)
             {
                 Toggle(1);
             }
             else
             {
+                if(data.transformers < 1e68) return;
                 data.transformers -= 1e68;
                 data.isAuto2Unlocked = true;
             }
             break;
 
             case 2:
-            if(data.power < 1e68) return;
             if(data.isAuto3Unlocked)
             {
                 Toggle(2);
             }
             else
             {
+                if(data.power < 1e68) return;
                 data.power -= 1e68;
                 data.isAuto3Unlocked = true;
             }
