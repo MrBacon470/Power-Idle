@@ -81,12 +81,22 @@ public class BreakController : MonoBehaviour
 
         System.Random rnd = new System.Random();
 
+        if(data.isAuto3On)
+        {
+            if (breakTimer >= 150 && breakIndex == 8)
+            {
+                breakTimer = 0;
+                breakIndex = rnd.Next(0, 7);
+            }
+            Repair();
+        }
+
         if(breakIndex == 8)
             UpdateUI(breakIndex);
 
         if (breakIndex == 8)
             breakTimer += Time.deltaTime;
-        if (breakTimer >= 300 && breakIndex == 8)
+        if (breakTimer >= 150 && breakIndex == 8)
         {
             breakTimer = 0;
             breakIndex = rnd.Next(0, 7);

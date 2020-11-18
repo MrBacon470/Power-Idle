@@ -39,6 +39,7 @@ public class PlayerData
     public bool isSoftCapped;
     public bool hasAchievementsBeenReset;
     public bool isHyperUnlocked;
+    public bool isScreenClosed;
     #endregion
     #region settings/daily
     public bool dailyRewardReady;
@@ -169,6 +170,18 @@ public class PlayerData
     public int hc3Level;
     #endregion
 
+    #region Automators
+    public bool isAuto1Unlocked;
+    public bool isAuto2Unlocked;
+    public bool isAuto3Unlocked;
+
+    public bool isAuto1On;
+    public bool isAuto2On;
+    public bool isAuto3On;
+
+    public bool isAutoUnlocked;
+    #endregion
+
     public PlayerData()
     {
         power = 10;
@@ -191,6 +204,7 @@ public class PlayerData
         isSoftCapped = true;
         hasAchievementsBeenReset = false;
         isHyperUnlocked = false;
+        isScreenClosed = false;
 
         #region Upgrades
         productionUpgrade1Level = 0;
@@ -300,6 +314,18 @@ public class PlayerData
         hc1Level = 0;
         hc2Level = 0;
         hc3Level = 0;
+        #endregion
+
+        #region Automators
+        isAuto1Unlocked = false;
+        isAuto2Unlocked = false;
+        isAuto3Unlocked = false;
+
+        isAuto1On = false;
+        isAuto2On = false;
+        isAuto3On = false;
+
+        isAutoUnlocked = false;
         #endregion
     }
 }

@@ -73,7 +73,7 @@ public class ChallengeManager : MonoBehaviour
                 
                 challengeText[1].text = data.isChallenge1Active || data.isChallenge3Active? "OTHER CHALLENGE ACTIVE" : $"Challenge: No Transformers\nGet to {Methods.NotationMethod(challengeGoal2, "F2")} Power with no Transformer Boost and Infusions\nReward: {Methods.NotationMethod(challengeReward[1], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[1], "F0")}";
 
-                challengeText[2].text = data.isChallenge1Active || data.isChallenge2Active? "OTHER CHALLENGE ACTIVE" : $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3, "F2")} Power with side effects of Clean Energy and No Console plus No Prestige and Mastery Upgrades\nReward: {Methods.NotationMethod(challengeReward[2], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[2], "F0")}";
+                challengeText[2].text = data.isChallenge1Active || data.isChallenge2Active? "OTHER CHALLENGE ACTIVE" : $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3, "F2")} Power with side effects of Clean Energy and No Transformers plus No Mastery Upgrades\nReward: {Methods.NotationMethod(challengeReward[2], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[2], "F0")}";
             }
         }
     }

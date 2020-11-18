@@ -34,6 +34,7 @@ public class MasteryManager : MonoBehaviour
     public ResearchManager research;
     public Text masteryText;
     public GameObject masteryMenu;
+    public GameObject tempVictoryPopUp;
     public HyperResearchManager hyper;
 
     public BigDouble superConductorsToGet => 150 * Sqrt(game.data.power / 1e154) + (150 * Sqrt(game.data.power / 1e154) * (.25 * game.data.sacraficeULevel2));
@@ -48,6 +49,9 @@ public class MasteryManager : MonoBehaviour
             masteryMenu.gameObject.SetActive(true);
         else
             masteryMenu.gameObject.SetActive(false);
+
+        if(data.power >= 1.79e308 && !data.isScreenClosed)
+            tempVictoryPopUp.gameObject.SetActive(true);
 
         masteryText.text = $"Mastery +{Methods.NotationMethod(superConductorsToGet, "F2")} Super Conductors";
     }
@@ -102,5 +106,12 @@ public class MasteryManager : MonoBehaviour
         BigDouble temp = data.superConductors * 0.01;
 
         return temp + 1;
+    }
+
+    public void Close()
+    {
+        var data = game.data;
+        data.isScreenClosed = true;
+        tempVictoryPopUp.gameObject.SetActive(false);
     }
 }

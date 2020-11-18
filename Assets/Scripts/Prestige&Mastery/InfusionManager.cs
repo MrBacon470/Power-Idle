@@ -90,9 +90,9 @@ public class InfusionManager : MonoBehaviour
             for (var i = 0; i < infusionsText.Length; i++)
             {
                 if(data.infusionIndex == 0)
-                    infusionsText[i].text = data.isChallenge2Active ? "Infusions\nDisabled": $"{costDesc[i]}\nCost: {Methods.NotationMethod(infusionUCosts[i], "F0")} Transformers\nLevel {infusionULevels[i]}";
+                    infusionsText[i].text = data.isChallenge2Active || data.isChallenge3Active ? "Infusions\nDisabled": $"{costDesc[i]}\nCost: {Methods.NotationMethod(infusionUCosts[i], "F0")} Transformers\nLevel {infusionULevels[i]}";
                 else if(data.infusionIndex == 1)
-                    infusionsText[i].text = data.isChallenge2Active ? "Sacrafices\nDisabled" : $"{sacraficeCostDesc[i]}\nCost: {Methods.NotationMethod(sacraficeUCosts[i], "F0")} Super Conductors\nLevel {sacraficeULevels[i]}";
+                    infusionsText[i].text = data.isChallenge3Active ? "Sacrafices\nDisabled" : $"{sacraficeCostDesc[i]}\nCost: {Methods.NotationMethod(sacraficeUCosts[i], "F0")} Super Conductors\nLevel {sacraficeULevels[i]}";
             }
             if(data.infusionIndex == 0)
             {
@@ -102,7 +102,7 @@ public class InfusionManager : MonoBehaviour
                 typeSwitchText.text = "Switch To Sacrafices";
 
                 if (data.transformers > 0)
-                    boostText.text = data.isChallenge2Active ? "Boost Disabled" : $"Transformed Boost: {Methods.NotationMethod(game.prestige.TransformerBoost(), "F0")}";
+                    boostText.text = data.isChallenge2Active || data.isChallenge3Active ? "Boost Disabled" : $"Transformed Boost: {Methods.NotationMethod(game.prestige.TransformerBoost(), "F0")}";
 
                 infoText.color = infuse;
                 titleText.color = infuse;
@@ -121,7 +121,7 @@ public class InfusionManager : MonoBehaviour
                 infusionButtonText.text = "Sacrafices";
                 typeSwitchText.text = "Switch To Infusions";
 
-                boostText.text = $"Conductive Boost: {Methods.NotationMethod(game.mastery.ConductorBoost(), "F2")}";
+                boostText.text = data.isChallenge3Active ? "Boost Disabled" : $"Conductive Boost: {Methods.NotationMethod(game.mastery.ConductorBoost(), "F2")}";
 
                 infoText.color = mastery;
                 titleText.color = mastery;
