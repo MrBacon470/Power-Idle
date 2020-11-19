@@ -31,8 +31,8 @@ public class HyperResearchManager : MonoBehaviour
 {
     public IdleGame game;
     [Header("Sprites")]
-    public Sprite[] hyperIcons = new Sprite[8];
-    public Sprite[] nextHyperIcons = new Sprite[7];
+    public Sprite[] hyperIcons = new Sprite[9];
+    public Sprite[] nextHyperIcons = new Sprite[8];
     public Image researchIcon;
     public Image nextResearchIcon;
     [Header("Texts")]
@@ -44,7 +44,7 @@ public class HyperResearchManager : MonoBehaviour
 
     public void Start()
     {
-        hyperCosts = new BigDouble[] { 1e24, 1e30, 1e36, 1e42, 1e48, 1e54, 1e60, 1e66 };
+        hyperCosts = new BigDouble[] { 1e24, 1e30, 1e36, 1e42, 1e48, 1e54, 1e60, 1e66, 1e72 };
         ActivateHyper();
     }
 
@@ -97,18 +97,26 @@ public class HyperResearchManager : MonoBehaviour
         if (data.isHyperCompleted6)
         {
             researchIcon.sprite = hyperIcons[6];
-            nextResearchIcon.sprite = nextHyperIcons[7];
+            nextResearchIcon.sprite = nextHyperIcons[6];
             hyperInfoText.text = $"Molten Salt Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[6], "F2")} Transformers";
             hyperNextInfoText.text = $"Zero Point Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[7], "F2")} Transformers";
         }
         if (data.isHyperCompleted7)
         {
             researchIcon.sprite = hyperIcons[7];
+            nextResearchIcon.sprite = nextHyperIcons[7];
             nextResearchIcon.gameObject.SetActive(false);
             hyperInfoText.text = $"Zero Point Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[7], "F2")} Transformers";
-            hyperNextInfoText.text = $"No More Research";
+            hyperNextInfoText.text = $"Black Hole Bomb\nResearch Cost:{Methods.NotationMethod(hyperCosts[8],"F2")} Super Conductors";
         }
         if (data.isHyperCompleted8)
+        {
+            researchIcon.sprite = hyperIcons[8];
+            nextResearchIcon.gameObject.SetActive(false);
+            hyperInfoText.text = $"Black Hole Bomb\nResearch Cost:{Methods.NotationMethod(hyperCosts[8],"F2")} Super Conductors";
+            hyperNextInfoText.text = $"No More Research";
+        }
+        if (data.isHyperCompleted9)
         {
             researchIcon.gameObject.SetActive(false);
             nextResearchIcon.gameObject.SetActive(false);
@@ -118,7 +126,7 @@ public class HyperResearchManager : MonoBehaviour
 
         #endregion
 
-        if (data.hyperIndex >= 8)
+        if (data.hyperIndex >= 9)
             hyperButton.gameObject.SetActive(false);
         else
             hyperButton.gameObject.SetActive(true);
@@ -127,9 +135,12 @@ public class HyperResearchManager : MonoBehaviour
     public void Research()
     {
         var data = game.data;
-        if (data.transformers <= hyperCosts[data.hyperIndex]) return;
-        if (data.researchIndex <= 7)
+        if (data.transformers < hyperCosts[data.hyperIndex] && data.hyperIndex <= 7) return;
+        else if(data.superConductors < hyperCosts[data.hyperIndex] && data.hyperIndex == 8) return;
+        if (data.hyperIndex <= 7)
             data.transformers -= hyperCosts[data.hyperIndex];
+        else if(data.hyperIndex == 8)
+            data.superConductors -= hyperCosts[data.hyperIndex];
 
         switch (data.hyperIndex)
         {
@@ -165,8 +176,12 @@ public class HyperResearchManager : MonoBehaviour
                 data.isHyperCompleted7 = false;
                 data.isHyperCompleted8 = true;
                 break;
+            case 8:
+                data.isHyperCompleted8 = false;
+                data.isHyperCompleted9 = true;
+                break;
         }
-        if (data.hyperIndex <= 7)
+        if (data.hyperIndex <= 8)
             data.hyperIndex++;
         else return;
     }

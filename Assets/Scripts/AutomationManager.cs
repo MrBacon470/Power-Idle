@@ -53,7 +53,7 @@ public class AutomationManager : MonoBehaviour
         if(!data.isAuto3Unlocked)
             autoTexts[2].text = $"Unlock Auto\nRepair\nCost {Methods.NotationMethod(1e68,"F0")}\nPower";
         else
-            autoTexts[2].text = data.isAuto1On ? "Auto Prestige Active" : "Auto Prestige Offline";
+            autoTexts[2].text = data.isAuto3On ? "Auto Repair Active" : "Auto Repair Offline";
 
         if(data.isAuto1On)
         {

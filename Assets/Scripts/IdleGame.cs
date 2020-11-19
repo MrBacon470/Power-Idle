@@ -173,7 +173,7 @@ public class IdleGame : MonoBehaviour
         powerText.text = data.power >= 1.79e308 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0");
         powerPerSecText.text = $"{Methods.NotationMethod(TotalPowerPerSecond(), "F0")} Power/s";
         quarkText.text = data.amps <= 0 ? "Not Discovered Yet" : $"{Methods.NotationMethod(data.amps, "F2")} Amps";
-        quarkBoostText.text = data.amps <= 0 ? "?????" : $"{Methods.NotationMethod(challenge.QuarkBoost(), "F2")}";
+        quarkBoostText.text = data.amps <= 0 ? "?????" : $"Amp Boost: Power/s * {Methods.NotationMethod(challenge.QuarkBoost(), "F2")}";
 
         if (data.hasPrestiged)
             infusionButton.gameObject.SetActive(true);
