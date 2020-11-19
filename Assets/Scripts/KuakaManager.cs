@@ -73,7 +73,7 @@ public class KuakaManager : MonoBehaviour
 
         if (powerToggle)
         {
-            data.power += data.power / 2 * Time.deltaTime;
+            data.power += game.TotalPowerPerSecond() / (Sqrt(game.TotalPowerPerSecond() / 1e50) / 1e10) * Time.deltaTime;
             data.kuakaCoin -= 1 * Time.deltaTime;
         }
         if(burnToggle)
@@ -105,7 +105,7 @@ public class KuakaManager : MonoBehaviour
             kuakaTexts[0].text = $"Harvest Cool Down:{Methods.NotationMethod(harvestTimer, "F0")}";
 
         if (powerToggle)
-            kuakaTexts[1].text = $"Losing 1 Kuaka Coin/s\nGaining {Methods.NotationMethod(100 * Sqrt(data.power),"F2")} Power/s";
+            kuakaTexts[1].text = $"Losing 1 Kuaka Coin/s\nGaining {Methods.NotationMethod(game.TotalPowerPerSecond() / (Sqrt(game.TotalPowerPerSecond() / 1e50) / 1e10),"F2")} Power/s";
         else
             kuakaTexts[1].text = data.kuakaCoin < 10 ? "Not Enough Kuaka Coin" : $"Convert Kuaka Coin to Power";
 
