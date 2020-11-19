@@ -256,6 +256,18 @@ public class IdleGame : MonoBehaviour
         if(data.power >= 1e68 && !data.isAutoUnlocked)
             data.isAutoUnlocked = true;
 
+        if(data.power == NaN)
+            data.power = 10;
+
+        if(data.currentPollution == NaN)
+            data.currentPollution = 0;
+        
+        if(data.transformers == NaN)
+            data.transformers = prestige.transformersToGet;
+        
+        if(data.superConductors == NaN)
+            data.superConductors = 0;
+
         saveTimer += Time.deltaTime;
 
         if (!(saveTimer >= 15)) return;
