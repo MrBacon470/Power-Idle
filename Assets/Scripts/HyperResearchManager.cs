@@ -105,7 +105,6 @@ public class HyperResearchManager : MonoBehaviour
         {
             researchIcon.sprite = hyperIcons[7];
             nextResearchIcon.sprite = nextHyperIcons[7];
-            nextResearchIcon.gameObject.SetActive(false);
             hyperInfoText.text = $"Zero Point Reactor\nResearch Cost:{Methods.NotationMethod(hyperCosts[7], "F2")} Transformers";
             hyperNextInfoText.text = $"Black Hole Bomb\nResearch Cost:{Methods.NotationMethod(hyperCosts[8],"F2")} Super Conductors";
         }

@@ -257,8 +257,6 @@ public class UpgradesManager : MonoBehaviour
     {
         var data = game.data;
 
-        
-
         data.productionUpgrade1Level = productionUpgradeLevels[0];
         data.productionUpgrade2Level = productionUpgradeLevels[1];
         data.productionUpgrade3Level = productionUpgradeLevels[2];
@@ -269,8 +267,8 @@ public class UpgradesManager : MonoBehaviour
         data.productionUpgrade8Level = productionUpgradeLevels[7];
     }
 
-public void BuyProductionUpgradeMax(int index)
-{
+    public void BuyProductionUpgradeMax(int index)
+    {
     var data = game.data;
     var b1 = productionUpgradeBaseCosts[index];
     var c1 = data.power;
@@ -286,9 +284,9 @@ public void BuyProductionUpgradeMax(int index)
         data.power -= cost2;
     }
     NonArrayManager();
-}
+    }
 
-public void BuyProductionUpgrade(int index)
+    public void BuyProductionUpgrade(int index)
     {
         var data = game.data;
         if (data.power >= productionUpgradeCost[index])

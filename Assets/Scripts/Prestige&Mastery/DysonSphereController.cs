@@ -66,8 +66,8 @@ public class DysonSphereController : MonoBehaviour
             array3Button.gameObject.SetActive(false);
 
         array1Text.text = data.array1Complete ? "Constructed" : $"Array 1 Cost: {Methods.NotationMethod(1e100, "F2")} Power";
-        array2Text.text = data.array2Complete ? "Constructed" : $"Array 1 Cost: {Methods.NotationMethod(1e75, "F2")} Transformers";
-        array3Text.text = data.array3Complete ? "Constructed" : $"Array 1 Cost: {Methods.NotationMethod(1e50, "F2")} Super Conductors";
+        array2Text.text = data.array2Complete ? "Constructed" : $"Array 2 Cost: {Methods.NotationMethod(1e75, "F2")} Transformers";
+        array3Text.text = data.array3Complete ? "Constructed" : $"Array 3 Cost: {Methods.NotationMethod(1e50, "F2")} Super Conductors";
     }
 
     public void BuildArray1()
@@ -75,9 +75,9 @@ public class DysonSphereController : MonoBehaviour
         var data = game.data;
 
         if (data.array1Complete) return;
-        if (data.power < 1e10) return;
+        if (data.power < 1e100) return;
 
-        data.power -= 1e10;
+        data.power -= 1e100;
         data.array1Complete = true;
     }
 
@@ -86,9 +86,9 @@ public class DysonSphereController : MonoBehaviour
         var data = game.data;
 
         if (data.array2Complete) return;
-        if (data.transformers < 1e10) return;
+        if (data.transformers < 1e75) return;
 
-        data.transformers -= 1e10;
+        data.transformers -= 1e75;
         data.array2Complete = true;
     }
 
@@ -97,9 +97,9 @@ public class DysonSphereController : MonoBehaviour
         var data = game.data;
 
         if (data.array3Complete) return;
-        if (data.superConductors < 1e10) return;
+        if (data.superConductors < 1e50) return;
 
-        data.superConductors -= 1e10;
+        data.superConductors -= 1e50;
         data.array3Complete = true;
     }
 

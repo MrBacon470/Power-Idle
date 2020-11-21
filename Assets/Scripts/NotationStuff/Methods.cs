@@ -48,6 +48,7 @@ public class Methods : MonoBehaviour
     public static string NotationMethod(BigDouble x, string y)
     {
         if (x <= 1000) return x.ToString(y);
+        if (x == NaN) return x.ToString("NaN Error Contact Dev");
         switch (NotationSettings)
         {
             case 0:

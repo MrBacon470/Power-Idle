@@ -36,11 +36,12 @@ public class PrestigeManager : MonoBehaviour
     public RectTransform content;
 
     public GameObject prestigeMenu;
-    public BigDouble transformersToGet => game.data.isChallenge2Active || game.data.isChallenge2Active ? 300 * Sqrt(game.data.power * 10) : 300 * Sqrt(game.data.power * 10) + (300 * Sqrt(game.data.power * 10) * (0.25 * game.data.infusionULevel3));
+    private BigDouble transformersToGet => game.data.isChallenge2Active || game.data.isChallenge2Active ? Pow(10, (Pow(Log10(game.data.power+1), .95))) : Pow(10, (Pow(Log10(game.data.power+1), .95))) + (Pow(10, (Pow(Log10(game.data.power+1), .95))) * (0.25 * game.data.infusionULevel3));
 
     public void Run()
     {
         var data = game.data;
+
         if (data.currentPollution >= game.pollution.totalPollution)
             prestigeMenu.gameObject.SetActive(true);
         else

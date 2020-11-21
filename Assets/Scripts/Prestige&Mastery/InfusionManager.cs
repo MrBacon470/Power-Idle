@@ -35,9 +35,9 @@ public class InfusionManager : MonoBehaviour
     private BigDouble Cost2 => 1e6 * Pow(1.25, game.data.infusionULevel2);
     private BigDouble Cost3 => 1e7 * Pow(1.5, game.data.infusionULevel3);
 
-    private BigDouble Cost4 => 1e5 * Pow(1.15, game.data.infusionULevel1);
-    private BigDouble Cost5 => 1e6 * Pow(1.25, game.data.infusionULevel2);
-    private BigDouble Cost6 => 1e7 * Pow(1.5, game.data.infusionULevel3);
+    private BigDouble Cost4 => 1e5 * Pow(1.15, game.data.sacraficeULevel1);
+    private BigDouble Cost5 => 1e6 * Pow(1.25, game.data.sacraficeULevel2);
+    private BigDouble Cost6 => 1e7 * Pow(1.5, game.data.sacraficeULevel3);
     [Header("UI")]
     public Text[] infusionsText = new Text[3];
     public Text infoText;
@@ -45,15 +45,20 @@ public class InfusionManager : MonoBehaviour
     public Text infusionButtonText;
     public Text typeSwitchText;
     public Text boostText;
+    public Text[] infusionBuyMaxText = new Text[3];
     public Image[] infusionBG = new Image[3];
     public Image infusionButton;
     public Image typeSwitchButton;
+    public GameObject[] buyMaxButtons = new GameObject[3];
     [Header("Numbers")]
     public BigDouble[] infusionUCosts;
     public BigDouble[] infusionULevels;
 
     public BigDouble[] sacraficeUCosts;
     public BigDouble[] sacraficeULevels;
+
+    public BigDouble[] infusionBaseCosts;
+    public BigDouble[] infusionCostMults;
     [Header("Descriptions")]
     public string[] costDesc;
     public string[] sacraficeCostDesc;
@@ -68,13 +73,18 @@ public class InfusionManager : MonoBehaviour
 
     public void StartInfusion()
     {
+        var data = game.data;
         infusionUCosts = new BigDouble[3];
         infusionULevels = new BigDouble[3];
 
         sacraficeUCosts = new BigDouble[3];
         sacraficeULevels = new BigDouble[3];
-        costDesc = new string[] { "25% More Power Per Second", "1.25x Pollution Capacity", "25% More Transformers On Prestiging" };
-        sacraficeCostDesc = new string[] { "75% More Dyson Sphere Production", "25% More Super Conductors On Mastery", "Earn 1% Of Your Total Transformers Per Second" };
+
+        infusionBaseCosts = new BigDouble[]{1e5,1e6,1e7};
+        infusionCostMults = new BigDouble[]{1.15,1.25,1.5};
+        
+        sacraficeCostDesc = new string[] { $"{Methods.NotationMethod(75 * data.sacraficeULevel1,"F0")}% More Dyson Sphere Production", $"{Methods.NotationMethod(25 * data.sacraficeULevel2,"F0")}% More Super Conductors On Mastery", $"Earn {Methods.NotationMethod(1 * data.sacraficeULevel3,"F0")}% Of Your Total Transformers Per Second" };
+        costDesc = new string[] { $"{Methods.NotationMethod(25 * data.infusionULevel1,"F0")}% More Power Per Second", $"{Methods.NotationMethod(1.25 * data.infusionULevel2,"F0")} More Pollution Capacity", $"{Methods.NotationMethod(25 * data.infusionULevel3,"F0")}% More Transformers On Prestiging" };
     }
 
     public void Run()
@@ -84,7 +94,8 @@ public class InfusionManager : MonoBehaviour
         ArrayManager();
         UI();
 
-
+        sacraficeCostDesc = new string[] { $"{Methods.NotationMethod(75 * data.sacraficeULevel1,"F0")}% More Dyson Sphere Production", $"{Methods.NotationMethod(25 * data.sacraficeULevel2,"F0")}% More Super Conductors On Mastery", $"Earn {Methods.NotationMethod(1 * data.sacraficeULevel3,"F0")}% Of Your Total Transformers Per Second" };
+        costDesc = new string[] { $"{Methods.NotationMethod(25 * data.infusionULevel1,"F0")}% More Power Per Second", $"{Methods.NotationMethod(1.25 * data.infusionULevel2,"F0")} More Pollution Capacity", $"{Methods.NotationMethod(25 * data.infusionULevel3,"F0")}% More Transformers On Prestiging" };
         void UI()
         {
             for (var i = 0; i < infusionsText.Length; i++)
@@ -94,6 +105,10 @@ public class InfusionManager : MonoBehaviour
                 else if(data.infusionIndex == 1)
                     infusionsText[i].text = data.isChallenge3Active ? "Sacrafices\nDisabled" : $"{sacraficeCostDesc[i]}\nCost: {Methods.NotationMethod(sacraficeUCosts[i], "F0")} Super Conductors\nLevel {sacraficeULevels[i]}";
             }
+            for (var i = 0; i < 3; i++)
+            {
+                infusionBuyMaxText[i].text = $"Buy Max ({BuyInfusionMaxCount(i)})";
+            }
             if(data.infusionIndex == 0)
             {
                 infoText.text = "Infuse Transformers To Upgrade Stats";
@@ -101,7 +116,12 @@ public class InfusionManager : MonoBehaviour
                 infusionButtonText.text = "Infusions";
                 typeSwitchText.text = "Switch To Sacrafices";
 
-                if (data.transformers > 0)
+                for (var i = 0; i < buyMaxButtons.Length; i++)
+                {
+                    buyMaxButtons[i].gameObject.SetActive(true);
+                }
+
+                if (data.transformers >= 0)
                     boostText.text = data.isChallenge2Active || data.isChallenge3Active ? "Boost Disabled" : $"Transformed Boost: {Methods.NotationMethod(game.prestige.TransformerBoost(), "F0")}";
 
                 infoText.color = infuse;
@@ -120,6 +140,11 @@ public class InfusionManager : MonoBehaviour
                 titleText.text = "Sacrafices";
                 infusionButtonText.text = "Sacrafices";
                 typeSwitchText.text = "Switch To Infusions";
+
+                for (var i = 0; i < buyMaxButtons.Length; i++)
+                {
+                    buyMaxButtons[i].gameObject.SetActive(false);
+                }
 
                 boostText.text = data.isChallenge3Active ? "Boost Disabled" : $"Conductive Boost: {Methods.NotationMethod(game.mastery.ConductorBoost(), "F2")}";
 
@@ -210,4 +235,43 @@ public class InfusionManager : MonoBehaviour
         sacraficeULevels[1] = game.data.sacraficeULevel2;
         sacraficeULevels[2] = game.data.sacraficeULevel3;
     }
+
+    private void NonArrayManager()
+    {
+        var data = game.data;
+
+        data.infusionULevel1 = infusionULevels[0];
+        data.infusionULevel2 = infusionULevels[1];
+        data.infusionULevel3 = infusionULevels[2];
+    }
+
+    public void BuyInfusionMax(int index)
+    {
+        var data = game.data;
+        var b1 = infusionBaseCosts[index];
+        var c1 = data.power;
+        var r1 = infusionCostMults[index];
+        var k1 = infusionULevels[index];
+        var n1 = Floor(Log((c1 * (r1 - 1) / (b1 * Pow(r1, k1))) + 1, r1));
+
+        var cost2 = b1 * (Pow(r1, k1) * (Pow(r1, n1) - 1) / (r1 - 1));
+
+        if (data.transformers >= cost2)
+        {
+            infusionULevels[index] += n1;
+            data.transformers -= cost2;
+        }
+        NonArrayManager();
+    } 
+
+    public BigDouble BuyInfusionMaxCount(int index)
+    {
+        var data = game.data;
+        var b = infusionBaseCosts[index];
+        var c = data.transformers;
+        var r = infusionCostMults[index];
+        var k = infusionULevels[index];
+        var n = Floor(Log((c * (r - 1) / (b * Pow(r, k))) + 1, r));
+        return n;
+    }  
 }

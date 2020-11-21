@@ -90,6 +90,20 @@ public class IdleGame : MonoBehaviour
     public Canvas mainPrestigeCanvas;
     public Canvas mainCanvas;
     public Canvas autoScreen;
+    public Canvas ionizationScreen1;
+    public Canvas ionizationScreen2;
+    [Header("Particle Canvases")]
+    public Canvas AlphaBetaGamma;
+    public Canvas DeltaEpsilonZeta;
+    public Canvas EtaThetaIota;
+    public Canvas KappaLambdaMu;
+    public Canvas volatilityCanvas;
+    [Header("Ray Canvases")]
+    public Canvas NuXiOmicron;
+    public Canvas PiRhoSigma;
+    public Canvas TauUpsilonPhi;
+    public Canvas ChiPsiOmega;
+    public Canvas OmegaCanvas;
 
     public void Start()
     {
@@ -97,23 +111,9 @@ public class IdleGame : MonoBehaviour
         Screen.fullScreen = true;
         Application.runInBackground = true;
 
+        DisableAll();
         startScreen.gameObject.SetActive(true);
-        mainMenuGroup.gameObject.SetActive(false);
-        settingsGroup.gameObject.SetActive(false);
-        researchCanvas.gameObject.SetActive(false);
-        sphereCanvas.gameObject.SetActive(false);
-        infusionCanvas.gameObject.SetActive(false);
-        prestigeCanvas.gameObject.SetActive(false);
-        challengeCanvas.gameObject.SetActive(false);
-        achievementCanvas.gameObject.SetActive(false);
-        kuakaCanvas.gameObject.SetActive(false);
-        repairCanvas.gameObject.SetActive(false);
-        hyperCanvas.gameObject.SetActive(false);
-        flameCanvas.gameObject.SetActive(false);
-        BHBCanvas.gameObject.SetActive(false);
         mainCanvas.gameObject.SetActive(true);
-        autoScreen.gameObject.SetActive(false);
-        mainPrestigeCanvas.gameObject.SetActive(false);
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         Methods.NotationSettings = data.notationType;
         data.audioType = 1;
@@ -167,6 +167,8 @@ public class IdleGame : MonoBehaviour
         else if (data.frameRateType == 2)
             Application.targetFrameRate = 15;
 
+        if(data.hasMastered && data.superConductors >= 1e5 && !data.issacraficesUnlocked)
+            data.issacraficesUnlocked = true;
 
         transformersText.text = data.hasPrestiged ? $"{Methods.NotationMethod(data.transformers, "F2")} Transformers" : "Not Discovered Yet";
         superConductorsText.text = data.hasMastered ? $"{Methods.NotationMethod(data.superConductors, "F2")} Super Conductors" : "Not Discovered Yet";
@@ -256,19 +258,8 @@ public class IdleGame : MonoBehaviour
         if(data.power >= 1e68 && !data.isAutoUnlocked)
             data.isAutoUnlocked = true;
 
-        if(data.power == NaN)
-            data.power = 10;
-
-        if(data.currentPollution == NaN)
-            data.currentPollution = 0;
-        
-        if(data.transformers == NaN)
-            data.transformers = prestige.transformersToGet;
-        
-        if(data.superConductors == NaN)
-            data.superConductors = 0;
-
-        saveTimer += Time.deltaTime;
+        if(data.power != NaN && data.transformers != NaN && data.superConductors != NaN && data.currentPollution != NaN)
+            saveTimer += Time.deltaTime;
 
         if (!(saveTimer >= 15)) return;
         Save();
@@ -405,7 +396,50 @@ public class IdleGame : MonoBehaviour
                 mainPrestigeCanvas.gameObject.SetActive(true);
                 autoScreen.gameObject.SetActive(true);
                 break;
-        }
+            case "ABG":
+                ionizationScreen1.gameObject.SetActive(true);
+                AlphaBetaGamma.gameObject.SetActive(true);
+                break;
+            case "DEZ":
+                ionizationScreen1.gameObject.SetActive(true);
+                DeltaEpsilonZeta.gameObject.SetActive(true);
+                break;
+            case "ETI":
+                ionizationScreen1.gameObject.SetActive(true);
+                EtaThetaIota.gameObject.SetActive(true);
+                break;
+            case "KLM":
+                ionizationScreen1.gameObject.SetActive(true);
+                KappaLambdaMu.gameObject.SetActive(true);
+                break;
+            case "volatile":
+                ionizationScreen1.gameObject.SetActive(true);
+                volatilityCanvas.gameObject.SetActive(true);
+                break;
+            case "rays":
+                ionizationScreen2.gameObject.SetActive(true);
+                break;
+            case "NXO":
+                ionizationScreen2.gameObject.SetActive(true);
+                NuXiOmicron.gameObject.SetActive(true);
+                break;
+            case "PRS":
+                ionizationScreen2.gameObject.SetActive(true);
+                PiRhoSigma.gameObject.SetActive(true);
+                break;
+            case "TUP":
+                ionizationScreen2.gameObject.SetActive(true);
+                TauUpsilonPhi.gameObject.SetActive(true);
+                break;
+            case "CPO":
+                ionizationScreen2.gameObject.SetActive(true);
+                ChiPsiOmega.gameObject.SetActive(true);
+                break;
+            case "Omega":
+                ionizationScreen2.gameObject.SetActive(true);
+                OmegaCanvas.gameObject.SetActive(true);
+                break;
+        }   
     }
 
     void DisableAll()
@@ -427,6 +461,18 @@ public class IdleGame : MonoBehaviour
         mainPrestigeCanvas.gameObject.SetActive(false);
         mainCanvas.gameObject.SetActive(false);
         autoScreen.gameObject.SetActive(false);
+        ionizationScreen1.gameObject.SetActive(false);
+        ionizationScreen2.gameObject.SetActive(false);
+        AlphaBetaGamma.gameObject.SetActive(false);
+        DeltaEpsilonZeta.gameObject.SetActive(false);
+        EtaThetaIota.gameObject.SetActive(false);
+        KappaLambdaMu.gameObject.SetActive(false);
+        volatilityCanvas.gameObject.SetActive(false);
+        NuXiOmicron.gameObject.SetActive(false);
+        PiRhoSigma.gameObject.SetActive(false);
+        TauUpsilonPhi.gameObject.SetActive(false);
+        ChiPsiOmega.gameObject.SetActive(false);
+        OmegaCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

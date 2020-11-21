@@ -59,7 +59,6 @@ public class MasteryManager : MonoBehaviour
     public void Mastery()
     {
         var data = game.data;
-        if (data.power < 1.79e308) return;
 
         data.hasMastered = true;
 
@@ -90,6 +89,10 @@ public class MasteryManager : MonoBehaviour
         data.isHyperCompleted8 = false;
         data.isHyperCompleted9 = false;
 
+        data.infusionULevel1 = 0;
+        data.infusionULevel2 = 0;
+        data.infusionULevel2 = 0;
+
         data.researchIndex = 0;
         data.hyperIndex = 0;
 
@@ -103,7 +106,7 @@ public class MasteryManager : MonoBehaviour
     public BigDouble ConductorBoost()
     {
         var data = game.data;
-        BigDouble temp = data.superConductors * 0.01;
+        BigDouble temp = data.superConductors * 1e12;
 
         return temp + 1;
     }

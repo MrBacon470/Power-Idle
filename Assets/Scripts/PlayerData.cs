@@ -34,6 +34,7 @@ public class PlayerData
     public BigDouble flameCoin;
     public bool hasPrestiged;
     public bool hasMastered;
+    public bool hasIonized;
     public bool isKuakaCoinUnlocked;
     public bool isFlameCoinUnlocked;
     public bool isSoftCapped;
@@ -182,6 +183,48 @@ public class PlayerData
     public bool isAutoUnlocked;
     #endregion
 
+    #region Particles
+    public bool isBetaUnlocked;
+    public bool isGammaUnlocked;
+    public bool isDeltaUnlocked;
+    public bool isEpsilonUnlocked;
+    public bool isZetaUnlocked;
+    public bool isEtaUnlocked;
+    public bool isThetaUnlocked;
+    public bool isIotaUnlocked;
+    public bool isKappaUnlocked;
+    public bool isLambdaUnlocked;
+    public bool isMuUnlocked;
+
+    public BigDouble Alpha;
+    public BigDouble Beta;
+    public BigDouble Gamma;
+    public BigDouble Delta;
+    public BigDouble Epsilon;
+    public BigDouble Zeta;
+    public BigDouble Eta;
+    public BigDouble Theta;
+    public BigDouble Iota;
+    public BigDouble Kappa;
+    public BigDouble Lambda;
+    public BigDouble Mu;
+    #endregion
+    
+    #region Rays
+    public bool isNuUnlocked;
+    public bool isXiUnlocked;
+    public bool isOmicronUnlocked;
+    public bool isPiUnlocked;
+    public bool isRhoUnlocked;
+    public bool isSigmaUnlocked;
+    public bool isTauUnlocked;
+    public bool isUpsilonUnlocked;
+    public bool isPhiUnlocked;
+    public bool isChiUnlocked;
+    public bool isPsiUnlocked;
+    public bool isOmegaUnlocked;
+    #endregion
+
     public PlayerData()
     {
         power = 10;
@@ -326,6 +369,48 @@ public class PlayerData
         isAuto3On = false;
 
         isAutoUnlocked = false;
+        #endregion
+
+        #region Particles
+        isBetaUnlocked = false;
+        isGammaUnlocked = false;
+        isDeltaUnlocked = false;
+        isEpsilonUnlocked = false;
+        isZetaUnlocked = false;
+        isEtaUnlocked = false;
+        isThetaUnlocked = false;
+        isIotaUnlocked = false;
+        isKappaUnlocked = false;
+        isLambdaUnlocked = false;
+        isMuUnlocked = false;
+
+        Alpha = 10;
+        Beta = 0;
+        Gamma = 0;
+        Delta = 0;
+        Epsilon = 0;
+        Zeta = 0;
+        Eta = 0;
+        Theta = 0;
+        Iota = 0;
+        Kappa = 0;
+        Lambda = 0;
+        Mu = 0;
+        #endregion
+
+        #region Rays
+        isNuUnlocked = false;
+        isXiUnlocked = false;
+        isOmicronUnlocked = false;
+        isPiUnlocked = false;
+        isRhoUnlocked = false;
+        isSigmaUnlocked = false;
+        isTauUnlocked = false;
+        isUpsilonUnlocked = false;
+        isPhiUnlocked = false;
+        isChiUnlocked = false;
+        isPsiUnlocked = false;
+        isOmegaUnlocked = false;
         #endregion
     }
 }
