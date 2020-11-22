@@ -34,21 +34,32 @@ public class MasteryManager : MonoBehaviour
     public ResearchManager research;
     public Text masteryText;
     public GameObject masteryMenu;
+    public Text masteryInfo;
+    public GameObject masteryButton;
     public GameObject tempVictoryPopUp;
     public HyperResearchManager hyper;
 
     public BigDouble superConductorsToGet => 150 * Sqrt(game.data.power / 1e154) + (150 * Sqrt(game.data.power / 1e154) * (.25 * game.data.sacraficeULevel2));
 
-    
-
     public void Run()
     {
         var data = game.data;
 
-        if (data.power >= 1e154)
+        if (data.hasPrestiged)
             masteryMenu.gameObject.SetActive(true);
         else
             masteryMenu.gameObject.SetActive(false);
+
+        if(data.power < 1e154 && data.hasPrestiged)
+        {
+            masteryInfo.text = $"Mastery Requirement\n{Methods.NotationMethod(data.power,"F2")}/{Methods.NotationMethod(1e154,"F2")} Power";
+            masteryButton.gameObject.SetActive(false);
+        }
+        else if(data.power >= 1e154 && data.hasPrestiged)
+        {
+            masteryInfo.text = $"Congrats you've hit 1e154 Power.\nYou have unlocked Mastery: the second prestige layer.\nYou've also unlocked a legendary source of power...";
+            masteryButton.gameObject.SetActive(true);
+        }
 
         if(data.power >= 1.79e308 && !data.isScreenClosed)
             tempVictoryPopUp.gameObject.SetActive(true);
@@ -91,12 +102,24 @@ public class MasteryManager : MonoBehaviour
 
         data.infusionULevel1 = 0;
         data.infusionULevel2 = 0;
-        data.infusionULevel2 = 0;
+        data.infusionULevel3 = 0;
 
         data.researchIndex = 0;
         data.hyperIndex = 0;
 
         data.currentPollution = 0;
+
+        game.broken.breakIndex = 8;
+        game.broken.breakTimer = 0;
+
+        data.isGen1Broken = false;
+        data.isGen2Broken = false;
+        data.isGen3Broken = false;
+        data.isGen4Broken = false;
+        data.isGen5Broken = false;
+        data.isGen6Broken = false;
+        data.isGen7Broken = false;
+        data.isGen8Broken = false;
 
         upgrades.Deactivate();
         research.Activate();
@@ -106,7 +129,8 @@ public class MasteryManager : MonoBehaviour
     public BigDouble ConductorBoost()
     {
         var data = game.data;
-        BigDouble temp = data.superConductors * 1e12;
+        BigDouble temp = 0; 
+        temp += data.superConductors * 1e12;
 
         return temp + 1;
     }

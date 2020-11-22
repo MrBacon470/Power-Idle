@@ -34,6 +34,8 @@ public class PrestigeManager : MonoBehaviour
     public UpgradesManager upgrades;
     public Text prestigeText;
     public RectTransform content;
+    public GameObject prestigeButton;
+    public Text prestigeInfo;
 
     public GameObject prestigeMenu;
     private BigDouble transformersToGet => game.data.isChallenge2Active || game.data.isChallenge2Active ? Pow(10, (Pow(Log10(game.data.power+1), .95))) : Pow(10, (Pow(Log10(game.data.power+1), .95))) + (Pow(10, (Pow(Log10(game.data.power+1), .95))) * (0.25 * game.data.infusionULevel3));
@@ -42,10 +44,16 @@ public class PrestigeManager : MonoBehaviour
     {
         var data = game.data;
 
-        if (data.currentPollution >= game.pollution.totalPollution)
-            prestigeMenu.gameObject.SetActive(true);
-        else
-            prestigeMenu.gameObject.SetActive(false);
+        if (data.currentPollution < 409.8e6)
+        {
+            prestigeInfo.text = $"Requirement to Prestige\n{Methods.NotationMethod(data.currentPollution,"F2")}/{Methods.NotationMethod(409.8e6,"F2")} Pollution";
+            prestigeButton.gameObject.SetActive(false);
+        }
+        else if(data.currentPollution >= 409.8e6)
+        {
+            prestigeInfo.text = $"The first prestige layer, it is unlocked on reaching {Methods.NotationMethod(409.8e6,"F0")} pollution. It unlocks the infusion screen and transformers.";
+            prestigeButton.gameObject.SetActive(true);
+        }
 
         if (prestigeMenu.gameObject.activeSelf)
             prestigeText.text = data.isChallenge2Active ? $"!Warning! Less Transformers on Prestige +{Methods.NotationMethod(transformersToGet,"F0")} Transformers" : $"Prestige +{Methods.NotationMethod(transformersToGet, "F0")} Transformers";
@@ -56,7 +64,6 @@ public class PrestigeManager : MonoBehaviour
     public void Prestige()
     {
         var data = game.data;
-        if (data.currentPollution < game.pollution.totalPollution) return;
 
         data.hasPrestiged = true;
 

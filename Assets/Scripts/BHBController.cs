@@ -76,7 +76,7 @@ public class BHBController : MonoBehaviour
         else if(stableIndex == 1)
             backGround.sprite = unstableBG;
         else if(stableIndex != 1 && data.hc1Level == maxLevelCaps[0] && data.hc2Level == maxLevelCaps[1] && data.hc3Level == maxLevelCaps[2])
-
+            backGround.sprite = maxedBG;
         
         if(!data.isBHBUnlocked) return;
         if(destablizationTimer < destablizationTotal)

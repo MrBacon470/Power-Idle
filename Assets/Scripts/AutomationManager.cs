@@ -42,18 +42,17 @@ public class AutomationManager : MonoBehaviour
         if(!data.isAuto1Unlocked)
             autoTexts[0].text = $"Unlock Auto\nResearch\nCost {Methods.NotationMethod(1e68,"F0")}\nPower";
         else
-            autoTexts[0].text = data.isAuto1On ? "Auto Research Active" : "Auto Research Offline";
-        /*
+            autoTexts[0].text = data.isAuto1On ? "Auto Research Online" : "Auto Research Offline";
+        
         if(!data.isAuto2Unlocked)
-            autoTexts[1].text = $"Unlock Auto\nPrestige\nCost {Methods.NotationMethod(1e68,"F0")}\nTransformers";
+            autoTexts[1].text = $"Unlock Auto\nInfuser\nCost {Methods.NotationMethod(1e68,"F0")}\nTransformers";
         else
-            autoTexts[1].text = data.isAuto1On ? "Auto Prestige Active" : "Auto Prestige Offline"; Next Update
-        */
-        autoTexts[1].text = $"Coming\nNext\nUpdate\n3? Part 2";
+            autoTexts[1].text = data.isAuto2On ? "Auto Infuser Online" : "Auto Infuser Offline";
+        
         if(!data.isAuto3Unlocked)
             autoTexts[2].text = $"Unlock Auto\nRepair\nCost {Methods.NotationMethod(1e68,"F0")}\nPower";
         else
-            autoTexts[2].text = data.isAuto3On ? "Auto Repair Active" : "Auto Repair Offline";
+            autoTexts[2].text = data.isAuto3On ? "Auto Repair Online" : "Auto Repair Offline";
 
         if(data.isAuto1On)
         {

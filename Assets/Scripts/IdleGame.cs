@@ -119,13 +119,12 @@ public class IdleGame : MonoBehaviour
         data.audioType = 1;
         data.frameRateType = 0;
         offline.LoadOfflineProduction();
+        
         infuse.StartInfusion();
         challenge.StartChallenges();
         kuaka.StartKuaka();
         flame.StartFlame();
         broken.StartBreak();
-
-
         if(!data.hasAchievementsBeenReset)
         {
             achievement.ResetAchievements();
@@ -141,20 +140,25 @@ public class IdleGame : MonoBehaviour
 
     public void Update()
     {
-        prestige.Run();
-        upgrades.RunUpgradesUI();
-        upgrades.RunUpgrades();
-        research.Run();
-        pollution.Run();
-        infuse.Run();
-        mastery.Run();
-        dysonSphere.Run();
-        challenge.Run();
-        achievement.Run();
-        kuaka.UpdateKuaka();
-        flame.UpdateFlame();
-        hyper.Run();
-        auto.Run();
+        
+        if(!data.hasIonized)
+        {
+            hyper.Run();
+            auto.Run();
+            dysonSphere.Run();
+            challenge.Run();
+            upgrades.RunUpgradesUI();
+            upgrades.RunUpgrades();
+            prestige.Run();
+            research.Run();
+            pollution.Run();
+            infuse.Run();
+            mastery.Run();
+            achievement.Run();
+            kuaka.UpdateKuaka();
+            flame.UpdateFlame();
+        }
+        
         if(data.isBHBUnlocked)
             BHB.Run();
 
@@ -166,6 +170,9 @@ public class IdleGame : MonoBehaviour
             Application.targetFrameRate = 30;
         else if (data.frameRateType == 2)
             Application.targetFrameRate = 15;
+
+        if (data.isSoftCapped && data.power > 1.79e308)
+            data.power = 1.79e308;
 
         if(data.hasMastered && data.superConductors >= 1e5 && !data.issacraficesUnlocked)
             data.issacraficesUnlocked = true;
@@ -231,12 +238,13 @@ public class IdleGame : MonoBehaviour
         saveTimerText.text = saveTimer < 12 ? $"{Methods.NotationMethod(15 - saveTimer, "F2")} Safe To Quit" : $"{Methods.NotationMethod(15 - saveTimer, "F2")} Not Safe To Quit";
         saveTimerText.color = saveTimer < 12 ? Color.green : Color.red;
 
-        if (data.power < 0)
-            data.power = 0;
+        if (data.power < 10)
+            data.power = 10;
         if (data.powerCollected < data.power)
             data.powerCollected = data.power;
-        if (data.isSoftCapped && data.power > 1.79e308)
-            data.power = 1.79e308;
+        
+        if(data.power == NaN)
+            data.power = 10;
 
         if (!data.isKuakaCoinUnlocked)
             data.isAchievement10Locked = true;

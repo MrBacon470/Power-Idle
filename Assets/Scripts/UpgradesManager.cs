@@ -98,7 +98,7 @@ public class UpgradesManager : MonoBehaviour
             GameObjects();
             for (var i = 0; i < 8; i++)
             {
-                productionUpgradeMaxText[i].text = $"Buy Max ({BuyProductionUpgradeMaxCount(i)})";
+                productionUpgradeMaxText[i].text = $"Buy Max ({Methods.NotationMethod(BuyProductionUpgradeMaxCount(i),"F0")})";
             }
 
             if(data.hyperIndex <= 0)
@@ -239,7 +239,7 @@ public class UpgradesManager : MonoBehaviour
         }
     }
 
-    private void ArrayManager()
+    public void ArrayManager()
     {
         var data = game.data;
 
@@ -253,7 +253,7 @@ public class UpgradesManager : MonoBehaviour
         productionUpgradeLevels[7] = data.productionUpgrade8Level;
     }
 
-    private void NonArrayManager()
+    public void NonArrayManager()
     {
         var data = game.data;
 
@@ -283,7 +283,7 @@ public class UpgradesManager : MonoBehaviour
         productionUpgradeLevels[index] += n1;
         data.power -= cost2;
     }
-    NonArrayManager();
+        NonArrayManager();
     }
 
     public void BuyProductionUpgrade(int index)
