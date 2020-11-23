@@ -92,6 +92,7 @@ public class IdleGame : MonoBehaviour
     public Canvas autoScreen;
     public Canvas ionizationScreen1;
     public Canvas ionizationScreen2;
+    public Canvas ionizationMainCanvas;
     [Header("Particle Canvases")]
     public Canvas AlphaBetaGamma;
     public Canvas DeltaEpsilonZeta;
@@ -112,8 +113,16 @@ public class IdleGame : MonoBehaviour
         Application.runInBackground = true;
 
         DisableAll();
-        startScreen.gameObject.SetActive(true);
-        mainCanvas.gameObject.SetActive(true);
+        if(!data.hasIonized)
+        {
+            startScreen.gameObject.SetActive(true);
+            mainCanvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            
+        }
+        
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         Methods.NotationSettings = data.notationType;
         data.audioType = 1;
@@ -404,6 +413,10 @@ public class IdleGame : MonoBehaviour
                 mainPrestigeCanvas.gameObject.SetActive(true);
                 autoScreen.gameObject.SetActive(true);
                 break;
+            case "ionizeMain":
+                ionizationScreen1.gameObject.SetActive(true);
+                AlphaBetaGamma.gameObject.SetActive(true);
+                break;
             case "ABG":
                 ionizationScreen1.gameObject.SetActive(true);
                 AlphaBetaGamma.gameObject.SetActive(true);
@@ -481,6 +494,7 @@ public class IdleGame : MonoBehaviour
         TauUpsilonPhi.gameObject.SetActive(false);
         ChiPsiOmega.gameObject.SetActive(false);
         OmegaCanvas.gameObject.SetActive(false);
+        ionizationMainCanvas.gameObject.SetActive(false);
     }
 
    public void FullReset()

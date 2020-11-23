@@ -223,6 +223,19 @@ public class PlayerData
     public bool isChiUnlocked;
     public bool isPsiUnlocked;
     public bool isOmegaUnlocked;
+
+    public BigDouble Nu;
+    public BigDouble Xi;
+    public BigDouble Omicron;
+    public BigDouble Pi;
+    public BigDouble Rho;
+    public BigDouble Sigma;
+    public BigDouble Tau;
+    public BigDouble Upsilon;
+    public BigDouble Phi;
+    public BigDouble Chi;
+    public BigDouble Psi;
+    public BigDouble Omega;
     #endregion
 
     public PlayerData()
