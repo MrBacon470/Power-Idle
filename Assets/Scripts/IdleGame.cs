@@ -34,6 +34,7 @@ public class IdleGame : MonoBehaviour
     [Header("Scripts")]
     public PlayerData data;
     public Settings settings;
+    public IonSettings isettings;
     public OfflineManager offline;
     public SaveSystem nonStaticSaveSystem;
     public UpgradesManager upgrades;
@@ -75,6 +76,7 @@ public class IdleGame : MonoBehaviour
     [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
+    public Canvas ionSettingsGroup;
     public Canvas sphereCanvas;
     public Canvas researchCanvas;
     public Canvas prestigeCanvas;
@@ -92,7 +94,6 @@ public class IdleGame : MonoBehaviour
     public Canvas autoScreen;
     public Canvas ionizationScreen1;
     public Canvas ionizationScreen2;
-    public Canvas ionizationMainCanvas;
     [Header("Particle Canvases")]
     public Canvas AlphaBetaGamma;
     public Canvas DeltaEpsilonZeta;
@@ -118,10 +119,6 @@ public class IdleGame : MonoBehaviour
             startScreen.gameObject.SetActive(true);
             mainCanvas.gameObject.SetActive(true);
         }
-        else
-        {
-            
-        }
         
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         Methods.NotationSettings = data.notationType;
@@ -144,7 +141,7 @@ public class IdleGame : MonoBehaviour
         TotalPowerPerSecond();
 
         settings.StartSettings();
-        
+        isettings.StartSettings();
     }
 
     public void Update()
@@ -413,10 +410,6 @@ public class IdleGame : MonoBehaviour
                 mainPrestigeCanvas.gameObject.SetActive(true);
                 autoScreen.gameObject.SetActive(true);
                 break;
-            case "ionizeMain":
-                ionizationScreen1.gameObject.SetActive(true);
-                AlphaBetaGamma.gameObject.SetActive(true);
-                break;
             case "ABG":
                 ionizationScreen1.gameObject.SetActive(true);
                 AlphaBetaGamma.gameObject.SetActive(true);
@@ -460,6 +453,10 @@ public class IdleGame : MonoBehaviour
                 ionizationScreen2.gameObject.SetActive(true);
                 OmegaCanvas.gameObject.SetActive(true);
                 break;
+            case "ionsettings":
+                ionSettingsGroup.gameObject.SetActive(true);
+                ionizationScreen1.gameObject.SetActive(true);
+                break;
         }   
     }
 
@@ -494,7 +491,7 @@ public class IdleGame : MonoBehaviour
         TauUpsilonPhi.gameObject.SetActive(false);
         ChiPsiOmega.gameObject.SetActive(false);
         OmegaCanvas.gameObject.SetActive(false);
-        ionizationMainCanvas.gameObject.SetActive(false);
+        ionSettingsGroup.gameObject.SetActive(false);
     }
 
    public void FullReset()

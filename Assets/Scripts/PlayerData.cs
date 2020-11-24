@@ -183,6 +183,8 @@ public class PlayerData
     public bool isAutoUnlocked;
     #endregion
 
+
+
     #region Particles
     public bool isBetaUnlocked;
     public bool isGammaUnlocked;
@@ -424,6 +426,19 @@ public class PlayerData
         isChiUnlocked = false;
         isPsiUnlocked = false;
         isOmegaUnlocked = false;
+
+        Nu = 0;
+        Xi = 0;
+        Omicron = 0;
+        Pi = 0;
+        Rho = 0;
+        Sigma = 0;
+        Tau = 0;
+        Upsilon = 0;
+        Phi = 0;
+        Chi = 0;
+        Psi = 0;
+        Omega = 0;
         #endregion
     }
 }

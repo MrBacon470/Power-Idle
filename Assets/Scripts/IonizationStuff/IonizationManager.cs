@@ -39,6 +39,10 @@ public class IonizationManager : MonoBehaviour
     public Text ionizationTitle;
     public GameObject ionizationButton;
     
+    public void Start()
+    {
+        
+    }
 
     public void Update()
     {
@@ -51,13 +55,13 @@ public class IonizationManager : MonoBehaviour
         
         if(ionizationMenu.gameObject.activeSelf)
         {
-            if(data.power < new BigDouble(1, 1000))
+            if(data.power < new BigDouble(1, 1000000) || data.transformers < new BigDouble(1, 100000) || data.superConductors < new BigDouble(1, 10000))
             {
                 ionizationButton.gameObject.SetActive(false);
-                ionizationText.text = $"Produce More Power\n{Methods.NotationMethod(data.power, "F2")}/{Methods.NotationMethod(new BigDouble(1, 1000),"F2")} Power";
+                ionizationText.text = $"More Material Required\n{Methods.NotationMethod(data.power, "F2")}/{Methods.NotationMethod(new BigDouble(1, 1000000),"F2")} Power\n{Methods.NotationMethod(data.transformers, "F2")}/{Methods.NotationMethod(new BigDouble(1, 100000),"F2")} Transformers\n{Methods.NotationMethod(data.superConductors, "F2")}/{Methods.NotationMethod(new BigDouble(1, 10000),"F2")} Super Conductors";
                 ionizationTitle.text = "3?";
             }
-            else if(data.power >= new BigDouble(1, 1000))
+            else if(data.power >= new BigDouble(1, 1000000) || data.transformers >= new BigDouble(1, 100000) || data.superConductors >= new BigDouble(1, 10000))
             {
                 ionizationButton.gameObject.SetActive(false);
                 ionizationText.text = $"The Peak of your production has been hit...\nThe universe can't contain you anymore...\nStrip every last electron to take whatever you can to the other side...";
