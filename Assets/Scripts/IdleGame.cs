@@ -273,7 +273,7 @@ public class IdleGame : MonoBehaviour
             data.isAutoUnlocked = true;
 
         if(data.power != NaN && data.transformers != NaN && data.superConductors != NaN && data.currentPollution != NaN)
-            saveTimer += Time.deltaTime;
+            //saveTimer += Time.deltaTime;
 
         if (!(saveTimer >= 15)) return;
         Save();

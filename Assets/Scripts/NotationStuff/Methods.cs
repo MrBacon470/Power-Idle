@@ -52,16 +52,26 @@ public class Methods : MonoBehaviour
         switch (NotationSettings)
         {
             case 0:
-                {
+                {   
                     var exponent = Floor(Log10(Abs(x)));
                     var mantissa = x / Pow(10, exponent);
-                    return mantissa.ToString("F2") + "e" + exponent;
+                    
+                    var eexponent = Floor(Log10(exponent));
+                    var mexponent = exponent / Pow(10, eexponent);
+                    if(x < new BigDouble(1, 1000000))
+                    {
+                        return mantissa.ToString("F2") + "e" + exponent;
+                    }
+                    else
+                    {
+                        return mantissa.ToString("F2") + "e" + mexponent.ToString("F0") + "e" + eexponent;
+                    }
                 }
             case 1:
                 {
                     var exponent = 3 * Floor(Floor(Log10(x)) / 3);
                     var mantissa = x / Pow(10, exponent);
-                    return mantissa.ToString("F2") + "e" + exponent;
+                    return mantissa.ToString(y) + "e" + exponent;
                 }
             case 2:
                 {
