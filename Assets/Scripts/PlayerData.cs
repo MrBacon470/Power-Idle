@@ -239,7 +239,6 @@ public class PlayerData
     public BigDouble Psi;
     public BigDouble Omega;
     #endregion
-
     public PlayerData()
     {
         power = 10;

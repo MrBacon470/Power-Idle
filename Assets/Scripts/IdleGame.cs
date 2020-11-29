@@ -24,7 +24,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Analytics;
 using BreakInfinity;
 using static BreakInfinity.BigDouble;
 using System;
@@ -494,7 +493,7 @@ public class IdleGame : MonoBehaviour
         ionSettingsGroup.gameObject.SetActive(false);
     }
 
-   public void FullReset()
+    public void FullReset()
     {
         data = new PlayerData();
         ChangeTabs("main");
@@ -508,4 +507,8 @@ public class IdleGame : MonoBehaviour
         Application.Quit();
     }
 
+    public void OpenDiscord()
+    {
+        Application.OpenURL("https://discord.gg/PU78QYR");
+    }
 }
