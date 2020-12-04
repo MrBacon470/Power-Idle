@@ -24,7 +24,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Analytics;
 using BreakInfinity;
 using static BreakInfinity.BigDouble;
 using System;
@@ -32,7 +31,6 @@ using System;
 public class IonizationManager : MonoBehaviour
 {
     public IdleGame game;
-    public ParticlesController particles;
 
     public GameObject ionizationMenu;
     public Text ionizationText;
@@ -41,12 +39,15 @@ public class IonizationManager : MonoBehaviour
     
     public void Start()
     {
-        
+        VolatilityController.Instance.StartVolatility();
+        ParticlesController.Instance.StartParticles();
     }
 
     public void Update()
     {
         var data = game.data;
+        VolatilityController.Instance.Run();
+        ParticlesController.Instance.Run();
         
         if(data.hasMastered)
             ionizationMenu.gameObject.SetActive(true);
@@ -63,7 +64,7 @@ public class IonizationManager : MonoBehaviour
             }
             else if(data.power >= new BigDouble(1, 1000000) || data.transformers >= new BigDouble(1, 100000) || data.superConductors >= new BigDouble(1, 10000))
             {
-                ionizationButton.gameObject.SetActive(false);
+                ionizationButton.gameObject.SetActive(true);
                 ionizationText.text = $"The Peak of your production has been hit...\nThe universe can't contain you anymore...\nStrip every last electron to take whatever you can to the other side...";
                 ionizationTitle.text = "Ionize";
             }
@@ -136,6 +137,6 @@ public class IonizationManager : MonoBehaviour
         data.array2Complete = false;
         data.array3Complete = false;
 
-        game.ChangeTabs("ionizeMain");
+        game.ChangeTabs("ABG");
     }
 }

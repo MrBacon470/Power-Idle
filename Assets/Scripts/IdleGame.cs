@@ -109,7 +109,7 @@ public class IdleGame : MonoBehaviour
     public void Start()
     {
         Application.targetFrameRate = 60;
-        Screen.fullScreen = true;
+        Screen.fullScreen = false;
         Application.runInBackground = true;
 
         DisableAll();
@@ -117,6 +117,11 @@ public class IdleGame : MonoBehaviour
         {
             startScreen.gameObject.SetActive(true);
             mainCanvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            ionizationScreen1.gameObject.SetActive(true);
+            AlphaBetaGamma.gameObject.SetActive(true);
         }
         
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
@@ -176,15 +181,12 @@ public class IdleGame : MonoBehaviour
         else if (data.frameRateType == 2)
             Application.targetFrameRate = 15;
 
-        if (data.isSoftCapped && data.power > 1.79e308)
-            data.power = 1.79e308;
-
         if(data.hasMastered && data.superConductors >= 1e5 && !data.issacraficesUnlocked)
             data.issacraficesUnlocked = true;
 
         transformersText.text = data.hasPrestiged ? $"{Methods.NotationMethod(data.transformers, "F2")} Transformers" : "Not Discovered Yet";
         superConductorsText.text = data.hasMastered ? $"{Methods.NotationMethod(data.superConductors, "F2")} Super Conductors" : "Not Discovered Yet";
-        powerText.text = data.power >= 1.79e308 && data.isSoftCapped ? $"{Methods.NotationMethod(data.power, "F2")} Power(Softcapped)" : "Power: " + Methods.NotationMethod(data.power, y: "F0");
+        powerText.text = "Power: " + Methods.NotationMethod(data.power, y: "F0");
         powerPerSecText.text = $"{Methods.NotationMethod(TotalPowerPerSecond(), "F0")} Power/s";
         quarkText.text = data.amps <= 0 ? "Not Discovered Yet" : $"{Methods.NotationMethod(data.amps, "F2")} Amps";
         quarkBoostText.text = data.amps <= 0 ? "?????" : $"Amp Boost: Power/s * {Methods.NotationMethod(challenge.QuarkBoost(), "F2")}";

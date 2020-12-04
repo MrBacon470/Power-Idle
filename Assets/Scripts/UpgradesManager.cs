@@ -269,20 +269,20 @@ public class UpgradesManager : MonoBehaviour
 
     public void BuyProductionUpgradeMax(int index)
     {
-    var data = game.data;
-    var b1 = productionUpgradeBaseCosts[index];
-    var c1 = data.power;
-    var r1 = productionUpgradeCostMults[index];
-    var k1 = productionUpgradeLevels[index];
-    var n1 = Floor(Log((c1 * (r1 - 1) / (b1 * Pow(r1, k1))) + 1, r1));
+        var data = game.data;
+        var b1 = productionUpgradeBaseCosts[index];
+        var c1 = data.power;
+        var r1 = productionUpgradeCostMults[index];
+        var k1 = productionUpgradeLevels[index];
+        var n1 = Floor(Log((c1 * (r1 - 1) / (b1 * Pow(r1, k1))) + 1, r1));
 
-    var cost2 = b1 * (Pow(r1, k1) * (Pow(r1, n1) - 1) / (r1 - 1));
+        var cost2 = b1 * (Pow(r1, k1) * (Pow(r1, n1) - 1) / (r1 - 1));
 
-    if (data.power >= cost2)
-    {
-        productionUpgradeLevels[index] += n1;
-        data.power -= cost2;
-    }
+        if (data.power >= cost2)
+        {
+            productionUpgradeLevels[index] += n1;
+            data.power -= cost2;
+        }
         NonArrayManager();
     }
 

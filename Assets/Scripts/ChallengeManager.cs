@@ -33,9 +33,9 @@ public class ChallengeManager : MonoBehaviour
     public UpgradesManager upgrades;
     public ResearchManager research;
 
-    private BigDouble reward1 => 1e6 * Pow(1.5, game.data.challengeLevel1);
-    private BigDouble reward2 => 1e9 * Pow(1.75, game.data.challengeLevel2);
-    private BigDouble reward3 => 1e12 * Pow(5, game.data.challengeLevel3);
+    private BigDouble reward1 => 1e6 * Pow(10, game.data.challengeLevel1);
+    private BigDouble reward2 => 1e9 * Pow(15, game.data.challengeLevel2);
+    private BigDouble reward3 => 1e12 * Pow(20, game.data.challengeLevel3);
 
     public BigDouble challengeGoal1 => 1e12 * Pow(1e20, game.data.challengeLevel1);
     public BigDouble challengeGoal2 => 1e12 * Pow(1e20, game.data.challengeLevel2);

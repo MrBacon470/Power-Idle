@@ -37,7 +37,6 @@ public class PlayerData
     public bool hasIonized;
     public bool isKuakaCoinUnlocked;
     public bool isFlameCoinUnlocked;
-    public bool isSoftCapped;
     public bool hasAchievementsBeenReset;
     public bool isHyperUnlocked;
     public bool isScreenClosed;
@@ -186,6 +185,7 @@ public class PlayerData
 
 
     #region Particles
+    public int volatileIndex;
     public bool isBetaUnlocked;
     public bool isGammaUnlocked;
     public bool isDeltaUnlocked;
@@ -210,6 +210,9 @@ public class PlayerData
     public BigDouble Kappa;
     public BigDouble Lambda;
     public BigDouble Mu;
+
+    public BigDouble[] particleGenLevels = new BigDouble[12];
+    public BigDouble[] particleGenAmounts = new BigDouble[12];
     #endregion
     
     #region Rays
@@ -258,7 +261,6 @@ public class PlayerData
         hasPrestiged = false;
         isKuakaCoinUnlocked = false;
         isFlameCoinUnlocked = false;
-        isSoftCapped = true;
         hasAchievementsBeenReset = false;
         isHyperUnlocked = false;
         isScreenClosed = false;
@@ -386,6 +388,7 @@ public class PlayerData
         #endregion
 
         #region Particles
+        volatileIndex = 0;
         isBetaUnlocked = false;
         isGammaUnlocked = false;
         isDeltaUnlocked = false;
@@ -410,6 +413,12 @@ public class PlayerData
         Kappa = 0;
         Lambda = 0;
         Mu = 0;
+        
+        for(int i = 0; i < 12; i++)
+        {
+            particleGenAmounts[i] = 0;
+            particleGenLevels[i] = 0;
+        }
         #endregion
 
         #region Rays
