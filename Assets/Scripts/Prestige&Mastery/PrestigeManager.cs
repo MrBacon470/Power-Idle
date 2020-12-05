@@ -82,8 +82,9 @@ public class PrestigeManager : MonoBehaviour
         data.power = 10;
         data.powerCollected = 10;
 
-        data.productionUpgrade1Level = data.productionUpgrade2Level = data.productionUpgrade3Level = data.productionUpgrade4Level = data.productionUpgrade5Level = data.productionUpgrade6Level
+        data.productionUpgrade2Level = data.productionUpgrade3Level = data.productionUpgrade4Level = data.productionUpgrade5Level = data.productionUpgrade6Level
             = data.productionUpgrade7Level = data.productionUpgrade8Level = 0;
+        data.productionUpgrade1Level = 1;
 
         data.isCompleted0 = true;
         data.isCompleted1 = false;

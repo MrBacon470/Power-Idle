@@ -48,6 +48,7 @@ public class InfusionManager : MonoBehaviour
     public Image[] infusionBG = new Image[3];
     public Image infusionButton;
     public Image typeSwitchButton;
+    public Image buyMaxButton;
     [Header("Numbers")]
     public BigDouble[] infusionUCosts;
     public BigDouble[] infusionULevels;
@@ -130,6 +131,7 @@ public class InfusionManager : MonoBehaviour
                 
                 infusionButton.sprite = infusionButtonSprite;
                 typeSwitchButton.sprite = infusionButtonSprite;
+                buyMaxButton.sprite = infusionButtonSprite;
 
                 for (var i = 0; i < infusionBG.Length; i++)
                     infusionBG[i].sprite = infusionSprite;
@@ -150,12 +152,31 @@ public class InfusionManager : MonoBehaviour
 
                 infusionButton.sprite = sacraficeButtonSprite;
                 typeSwitchButton.sprite = sacraficeButtonSprite;
+                buyMaxButton.sprite = sacraficeButtonSprite;
 
                 for (var i = 0; i < infusionBG.Length; i++)
                     infusionBG[i].sprite = sacraficeSprite;
             }
 
         }
+    }
+
+    public void BuyMaxInfuse()
+    {
+        var data = game.data;
+        if(data.infusionIndex == 0)
+        {
+            BuyInfusionMax(2);
+            BuyInfusionMax(0);
+            BuyInfusionMax(1);
+        }
+        else if(data.infusionIndex == 1)
+        {
+            BuySacraficeMax(2);
+            BuySacraficeMax(0);
+            BuySacraficeMax(1);
+        }
+        
     }
 
     public void BuyUpgrade(int id)
@@ -240,6 +261,10 @@ public class InfusionManager : MonoBehaviour
         data.infusionULevel1 = infusionULevels[0];
         data.infusionULevel2 = infusionULevels[1];
         data.infusionULevel3 = infusionULevels[2];
+
+        data.sacraficeULevel1 = sacraficeULevels[0];
+        data.sacraficeULevel2 = sacraficeULevels[1];
+        data.sacraficeULevel3 = sacraficeULevels[2];
     }
 
     public void BuyInfusionMax(int index)
@@ -257,6 +282,25 @@ public class InfusionManager : MonoBehaviour
         {
             infusionULevels[index] += n;
             data.transformers -= cost;
+        }
+        NonArrayManager();
+    } 
+
+    public void BuySacraficeMax(int index)
+    {
+        var data = game.data;
+        var b = infusionBaseCosts[index];
+        var c = data.superConductors;
+        var r = infusionCostMults[index];
+        var k = sacraficeULevels[index];
+        var n = Floor(Log((c * (r - 1) / (b * Pow(r, k))) + 1, r));
+
+        var cost = b * (Pow(r, k) * (Pow(r, n) - 1) / (r - 1));
+
+        if (data.superConductors >= cost)
+        {
+            sacraficeULevels[index] += n;
+            data.superConductors -= cost;
         }
         NonArrayManager();
     } 

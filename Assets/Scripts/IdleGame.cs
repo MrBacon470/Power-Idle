@@ -62,6 +62,7 @@ public class IdleGame : MonoBehaviour
     public Text quarkBoostText;
 
     public Text saveTimerText;
+    public Text ionSaveTimerText;
     [Header("Buttons")]
     public GameObject infusionButton;
     public GameObject megaButton;
@@ -72,6 +73,7 @@ public class IdleGame : MonoBehaviour
     public GameObject BHBButton;
     public GameObject PMButton;
     public GameObject autoButton;
+    public GameObject kuakaButton;
     [Header("Canvases")]
     public Canvas mainMenuGroup;
     public Canvas settingsGroup;
@@ -110,20 +112,12 @@ public class IdleGame : MonoBehaviour
     public void Start()
     {
         Application.targetFrameRate = 60;
-        Screen.fullScreen = true;
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
         Application.runInBackground = true;
 
         DisableAll();
-        if(!data.hasIonized)
-        {
             startScreen.gameObject.SetActive(true);
             mainCanvas.gameObject.SetActive(true);
-        }
-        else
-        {
-            ionizationScreen1.gameObject.SetActive(true);
-            AlphaBetaGamma.gameObject.SetActive(true);
-        }
         
         data = SaveSystem.SaveExists("PlayerData") ? SaveSystem.LoadPlayer<PlayerData>("PlayerData") : new PlayerData();
         Methods.NotationSettings = data.notationType;
@@ -151,9 +145,6 @@ public class IdleGame : MonoBehaviour
 
     public void Update()
     {
-        
-        if(data.hasIonized) return;
-        
             hyper.Run();
             auto.Run();
             dysonSphere.Run();
@@ -169,6 +160,12 @@ public class IdleGame : MonoBehaviour
             kuaka.UpdateKuaka();
             flame.UpdateFlame();
         
+        if(data.isKuakaCoinUnlocked)
+            kuakaButton.gameObject.SetActive(true);
+        else
+        {
+            kuakaButton.gameObject.SetActive(false);
+        }
         
         if(data.isBHBUnlocked)
             BHB.Run();
@@ -242,10 +239,13 @@ public class IdleGame : MonoBehaviour
 
         data.power += TotalPowerPerSecond() * Time.deltaTime;
         data.powerCollected += TotalPowerPerSecond() * Time.deltaTime;
-
+        
         saveTimerText.text = saveTimer < 12 ? $"{Methods.NotationMethod(15 - saveTimer, "F2")} Safe To Quit" : $"{Methods.NotationMethod(15 - saveTimer, "F2")} Not Safe To Quit";
         saveTimerText.color = saveTimer < 12 ? Color.green : Color.red;
 
+        ionSaveTimerText.text = saveTimer < 12 ? $"{Methods.NotationMethod(15 - saveTimer, "F2")} Safe To Quit" : $"{Methods.NotationMethod(15 - saveTimer, "F2")} Not Safe To Quit";
+        ionSaveTimerText.color = saveTimer < 12 ? Color.green : Color.red;
+        
         if (data.power < 10)
             data.power = 10;
         if (data.powerCollected < data.power)
@@ -273,7 +273,7 @@ public class IdleGame : MonoBehaviour
 
         if(data.power >= 1e68 && !data.isAutoUnlocked)
             data.isAutoUnlocked = true;
-
+        
         if(data.power != NaN && data.transformers != NaN && data.superConductors != NaN && data.currentPollution != NaN)
             saveTimer += Time.deltaTime;
 
@@ -345,7 +345,15 @@ public class IdleGame : MonoBehaviour
 
     // Buttons
 
-
+    public void ScreenChanger()
+    {
+        if(!data.hasIonized)
+            ChangeTabs("main");
+        else
+        {
+            ChangeTabs("ABG");
+        }
+    }
 
     public void ChangeTabs(string id)
     {

@@ -49,6 +49,16 @@ public class ResearchManager : MonoBehaviour
         Activate();
     }
 
+    public void ResearchAll()
+    {
+        var data = game.data;
+        if(data.power < (200 + 1e3 + 2e4 + 2e5 + 2e6 + 2e8)) return;
+        data.power -= (200 + 1e3 + 2e4 + 2e5 + 2e6 + 2e8);
+        data.isCompleted7 = true;
+        data.isCompleted0 = data.isCompleted1 = data.isCompleted2 = data.isCompleted3 = data.isCompleted4 = data.isCompleted5 = data.isCompleted6 = false;
+        data.researchIndex = 7;
+    }
+
     public void Run()
     {
         var data = game.data;

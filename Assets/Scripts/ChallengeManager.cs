@@ -43,6 +43,7 @@ public class ChallengeManager : MonoBehaviour
 
 
     public Text[] challengeText = new Text[3];
+    public Text challengeGoalText;
 
     public BigDouble[] challengeReward;
     public BigDouble[] challengeLevels;
@@ -75,6 +76,15 @@ public class ChallengeManager : MonoBehaviour
 
                 challengeText[2].text = data.isChallenge1Active || data.isChallenge2Active? "OTHER CHALLENGE ACTIVE" : $"Challenge: Impossible Mode\nGet to {Methods.NotationMethod(challengeGoal3, "F2")} Power with side effects of Clean Energy and No Transformers plus No Mastery Upgrades\nReward: {Methods.NotationMethod(challengeReward[2], "F0")} Amps\nCompletions: {Methods.NotationMethod(challengeLevels[2], "F0")}";
             }
+
+            if(!data.isChallenge1Active && !data.isChallenge2Active && !data.isChallenge3Active)
+                challengeGoalText.text = $"Not in a Challenge";
+            else if(data.isChallenge1Active)
+                challengeGoalText.text = $"C1 Active\nGoal:{Methods.NotationMethod(challengeGoal1, "F2")} Power";
+            else if(data.isChallenge2Active)
+                challengeGoalText.text = $"C2 Active\nGoal:{Methods.NotationMethod(challengeGoal2, "F2")} Power";
+            else if(data.isChallenge3Active)
+                challengeGoalText.text = $"C3 Active\nGoal:{Methods.NotationMethod(challengeGoal3, "F2")} Power";
         }
     }
 

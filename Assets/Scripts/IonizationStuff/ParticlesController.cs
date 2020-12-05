@@ -61,7 +61,7 @@ public class ParticlesController : MonoBehaviour
         tiers = new string[]{"<color=#797979>α</color>", "<color=#825454>β</color>", "<color=#A8AB58>γ</color>"," <color=#77C854>δ</color>", "<color=#63F128>ε</color>", "<color=#28F1D3>ζ</color>", "<color=#28C9F1>η</color>",
         "<color=#2848F1>θ</color>", "<color=#A728F1>ι</color>", "<color=#F128E4>κ</color>", "<color=#F12895>λ</color>", "<color=#F1282F>μ</color>", "<color=#F19028>ν</color>", "<color=#F1F128>ξ</color>", "<color=#81F128>ο</color>",
         "<color=#00C814>π</color>", "<color=#00B9C8>ρ</color>", "<color=#0088C8>σ</color>", "<color=#0500C8>τ</color>", "<color=#8E00CD>υ</color>", "<color=#FF00CD>φ</color>", "<color=#FF007F>χ</color>", "<color=#FF0015>ψ</color>",
-        "<color=#FFFFFF>ω</color>"};
+        "<color=#FF6500>ω</color>"};
     }
 
     public void Update()
@@ -108,7 +108,7 @@ public class ParticlesController : MonoBehaviour
             {  
                 if(i > 0)
                 {
-                    data.particleGenAmounts[i - 1] += 1 * (data.particleGenLevels[i] + data.particleGenAmounts[i]);
+                    data.particleGenAmounts[i - 1] += data.omegaUpgrade1Level > 0 ? 1 * ((data.particleGenLevels[i] + data.particleGenAmounts[i]) * (2.25 * data.omegaUpgrade1Level) ): 1 * (data.particleGenLevels[i] + data.particleGenAmounts[i]);
                 }
             }
 
@@ -165,12 +165,12 @@ public class ParticlesController : MonoBehaviour
         data.particleTotals[0] += ((data.particleGenLevels[0] + data.particleGenAmounts[0]) * particleBoost(1)) * Time.deltaTime;
         data.particleTotals[1] += data.volatileIndex <= 0 ? 0 : (ionizeRewards[0] * particleBoost(2)) * Time.deltaTime;
         data.particleTotals[2] += data.volatileIndex <= 1 ? 0 : (ionizeRewards[1] * particleBoost(3)) * Time.deltaTime;
-        data.particleTotals[3] += data.volatileIndex <= 2 ? 0 : (ionizeRewards[2] * particleBoost(4)) * Time.deltaTime;
-        data.particleTotals[4] += data.volatileIndex <= 3 ? 0 : (ionizeRewards[3] * particleBoost(5)) * Time.deltaTime;
-        data.particleTotals[5] += data.volatileIndex <= 4 ? 0 : (ionizeRewards[4] * particleBoost(6)) * Time.deltaTime;
-        data.particleTotals[6] += data.volatileIndex <= 5 ? 0 : (ionizeRewards[5] * particleBoost(7)) * Time.deltaTime;
-        data.particleTotals[7] += data.volatileIndex <= 6 ? 0 : (ionizeRewards[6] * particleBoost(8)) * Time.deltaTime;
-        data.particleTotals[8] += data.volatileIndex <= 7 ? 0 : (ionizeRewards[7] * particleBoost(9)) * Time.deltaTime;
+        data.particleTotals[3] += data.volatileIndex <= 2 ? 0 : (ionizeRewards[2] * particleBoost(4)) * ((Sqrt(data.rayTotals[0]) + 1) * (data.acceleratorLevels[0] * (2.25 * data.omegaUpgrade1Level) + 1)) * Time.deltaTime;
+        data.particleTotals[4] += data.volatileIndex <= 3 ? 0 : (ionizeRewards[3] * particleBoost(5)) * ((Sqrt(data.rayTotals[1]) + 1) * (data.acceleratorLevels[1] * (2.25 * data.omegaUpgrade1Level) + 1)) * Time.deltaTime;
+        data.particleTotals[5] += data.volatileIndex <= 4 ? 0 : (ionizeRewards[4] * particleBoost(6)) * ((Sqrt(data.rayTotals[2]) + 1) * (data.acceleratorLevels[2] * (2.25 * data.omegaUpgrade1Level) + 1)) * Time.deltaTime;
+        data.particleTotals[6] += data.volatileIndex <= 5 ? 0 : (ionizeRewards[5] * particleBoost(7)) * ((Sqrt(data.rayTotals[3]) + 1) * (data.acceleratorLevels[3] * (2.25 * data.omegaUpgrade1Level) + 1)) * Time.deltaTime;
+        data.particleTotals[7] += data.volatileIndex <= 6 ? 0 : (ionizeRewards[6] * particleBoost(8)) * ((Sqrt(data.rayTotals[4]) + 1) * (data.acceleratorLevels[4] * (2.25 * data.omegaUpgrade1Level) + 1)) * Time.deltaTime;
+        data.particleTotals[8] += data.volatileIndex <= 7 ? 0 : (ionizeRewards[7] * particleBoost(9)) * ((Sqrt(data.rayTotals[5]) + 1) * (data.acceleratorLevels[5] * (2.25 * data.omegaUpgrade1Level) + 1)) * Time.deltaTime;
         data.particleTotals[9] += data.volatileIndex <= 8 ? 0 : (ionizeRewards[8] * particleBoost(10)) * Time.deltaTime;
         data.particleTotals[10] += data.volatileIndex <= 9 ? 0 : (ionizeRewards[9] * particleBoost(11)) * Time.deltaTime;
         data.particleTotals[11] += data.volatileIndex <= 10 ? 0 : (ionizeRewards[10] * Sqrt(data.rayTotals[0]) + 1) * Time.deltaTime;

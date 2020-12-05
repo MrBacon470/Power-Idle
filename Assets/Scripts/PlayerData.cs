@@ -198,6 +198,8 @@ public class PlayerData
     public BigDouble[] acceleratorLevels = new BigDouble[6];
     public BigDouble[] fabLevels = new BigDouble[6];
     public BigDouble[] fabAmounts = new BigDouble[6];
+    public BigDouble omegaUpgrade1Level;
+    public BigDouble omegaUpgrade2Level;
     #endregion
     public PlayerData()
     {
@@ -375,6 +377,8 @@ public class PlayerData
             fabLevels[i] = 0;
             fabAmounts[i] = 0;
         }
+        omegaUpgrade1Level = 0;
+        omegaUpgrade2Level = 0;
         #endregion
     }
 }

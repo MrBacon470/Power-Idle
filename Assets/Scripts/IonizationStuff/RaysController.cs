@@ -60,7 +60,7 @@ public class RaysController : MonoBehaviour
         tiers = new string[]{"<color=#797979>α</color>", "<color=#825454>β</color>", "<color=#A8AB58>γ</color>"," <color=#77C854>δ</color>", "<color=#63F128>ε</color>", "<color=#28F1D3>ζ</color>", "<color=#28C9F1>η</color>",
         "<color=#2848F1>θ</color>", "<color=#A728F1>ι</color>", "<color=#F128E4>κ</color>", "<color=#F12895>λ</color>", "<color=#F1282F>μ</color>", "<color=#F19028>ν</color>", "<color=#F1F128>ξ</color>", "<color=#81F128>ο</color>",
         "<color=#00C814>π</color>", "<color=#00B9C8>ρ</color>", "<color=#0088C8>σ</color>", "<color=#0500C8>τ</color>", "<color=#8E00CD>υ</color>", "<color=#FF00CD>φ</color>", "<color=#FF007F>χ</color>", "<color=#FF0015>ψ</color>",
-        "<color=#FFFFFF>ω</color>"};
+        "<color=#FF6500>ω</color>"};
     }
 
     public void Update()
@@ -131,7 +131,7 @@ public class RaysController : MonoBehaviour
         for(int i = 0; i < 6; i++)
         {
             fabricatorTexts[i].text = i == 0 ? $"<b>Fabrication Unit </b>{tiers[i + 12]}\n<b>Produces </b>{tiers[i + 12]}/s\n<b>Cost:{Methods.NotationMethod(fabCosts[i], "F2")}</b> {tiers[i + 12]}\n<b>Level:{Methods.NotationMethod(data.fabLevels[i], "F2")}({Methods.NotationMethod(data.fabAmounts[i], "F2")})</b>" : 
-            $"<b>Fabrication Unit </b>{tiers[i + 12]}\n<b>Produces </b>{tiers[i + 11]} Fabricators/s\n<b>Cost:{Methods.NotationMethod(fabCosts[i], "F2")}</b> {tiers[i + 12]}\n<b>Level:{Methods.NotationMethod(data.fabLevels[i + 12], "F2")}({Methods.NotationMethod(data.fabAmounts[i + 12], "F2")})</b>" ;
+            $"<b>Fabrication Unit </b>{tiers[i + 12]}\n<b>Produces </b>{tiers[i + 11]} Fabricators/s\n<b>Cost:{Methods.NotationMethod(fabCosts[i], "F2")}</b> {tiers[i + 12]}\n<b>Level:{Methods.NotationMethod(data.fabLevels[i], "F2")}({Methods.NotationMethod(data.fabAmounts[i], "F2")})</b>" ;
             acceleratorTexts[i].text = $"Particle Accelerator {tiers[i + 12]}\nBoosts {tiers[i + 3]} by {Methods.NotationMethod(particleBoost(i), "F2")}\nCost:{Methods.NotationMethod(acceleratorCosts[i], "F2")} {tiers[i + 12]}\nLevel:{Methods.NotationMethod(data.acceleratorLevels[i], "F2")}";
             if(i == 0)
             {
