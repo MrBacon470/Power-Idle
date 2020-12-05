@@ -39,7 +39,7 @@ public class PlayerData
     public bool isFlameCoinUnlocked;
     public bool hasAchievementsBeenReset;
     public bool isHyperUnlocked;
-    public bool isScreenClosed;
+    public bool isTransformersReset;
     #endregion
     #region settings/daily
     public bool dailyRewardReady;
@@ -182,65 +182,19 @@ public class PlayerData
     public bool isAutoUnlocked;
     #endregion
 
-
-
     #region Particles
     public int volatileIndex;
-    public bool isBetaUnlocked;
-    public bool isGammaUnlocked;
-    public bool isDeltaUnlocked;
-    public bool isEpsilonUnlocked;
-    public bool isZetaUnlocked;
-    public bool isEtaUnlocked;
-    public bool isThetaUnlocked;
-    public bool isIotaUnlocked;
-    public bool isKappaUnlocked;
-    public bool isLambdaUnlocked;
-    public bool isMuUnlocked;
+    public bool[] particleUnlockBool = new bool[11];
 
-    public BigDouble Alpha;
-    public BigDouble Beta;
-    public BigDouble Gamma;
-    public BigDouble Delta;
-    public BigDouble Epsilon;
-    public BigDouble Zeta;
-    public BigDouble Eta;
-    public BigDouble Theta;
-    public BigDouble Iota;
-    public BigDouble Kappa;
-    public BigDouble Lambda;
-    public BigDouble Mu;
-
+    public BigDouble[] particleTotals = new BigDouble[12];
     public BigDouble[] particleGenLevels = new BigDouble[12];
     public BigDouble[] particleGenAmounts = new BigDouble[12];
     #endregion
     
     #region Rays
-    public bool isNuUnlocked;
-    public bool isXiUnlocked;
-    public bool isOmicronUnlocked;
-    public bool isPiUnlocked;
-    public bool isRhoUnlocked;
-    public bool isSigmaUnlocked;
-    public bool isTauUnlocked;
-    public bool isUpsilonUnlocked;
-    public bool isPhiUnlocked;
-    public bool isChiUnlocked;
-    public bool isPsiUnlocked;
-    public bool isOmegaUnlocked;
+    public bool[] rayUnlockBool = new bool[12];
 
-    public BigDouble Nu;
-    public BigDouble Xi;
-    public BigDouble Omicron;
-    public BigDouble Pi;
-    public BigDouble Rho;
-    public BigDouble Sigma;
-    public BigDouble Tau;
-    public BigDouble Upsilon;
-    public BigDouble Phi;
-    public BigDouble Chi;
-    public BigDouble Psi;
-    public BigDouble Omega;
+    public BigDouble[] rayTotals = new BigDouble[12];
     #endregion
     public PlayerData()
     {
@@ -263,7 +217,7 @@ public class PlayerData
         isFlameCoinUnlocked = false;
         hasAchievementsBeenReset = false;
         isHyperUnlocked = false;
-        isScreenClosed = false;
+        isTransformersReset = false;
 
         #region Upgrades
         productionUpgrade1Level = 0;
@@ -389,30 +343,14 @@ public class PlayerData
 
         #region Particles
         volatileIndex = 0;
-        isBetaUnlocked = false;
-        isGammaUnlocked = false;
-        isDeltaUnlocked = false;
-        isEpsilonUnlocked = false;
-        isZetaUnlocked = false;
-        isEtaUnlocked = false;
-        isThetaUnlocked = false;
-        isIotaUnlocked = false;
-        isKappaUnlocked = false;
-        isLambdaUnlocked = false;
-        isMuUnlocked = false;
 
-        Alpha = 10;
-        Beta = 0;
-        Gamma = 0;
-        Delta = 0;
-        Epsilon = 0;
-        Zeta = 0;
-        Eta = 0;
-        Theta = 0;
-        Iota = 0;
-        Kappa = 0;
-        Lambda = 0;
-        Mu = 0;
+        particleTotals[0] = 10;
+        for(int i = 0; i < 11; i++)
+        {
+            particleTotals[i + 1] = 0;
+            particleUnlockBool[i] = false;
+        }
+            
         
         for(int i = 0; i < 12; i++)
         {
@@ -422,31 +360,12 @@ public class PlayerData
         #endregion
 
         #region Rays
-        isNuUnlocked = false;
-        isXiUnlocked = false;
-        isOmicronUnlocked = false;
-        isPiUnlocked = false;
-        isRhoUnlocked = false;
-        isSigmaUnlocked = false;
-        isTauUnlocked = false;
-        isUpsilonUnlocked = false;
-        isPhiUnlocked = false;
-        isChiUnlocked = false;
-        isPsiUnlocked = false;
-        isOmegaUnlocked = false;
 
-        Nu = 0;
-        Xi = 0;
-        Omicron = 0;
-        Pi = 0;
-        Rho = 0;
-        Sigma = 0;
-        Tau = 0;
-        Upsilon = 0;
-        Phi = 0;
-        Chi = 0;
-        Psi = 0;
-        Omega = 0;
+        for(int i = 0; i < 12; i++)
+        {
+            rayTotals[i] = 0;
+            rayUnlockBool[i] = false;
+        }
         #endregion
     }
 }

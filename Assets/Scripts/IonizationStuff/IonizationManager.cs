@@ -37,18 +37,11 @@ public class IonizationManager : MonoBehaviour
     public Text ionizationTitle;
     public GameObject ionizationButton;
     
-    public void Start()
-    {
-        VolatilityController.Instance.StartVolatility();
-        ParticlesController.Instance.StartParticles();
-    }
 
     public void Update()
     {
         var data = game.data;
-        VolatilityController.Instance.Run();
-        ParticlesController.Instance.Run();
-        
+
         if(data.hasMastered)
             ionizationMenu.gameObject.SetActive(true);
         else
@@ -107,6 +100,8 @@ public class IonizationManager : MonoBehaviour
         data.infusionULevel2 = 0;
         data.infusionULevel3 = 0;
 
+        data.sacraficeULevel1 = data.sacraficeULevel2 = data.sacraficeULevel3 = 0;
+
         data.researchIndex = 0;
         data.hyperIndex = 0;
 
@@ -124,7 +119,7 @@ public class IonizationManager : MonoBehaviour
         data.isGen7Broken = false;
         data.isGen8Broken = false;
 
-        
+        data.isBHBUnlocked = false;
         data.hc1Level = 0;
         data.hc2Level = 0;
         data.hc3Level = 0;

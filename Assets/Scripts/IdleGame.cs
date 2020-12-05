@@ -106,6 +106,7 @@ public class IdleGame : MonoBehaviour
     public Canvas ChiPsiOmega;
     public Canvas OmegaCanvas;
 
+    
     public void Start()
     {
         Application.targetFrameRate = 60;
@@ -151,8 +152,8 @@ public class IdleGame : MonoBehaviour
     public void Update()
     {
         
-        if(!data.hasIonized)
-        {
+        if(data.hasIonized) return;
+        
             hyper.Run();
             auto.Run();
             dysonSphere.Run();
@@ -167,7 +168,7 @@ public class IdleGame : MonoBehaviour
             achievement.Run();
             kuaka.UpdateKuaka();
             flame.UpdateFlame();
-        }
+        
         
         if(data.isBHBUnlocked)
             BHB.Run();
@@ -274,7 +275,7 @@ public class IdleGame : MonoBehaviour
             data.isAutoUnlocked = true;
 
         if(data.power != NaN && data.transformers != NaN && data.superConductors != NaN && data.currentPollution != NaN)
-            //saveTimer += Time.deltaTime;
+            saveTimer += Time.deltaTime;
 
         if (!(saveTimer >= 15)) return;
         Save();

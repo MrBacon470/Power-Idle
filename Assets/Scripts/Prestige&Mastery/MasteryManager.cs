@@ -36,7 +36,6 @@ public class MasteryManager : MonoBehaviour
     public GameObject masteryMenu;
     public Text masteryInfo;
     public GameObject masteryButton;
-    public GameObject tempVictoryPopUp;
     public HyperResearchManager hyper;
 
     public BigDouble superConductorsToGet => 150 * Sqrt(game.data.power / 1e154) + (150 * Sqrt(game.data.power / 1e154) * (.25 * game.data.sacraficeULevel2));
@@ -60,10 +59,6 @@ public class MasteryManager : MonoBehaviour
             masteryInfo.text = $"Congrats you've hit 1e154 Power.\nYou have unlocked Mastery: the second prestige layer.\nYou've also unlocked a legendary source of power...";
             masteryButton.gameObject.SetActive(true);
         }
-
-        if(data.power >= 1.79e308 && !data.isScreenClosed)
-            tempVictoryPopUp.gameObject.SetActive(true);
-
         masteryText.text = $"Mastery +{Methods.NotationMethod(superConductorsToGet, "F2")} Super Conductors";
     }
 
@@ -135,10 +130,4 @@ public class MasteryManager : MonoBehaviour
         return temp + 1;
     }
 
-    public void Close()
-    {
-        var data = game.data;
-        data.isScreenClosed = true;
-        tempVictoryPopUp.gameObject.SetActive(false);
-    }
 }
