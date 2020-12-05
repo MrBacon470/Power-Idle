@@ -195,6 +195,9 @@ public class PlayerData
     public bool[] rayUnlockBool = new bool[12];
 
     public BigDouble[] rayTotals = new BigDouble[12];
+    public BigDouble[] acceleratorLevels = new BigDouble[6];
+    public BigDouble[] fabLevels = new BigDouble[6];
+    public BigDouble[] fabAmounts = new BigDouble[6];
     #endregion
     public PlayerData()
     {
@@ -365,6 +368,12 @@ public class PlayerData
         {
             rayTotals[i] = 0;
             rayUnlockBool[i] = false;
+        }
+        for(int i = 0; i < 6; i++)
+        {
+            acceleratorLevels[i] = 0;
+            fabLevels[i] = 0;
+            fabAmounts[i] = 0;
         }
         #endregion
     }

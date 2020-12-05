@@ -71,6 +71,26 @@ public class ParticlesController : MonoBehaviour
         PerSecCalculations();
         var data = game.data;
 
+        if(data.rayTotals[0] > 0)
+            raysButton.gameObject.SetActive(true);
+        else
+            raysButton.gameObject.SetActive(false);
+
+        if(data.particleUnlockBool[2])
+            DeltaButton.gameObject.SetActive(true);
+        else
+            DeltaButton.gameObject.SetActive(false);
+
+        if(data.particleUnlockBool[4])
+            EtaButton.gameObject.SetActive(true);
+        else
+            EtaButton.gameObject.SetActive(false);
+        
+        if(data.particleUnlockBool[7])
+            KappaButton.gameObject.SetActive(true);
+        else
+            KappaButton.gameObject.SetActive(false);
+
         for(int i = 0; i < 12; i++)
         {
             ionizeRewards[i] = 300 * Sqrt(data.particleTotals[i] / 1e12);

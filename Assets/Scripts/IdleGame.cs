@@ -106,11 +106,11 @@ public class IdleGame : MonoBehaviour
     public Canvas ChiPsiOmega;
     public Canvas OmegaCanvas;
 
-    
+
     public void Start()
     {
         Application.targetFrameRate = 60;
-        Screen.fullScreen = false;
+        Screen.fullScreen = true;
         Application.runInBackground = true;
 
         DisableAll();
