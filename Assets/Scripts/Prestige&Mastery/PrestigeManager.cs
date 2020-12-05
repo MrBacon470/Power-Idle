@@ -38,16 +38,11 @@ public class PrestigeManager : MonoBehaviour
     public Text prestigeInfo;
 
     public GameObject prestigeMenu;
-    private BigDouble transformersToGet => game.data.isChallenge2Active || game.data.isChallenge2Active ? Pow(10, (Pow(Log10(game.data.power+1), .825))) : Pow(10, (Pow(Log10(game.data.power+1), .825))) + (Pow(10, (Pow(Log10(game.data.power+1), .825))) * (0.25 * game.data.infusionULevel3));
+    private BigDouble transformersToGet => game.data.isChallenge2Active || game.data.isChallenge2Active ? Pow(10, (Pow(Log10(game.data.power+1), .95))) : Pow(10, (Pow(Log10(game.data.power+1), .95))) + (Pow(10, (Pow(Log10(game.data.power+1), .95))) * (0.25 * game.data.infusionULevel3));
 
     public void Start()
     {
         var data = game.data;
-        if(!data.isTransformersReset)
-        {
-            data.transformers = transformersToGet;
-            data.isTransformersReset = true;
-        }
     }
 
     public void Run()

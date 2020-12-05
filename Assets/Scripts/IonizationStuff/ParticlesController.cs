@@ -81,7 +81,7 @@ public class ParticlesController : MonoBehaviour
         else
             DeltaButton.gameObject.SetActive(false);
 
-        if(data.particleUnlockBool[4])
+        if(data.particleUnlockBool[5])
             EtaButton.gameObject.SetActive(true);
         else
             EtaButton.gameObject.SetActive(false);

@@ -126,46 +126,7 @@ public class ChallengeManager : MonoBehaviour
     public void StartChallenge()
     {
         var data = game.data;
-        data.power = 10;
-        data.powerCollected = 10;
-
-        data.power = 10;
-        data.productionUpgrade1Level = 0;
-        data.productionUpgrade2Level = 0;
-        data.productionUpgrade3Level = 0;
-        data.productionUpgrade4Level = 0;
-        data.productionUpgrade5Level = 0;
-        data.productionUpgrade6Level = 0;
-        data.productionUpgrade7Level = 0;
-        data.productionUpgrade8Level = 0;
-
-        data.isCompleted0 = true;
-        data.isCompleted1 = false;
-        data.isCompleted2 = false;
-        data.isCompleted3 = false;
-        data.isCompleted4 = false;
-        data.isCompleted5 = false;
-        data.isCompleted6 = false;
-        data.isCompleted7 = false;
-
-        data.researchIndex = 0;
-
-        data.currentPollution = 0;
-        
-        game.broken.breakIndex = 8;
-        game.broken.breakTimer = 0;
-
-        data.isGen1Broken = false;
-        data.isGen2Broken = false;
-        data.isGen3Broken = false;
-        data.isGen4Broken = false;
-        data.isGen5Broken = false;
-        data.isGen6Broken = false;
-        data.isGen7Broken = false;
-        data.isGen8Broken = false;
-
-        upgrades.Deactivate();
-        research.Activate();
+        game.prestige.Prestige();
     }
 
     public void CompleteChallenge(int index)

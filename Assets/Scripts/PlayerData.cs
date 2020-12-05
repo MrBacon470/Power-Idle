@@ -39,7 +39,6 @@ public class PlayerData
     public bool isFlameCoinUnlocked;
     public bool hasAchievementsBeenReset;
     public bool isHyperUnlocked;
-    public bool isTransformersReset;
     #endregion
     #region settings/daily
     public bool dailyRewardReady;
@@ -222,7 +221,6 @@ public class PlayerData
         isFlameCoinUnlocked = false;
         hasAchievementsBeenReset = false;
         isHyperUnlocked = false;
-        isTransformersReset = false;
 
         #region Upgrades
         productionUpgrade1Level = 0;
