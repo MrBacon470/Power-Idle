@@ -60,18 +60,29 @@ public class Methods : MonoBehaviour
                     var mexponent = exponent / Pow(10, eexponent);
                     if(x < new BigDouble(1, 1000000))
                     {
-                        return mantissa.ToString("F2") + "e" + exponent;
+                        return mantissa.ToString(y) + "e" + exponent;
                     }
                     else
                     {
-                        return mantissa.ToString("F2") + "e" + mexponent.ToString("F0") + "e" + eexponent;
+                        return mantissa.ToString("F0") + "e" + mexponent.ToString("F3") + "e" + eexponent;
                     }
                 }
             case 1:
                 {
-                    var exponent = 3 * Floor(Floor(Log10(x)) / 3);
+                    var exponent = 3 * Floor(Log10(x) / 3);
                     var mantissa = x / Pow(10, exponent);
-                    return mantissa.ToString(y) + "e" + exponent;
+                    
+                    var eexponent = 3 * Floor(Log10(exponent) / 3);
+                    var mexponent = exponent / Pow(10, eexponent);
+                    
+                    if(x < new BigDouble(1, 1000000))
+                    {
+                        return mantissa.ToString(y) + "e" + exponent;
+                    }
+                    else
+                    {
+                        return mantissa.ToString("F0") + "e" + mexponent.ToString("F3") + "e" + eexponent;
+                    }
                 }
             case 2:
                 {
