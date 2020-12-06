@@ -67,7 +67,7 @@ public class IonizationManager : MonoBehaviour
     public void Ionize()
     {
         var data = game.data;
-
+        game.ChangeTabs("ABG");
         data.hasIonized = true;
 
         data.power = 10;
@@ -132,6 +132,6 @@ public class IonizationManager : MonoBehaviour
         data.array2Complete = false;
         data.array3Complete = false;
 
-        game.ChangeTabs("ABG");
+        
     }
 }

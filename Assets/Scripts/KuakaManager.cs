@@ -81,6 +81,12 @@ public class KuakaManager : MonoBehaviour
             data.kuakaCoin -= 1 * Time.deltaTime;
         }
 
+        if(data.isChallenge1Active || data.isChallenge2Active || data.isChallenge3Active)
+        {
+            powerToggle = false;
+            burnToggle = false;
+        }
+
         if(!data.isKuakaCoinUnlocked)
         {
             kuakaButton.gameObject.SetActive(false);
@@ -99,6 +105,15 @@ public class KuakaManager : MonoBehaviour
     public void TextManager()
     {
         var data = game.data;
+        if(data.isChallenge1Active || data.isChallenge2Active || data.isChallenge3Active)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                kuakaTexts[i].text = $"Kuaka Locked During Challenges";
+                kuakaText.text = $"{Methods.NotationMethod(data.kuakaCoin, "F2")} Kuaka Coin";
+            }
+            return;
+        }
         if (harvestTimer <= 0)
             kuakaTexts[0].text = flame.burnToggle ? "Kuaka Coin Harvest Ready +20x" : "Kuaka Coin Harvest Ready +1.01x";
         else
@@ -120,6 +135,7 @@ public class KuakaManager : MonoBehaviour
     public void Harvest()
     {
         var data = game.data;
+        if(data.isChallenge1Active || data.isChallenge2Active || data.isChallenge3Active) return;
         if (harvestTimer > 0) return;
         if (flame.burnToggle)
             data.kuakaCoin *= 20;
@@ -132,7 +148,7 @@ public class KuakaManager : MonoBehaviour
     public void ToggleBurn()
     {
         var data = game.data;
-
+        if(data.isChallenge1Active || data.isChallenge2Active || data.isChallenge3Active) return;
         if(!burnToggle)
         {
             if (data.kuakaCoin < 10) return;
@@ -147,7 +163,7 @@ public class KuakaManager : MonoBehaviour
     public void TogglePower()
     {
         var data = game.data;
-
+        if(data.isChallenge1Active || data.isChallenge2Active || data.isChallenge3Active) return;
         if (!powerToggle)
         {
             if (data.kuakaCoin < 10) return;

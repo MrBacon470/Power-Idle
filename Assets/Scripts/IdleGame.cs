@@ -51,6 +51,7 @@ public class IdleGame : MonoBehaviour
     public HyperResearchManager hyper;
     public BHBController BHB;
     public AutomationManager auto;
+    public IdlerController idler;
     [Header("Texts")]
     public Text powerText;
     public Text powerPerSecText;
@@ -93,6 +94,7 @@ public class IdleGame : MonoBehaviour
     public Canvas mainPrestigeCanvas;
     public Canvas mainCanvas;
     public Canvas autoScreen;
+    public Canvas idleCanvas;
     public Canvas ionizationScreen1;
     public Canvas ionizationScreen2;
     [Header("Particle Canvases")]
@@ -112,8 +114,8 @@ public class IdleGame : MonoBehaviour
     public void Start()
     {
         Application.targetFrameRate = 60;
-        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
         Application.runInBackground = true;
+        Screen.fullScreen = true;
 
         DisableAll();
             startScreen.gameObject.SetActive(true);
@@ -159,6 +161,7 @@ public class IdleGame : MonoBehaviour
             achievement.Run();
             kuaka.UpdateKuaka();
             flame.UpdateFlame();
+            idler.Run();
         
         if(data.isKuakaCoinUnlocked)
             kuakaButton.gameObject.SetActive(true);
@@ -250,10 +253,7 @@ public class IdleGame : MonoBehaviour
             data.power = 10;
         if (data.powerCollected < data.power)
             data.powerCollected = data.power;
-        
-        if(data.power == NaN)
-            data.power = 10;
-
+    
         if (!data.isKuakaCoinUnlocked)
             data.isAchievement10Locked = true;
         if (!data.isKuakaCoinUnlocked)
@@ -261,10 +261,10 @@ public class IdleGame : MonoBehaviour
 
         if (data.power > 1e12 && data.hasPrestiged)
             data.isChallengesUnlocked = true;
-
+        
         if (data.sacraficeULevel3 > 0 && !data.isChallenge3Active)
-            data.transformers += (data.transformers * 0.0001) * Time.deltaTime;
-
+            data.transformers += ((data.transformers * 0.0001) * data.sacraficeULevel3) * Time.deltaTime;
+        
         if (data.hasMastered && data.superConductors >= 1e38)
             data.issacraficesUnlocked = true;
         
@@ -342,7 +342,10 @@ public class IdleGame : MonoBehaviour
         return temp;
     }
 
-
+    public void FullScreenToggle()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
+    }
     // Buttons
 
     public void ScreenChanger()
@@ -408,6 +411,10 @@ public class IdleGame : MonoBehaviour
             case "flame":
                 mainCanvas.gameObject.SetActive(true);
                 flameCanvas.gameObject.SetActive(true);
+                break;
+            case "idler":
+                mainPrestigeCanvas.gameObject.SetActive(true);
+                idleCanvas.gameObject.SetActive(true);
                 break;
             case "BHB":
                 mainPrestigeCanvas.gameObject.SetActive(true);
@@ -502,6 +509,7 @@ public class IdleGame : MonoBehaviour
         ChiPsiOmega.gameObject.SetActive(false);
         OmegaCanvas.gameObject.SetActive(false);
         ionSettingsGroup.gameObject.SetActive(false);
+        idleCanvas.gameObject.SetActive(false);
     }
 
     public void FullReset()

@@ -200,6 +200,11 @@ public class PlayerData
     public BigDouble omegaUpgrade1Level;
     public BigDouble omegaUpgrade2Level;
     #endregion
+
+    #region Idlers
+    public bool isIdler1Unlocked;
+    public bool isIdler2Unlocked;
+    #endregion
     public PlayerData()
     {
         power = 10;
@@ -378,5 +383,8 @@ public class PlayerData
         omegaUpgrade1Level = 0;
         omegaUpgrade2Level = 0;
         #endregion
+
+        isIdler1Unlocked = false;
+        isIdler2Unlocked = false;
     }
 }

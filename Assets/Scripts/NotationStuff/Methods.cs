@@ -60,11 +60,11 @@ public class Methods : MonoBehaviour
                     var mexponent = exponent / Pow(10, eexponent);
                     if(x < new BigDouble(1, 1000000))
                     {
-                        return mantissa.ToString(y) + "e" + exponent;
+                        return mantissa.ToString("F2") + "e" + exponent;
                     }
                     else
                     {
-                        return mantissa.ToString("F0") + "e" + mexponent.ToString("F3") + "e" + eexponent;
+                        return mantissa.ToString("F2") + "e" + mexponent.ToString("F3") + "e" + eexponent;
                     }
                 }
             case 1:
