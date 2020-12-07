@@ -12,4 +12,4 @@ Double Engineering Scientific: Ducdat0507<br/>
 Double & Triple Scientific: TheZen
 # Avalibility
 https://mrbacon470.itch.io/power-idle<br/>
-Platforms: Macos, Windows, Linux and Android(Coming Soon)
+Platforms: Macos, Windows, Linux and Web(Coming Soon)
