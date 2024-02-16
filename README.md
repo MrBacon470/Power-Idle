@@ -13,3 +13,5 @@ Double & Triple Scientific: TheZen
 # Avalibility
 https://mrbacon470.itch.io/power-idle<br/>
 Platforms: Macos, Windows, Linux and Web(Coming Soon)
+# Archived
+This game is very very old and will never recieve another update.
